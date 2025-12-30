@@ -1,6 +1,15 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import { AIRequest, AIResponse, AppSettings, ClipboardEvent } from './types';
 
+export interface Notification {
+  id: string;
+  type: 'info' | 'success' | 'warning' | 'error';
+  title: string;
+  message: string;
+  duration?: number;
+  timestamp: number;
+}
+
 /**
  * Preload スクリプト
  * レンダラープロセスに安全なAPI を公開
@@ -22,6 +31,10 @@ contextBridge.exposeInMainWorld('electronAPI', {
   startClipboardMonitor: (threshold: number) => ipcRenderer.send('clipboard:start-monitor', threshold),
   stopClipboardMonitor: () => ipcRenderer.send('clipboard:stop-monitor'),
 
+  // 通知関連
+  showNotification: (notification: Notification) =>
+    ipcRenderer.invoke('notification:show', notification),
+
   // イベントリスナー
   onCCTriggered: (callback: (event: ClipboardEvent) => void) => {
     ipcRenderer.on('clipboard:cc-triggered', (event, data) => callback(data));
@@ -29,6 +42,10 @@ contextBridge.exposeInMainWorld('electronAPI', {
 
   onTripleCopyTriggered: (callback: (event: ClipboardEvent) => void) => {
     ipcRenderer.on('clipboard:triple-copy-triggered', (event, data) => callback(data));
+  },
+
+  onNotificationReceived: (callback: (notification: Notification) => void) => {
+    ipcRenderer.on('notification:received', (event, notification) => callback(notification));
   },
 
   // ウィンドウ制御
@@ -50,8 +67,10 @@ declare global {
       writeClipboard: (text: string) => Promise<void>;
       startClipboardMonitor: (threshold: number) => void;
       stopClipboardMonitor: () => void;
+      showNotification: (notification: Notification) => Promise<void>;
       onCCTriggered: (callback: (event: ClipboardEvent) => void) => void;
       onTripleCopyTriggered: (callback: (event: ClipboardEvent) => void) => void;
+      onNotificationReceived: (callback: (notification: Notification) => void) => void;
       toggleWindow: () => Promise<void>;
       closeWindow: () => Promise<void>;
     };

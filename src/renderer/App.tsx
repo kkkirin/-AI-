@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+
 import { AIMode, Language, ClipboardEvent } from '../types';
 import MainView from './components/MainView';
 import SettingsView from './components/SettingsView';
+import { ToastContainer, Notification } from './components/Toast';
 import './App.css';
 
 type ViewType = 'main' | 'settings';
@@ -14,6 +16,7 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [notifications, setNotifications] = useState<Notification[]>([]);
 
   // ccトリガーをリッスン
   useEffect(() => {
@@ -21,6 +24,8 @@ export default function App() {
       setInputText(event.text);
       setError('');
       setOutputText('');
+      // cc検出の通知
+      addNotification('info', 'cc検出', 'クリップボードから取得しました', 2000);
     });
 
     // クリップボード監視を開始
@@ -32,18 +37,53 @@ export default function App() {
   }, []);
 
   /**
+   * 通知を追加
+   */
+  const addNotification = (
+    type: 'info' | 'success' | 'warning' | 'error',
+    title: string,
+    message: string,
+    duration: number = 3000
+  ) => {
+    const id = `notification-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const notification: Notification = {
+      id,
+      type,
+      title,
+      message,
+      duration,
+      timestamp: Date.now(),
+    };
+    setNotifications((prev) => [...prev, notification]);
+    if (duration > 0) {
+      setTimeout(() => {
+        removeNotification(id);
+      }, duration);
+    }
+  };
+
+  /**
+   * 通知を削除
+   */
+  const removeNotification = (id: string) => {
+    setNotifications((prev) => prev.filter((n) => n.id !== id));
+  };
+
+  /**
    * AI生成を実行
    */
   const handleGenerate = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     if (!inputText.trim()) {
       setError('入力テキストが空です');
+      addNotification('error', 'エラー', '入力テキストが空です');
       return;
     }
 
     setIsLoading(true);
     setError('');
     setOutputText('');
+    addNotification('info', '処理中', 'AIに送信中...');
 
     try {
       const response = await window.electronAPI.generateAI({
@@ -55,19 +95,24 @@ export default function App() {
 
       if ('error' in response) {
         setError(response.error);
+        addNotification('error', 'エラー', response.error);
       } else {
         setOutputText(response.outputText);
         setSuccessMessage('生成完了');
+        addNotification('success', '完了', '処理が完了しました');
         setTimeout(() => setSuccessMessage(''), 3000);
 
         // 自動コピー設定を確認
         const settings = await window.electronAPI.getSettings();
         if (settings.output.autoClipboard) {
           await window.electronAPI.writeClipboard(response.outputText);
+          addNotification('success', 'コピー完了', 'クリップボードにコピーしました');
         }
       }
     } catch (err: any) {
-      setError(err.message || 'エラーが発生しました');
+      const errorMessage = err.message || 'エラーが発生しました';
+      setError(errorMessage);
+      addNotification('error', 'エラー', errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -81,6 +126,7 @@ export default function App() {
     if (outputText) {
       await window.electronAPI.writeClipboard(outputText);
       setSuccessMessage('クリップボードにコピーしました');
+      addNotification('success', 'コピー完了', 'クリップボードにコピーしました');
       setTimeout(() => setSuccessMessage(''), 2000);
     }
   };
@@ -103,6 +149,7 @@ export default function App() {
 
   return (
     <div className="app">
+      <ToastContainer notifications={notifications} onClose={removeNotification} />
       {currentView === 'main' ? (
         <MainView
           inputText={inputText}
