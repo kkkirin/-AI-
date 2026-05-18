@@ -14,13 +14,13 @@
 
 | OS | ファイル |
 |----|---------|
-| macOS (Apple Silicon) | `QuickText-1.0.1-arm64.dmg` |
+| macOS (Apple Silicon) | `QuickText-1.0.2-arm64.dmg` |
 | Windows (64bit) | `QuickText Setup 1.0.0.exe`（旧バージョン） |
 
 ## インストール方法
 
 ### macOS
-1. `QuickText-1.0.1-arm64.dmg` を開く
+1. `QuickText-1.0.2-arm64.dmg` を開く
 2. QuickTextをアプリケーションフォルダにドラッグ
 
 ### Windows

@@ -100,8 +100,6 @@ export class CLIProvider extends AIProvider {
       '--ignore-rules',
       '--sandbox',
       'read-only',
-      '--ask-for-approval',
-      'never',
       '--color',
       'never',
       '--cd',
@@ -147,8 +145,7 @@ export class CLIProvider extends AIProvider {
       args.push('--model', this.model);
     }
 
-    args.push(prompt);
-    const result = await this.runCommand(command, args, undefined, this.timeoutMs);
+    const result = await this.runCommand(command, args, prompt, this.timeoutMs);
     return result.stdout.trim();
   }
 
