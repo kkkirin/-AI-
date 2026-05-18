@@ -10,6 +10,19 @@ build/
 *.js.map
 *.d.ts
 
+# Release / Installer builds
+release/
+販売用_インストーラー/
+
+# Public upload folder
+公開用_ネットアップロード/
+
+# llama.cpp binaries (large, download separately)
+resources/llama/
+
+# Downloaded models
+models/
+
 # IDE
 .vscode/
 .idea/
@@ -26,3 +39,6 @@ build/
 # OS
 Thumbs.db
 .DS_Store
+
+# Logs
+*.log

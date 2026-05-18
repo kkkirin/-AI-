@@ -1,0 +1,4829 @@
+Third-Party Licenses
+====================
+
+This file is generated from licenses.json.
+If a package lists multiple licenses (e.g. "A OR B"),
+the application is distributed under one of the listed options.
+Package: @develar/schema-utils@2.6.5
+License: MIT
+Repository: https://github.com/webpack/schema-utils
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@develar/schema-utils/LICENSE
+
+----
+
+Package: @discoveryjs/json-ext@0.6.3
+License: MIT
+Repository: https://github.com/discoveryjs/json-ext
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@discoveryjs/json-ext/LICENSE
+
+----
+
+Package: @electron/asar@3.2.18
+License: MIT
+Repository: https://github.com/electron/asar
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@electron/asar/LICENSE.md
+
+----
+
+Package: @electron/fuses@1.8.0
+License: MIT
+Repository: https://github.com/electron/fuses
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@electron/fuses/LICENSE
+
+----
+
+Package: @electron/get@2.0.3
+License: MIT
+Repository: https://github.com/electron/get
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@electron/get/LICENSE
+
+----
+
+Package: @electron/node-gyp@10.2.0-electron.1
+License: MIT
+Repository: https://github.com/nodejs/node-gyp
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@electron/node-gyp/LICENSE
+
+----
+
+Package: @electron/notarize@2.5.0
+License: MIT
+Repository: https://github.com/electron/notarize
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@electron/notarize/LICENSE
+
+----
+
+Package: @electron/osx-sign@1.3.1
+License: BSD-2-Clause
+Repository: https://github.com/electron/osx-sign
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@electron/osx-sign/LICENSE
+
+----
+
+Package: @electron/rebuild@3.7.0
+License: MIT
+Repository: https://github.com/electron/rebuild
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@electron/rebuild/LICENSE
+
+----
+
+Package: @electron/universal@2.0.1
+License: MIT
+Repository: https://github.com/electron/universal
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@electron/universal/LICENSE
+
+----
+
+Package: @electron/windows-sign@1.2.2
+License: BSD-2-Clause
+Repository: https://github.com/electron/windows-sign
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@electron/windows-sign/LICENSE
+
+----
+
+Package: @gar/promisify@1.1.3
+License: MIT
+Repository: https://github.com/wraithgar/gar-promisify
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@gar/promisify/LICENSE.md
+
+----
+
+Package: @isaacs/balanced-match@4.0.1
+License: MIT
+Repository: https://github.com/isaacs/balanced-match
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@isaacs/balanced-match/LICENSE.md
+
+----
+
+Package: @isaacs/brace-expansion@5.0.0
+License: MIT
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@isaacs/brace-expansion/LICENSE
+
+----
+
+Package: @isaacs/cliui@8.0.2
+License: ISC
+Repository: https://github.com/yargs/cliui
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@isaacs/cliui/LICENSE.txt
+
+----
+
+Package: @jridgewell/gen-mapping@0.3.13
+License: MIT
+Repository: https://github.com/jridgewell/sourcemaps
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@jridgewell/gen-mapping/LICENSE
+
+----
+
+Package: @jridgewell/resolve-uri@3.1.2
+License: MIT
+Repository: https://github.com/jridgewell/resolve-uri
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@jridgewell/resolve-uri/LICENSE
+
+----
+
+Package: @jridgewell/source-map@0.3.11
+License: MIT
+Repository: https://github.com/jridgewell/sourcemaps
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@jridgewell/source-map/LICENSE
+
+----
+
+Package: @jridgewell/sourcemap-codec@1.5.5
+License: MIT
+Repository: https://github.com/jridgewell/sourcemaps
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@jridgewell/sourcemap-codec/LICENSE
+
+----
+
+Package: @jridgewell/trace-mapping@0.3.31
+License: MIT
+Repository: https://github.com/jridgewell/sourcemaps
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@jridgewell/trace-mapping/LICENSE
+
+----
+
+Package: @jsonjoy.com/base64@1.1.2
+License: Apache-2.0
+Repository: https://github.com/jsonjoy-com/base64
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@jsonjoy.com/base64/LICENSE
+
+----
+
+Package: @jsonjoy.com/buffers@1.2.1
+License: Apache-2.0
+Repository: https://github.com/jsonjoy-com/buffers
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@jsonjoy.com/buffers/LICENSE
+
+----
+
+Package: @jsonjoy.com/codegen@1.0.0
+License: Apache-2.0
+Repository: https://github.com/jsonjoy-com/codegen
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@jsonjoy.com/codegen/LICENSE
+
+----
+
+Package: @jsonjoy.com/json-pack@1.21.0
+License: Apache-2.0
+Repository: https://github.com/jsonjoy-com/json-pack
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@jsonjoy.com/json-pack/LICENSE
+
+----
+
+Package: @jsonjoy.com/json-pointer@1.0.2
+License: Apache-2.0
+Repository: https://github.com/jsonjoy-com/json-pointer
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@jsonjoy.com/json-pointer/README.md
+
+----
+
+Package: @jsonjoy.com/util@1.9.0
+License: Apache-2.0
+Repository: https://github.com/jsonjoy-com/util
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@jsonjoy.com/util/LICENSE
+
+----
+
+Package: @leichtgewicht/ip-codec@2.0.5
+License: MIT
+Repository: https://github.com/martinheidegger/ip-codec
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@leichtgewicht/ip-codec/LICENSE
+
+----
+
+Package: @malept/cross-spawn-promise@2.0.0
+License: Apache-2.0
+Repository: https://github.com/malept/cross-spawn-promise
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@malept/cross-spawn-promise/LICENSE
+
+----
+
+Package: @malept/flatpak-bundler@0.4.0
+License: MIT
+Repository: https://github.com/malept/flatpak-bundler
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@malept/flatpak-bundler/LICENSE
+
+----
+
+Package: @npmcli/fs@2.1.2
+License: ISC
+Repository: https://github.com/npm/fs
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@npmcli/fs/LICENSE.md
+
+----
+
+Package: @npmcli/move-file@2.0.1
+License: MIT
+Repository: https://github.com/npm/move-file
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@npmcli/move-file/LICENSE.md
+
+----
+
+Package: @pkgjs/parseargs@0.11.0
+License: MIT
+Repository: https://github.com/pkgjs/parseargs
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@pkgjs/parseargs/LICENSE
+
+----
+
+Package: @sindresorhus/is@4.6.0
+License: MIT
+Repository: https://github.com/sindresorhus/is
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@sindresorhus/is/license
+
+----
+
+Package: @szmarczak/http-timer@4.0.6
+License: MIT
+Repository: https://github.com/szmarczak/http-timer
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@szmarczak/http-timer/LICENSE
+
+----
+
+Package: @tootallnate/once@2.0.0
+License: MIT
+Repository: https://github.com/TooTallNate/once
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@tootallnate/once/LICENSE
+
+----
+
+Package: @types/body-parser@1.19.6
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/body-parser/LICENSE
+
+----
+
+Package: @types/bonjour@3.5.13
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/bonjour/LICENSE
+
+----
+
+Package: @types/cacheable-request@6.0.3
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/cacheable-request/LICENSE
+
+----
+
+Package: @types/connect-history-api-fallback@1.5.4
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/connect-history-api-fallback/LICENSE
+
+----
+
+Package: @types/connect@3.4.38
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/connect/LICENSE
+
+----
+
+Package: @types/debug@4.1.12
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/debug/LICENSE
+
+----
+
+Package: @types/eslint-scope@3.7.7
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/eslint-scope/LICENSE
+
+----
+
+Package: @types/eslint@9.6.1
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/eslint/LICENSE
+
+----
+
+Package: @types/estree@1.0.8
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/estree/LICENSE
+
+----
+
+Package: @types/express-serve-static-core@4.19.7
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/express-serve-static-core/LICENSE
+
+----
+
+Package: @types/express@4.17.25
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/express/LICENSE
+
+----
+
+Package: @types/fs-extra@9.0.13
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/fs-extra/LICENSE
+
+----
+
+Package: @types/html-minifier-terser@6.1.0
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/html-minifier-terser/LICENSE
+
+----
+
+Package: @types/http-cache-semantics@4.0.4
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/http-cache-semantics/LICENSE
+
+----
+
+Package: @types/http-errors@2.0.5
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/http-errors/LICENSE
+
+----
+
+Package: @types/http-proxy@1.17.17
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/http-proxy/LICENSE
+
+----
+
+Package: @types/json-schema@7.0.15
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/json-schema/LICENSE
+
+----
+
+Package: @types/keyv@3.1.4
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/keyv/LICENSE
+
+----
+
+Package: @types/mime@1.3.5
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/mime/LICENSE
+
+----
+
+Package: @types/ms@2.1.0
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/ms/LICENSE
+
+----
+
+Package: @types/node-forge@1.3.14
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/node-forge/LICENSE
+
+----
+
+Package: @types/node@22.19.3
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/electron/node_modules/@types/node/LICENSE
+
+----
+
+Package: @types/node@25.0.3
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/node/LICENSE
+
+----
+
+Package: @types/plist@3.0.5
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/plist/LICENSE
+
+----
+
+Package: @types/qs@6.14.0
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/qs/LICENSE
+
+----
+
+Package: @types/range-parser@1.2.7
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/range-parser/LICENSE
+
+----
+
+Package: @types/react-dom@19.2.3
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/react-dom/LICENSE
+
+----
+
+Package: @types/react@19.2.7
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/react/LICENSE
+
+----
+
+Package: @types/responselike@1.0.3
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/responselike/LICENSE
+
+----
+
+Package: @types/retry@0.12.2
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/retry/LICENSE
+
+----
+
+Package: @types/send@0.17.6
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/serve-static/node_modules/@types/send/LICENSE
+
+----
+
+Package: @types/send@1.2.1
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/send/LICENSE
+
+----
+
+Package: @types/serve-index@1.9.4
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/serve-index/LICENSE
+
+----
+
+Package: @types/serve-static@1.15.10
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/serve-static/LICENSE
+
+----
+
+Package: @types/sockjs@0.3.36
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/sockjs/LICENSE
+
+----
+
+Package: @types/verror@1.10.11
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/verror/LICENSE
+
+----
+
+Package: @types/ws@8.18.1
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/ws/LICENSE
+
+----
+
+Package: @types/yauzl@2.10.3
+License: MIT
+Repository: https://github.com/DefinitelyTyped/DefinitelyTyped
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@types/yauzl/LICENSE
+
+----
+
+Package: @webassemblyjs/ast@1.14.1
+License: MIT
+Repository: https://github.com/xtuc/webassemblyjs
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@webassemblyjs/ast/LICENSE
+
+----
+
+Package: @webassemblyjs/floating-point-hex-parser@1.13.2
+License: MIT
+Repository: https://github.com/xtuc/webassemblyjs
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@webassemblyjs/floating-point-hex-parser/LICENSE
+
+----
+
+Package: @webassemblyjs/helper-api-error@1.13.2
+License: MIT
+Repository: https://github.com/xtuc/webassemblyjs
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@webassemblyjs/helper-api-error/LICENSE
+
+----
+
+Package: @webassemblyjs/helper-buffer@1.14.1
+License: MIT
+Repository: https://github.com/xtuc/webassemblyjs
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@webassemblyjs/helper-buffer/LICENSE
+
+----
+
+Package: @webassemblyjs/helper-numbers@1.13.2
+License: MIT
+Repository: https://github.com/xtuc/webassemblyjs
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@webassemblyjs/helper-numbers/LICENSE
+
+----
+
+Package: @webassemblyjs/helper-wasm-bytecode@1.13.2
+License: MIT
+Repository: https://github.com/xtuc/webassemblyjs
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@webassemblyjs/helper-wasm-bytecode/LICENSE
+
+----
+
+Package: @webassemblyjs/helper-wasm-section@1.14.1
+License: MIT
+Repository: https://github.com/xtuc/webassemblyjs
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@webassemblyjs/helper-wasm-section/LICENSE
+
+----
+
+Package: @webassemblyjs/ieee754@1.13.2
+License: MIT
+Repository: https://github.com/xtuc/webassemblyjs
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@webassemblyjs/ieee754/LICENSE
+
+----
+
+Package: @webassemblyjs/leb128@1.13.2
+License: Apache-2.0
+Repository: https://github.com/xtuc/webassemblyjs
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@webassemblyjs/leb128/LICENSE.txt
+
+----
+
+Package: @webassemblyjs/utf8@1.13.2
+License: MIT
+Repository: https://github.com/xtuc/webassemblyjs
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@webassemblyjs/utf8/LICENSE
+
+----
+
+Package: @webassemblyjs/wasm-edit@1.14.1
+License: MIT
+Repository: https://github.com/xtuc/webassemblyjs
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@webassemblyjs/wasm-edit/LICENSE
+
+----
+
+Package: @webassemblyjs/wasm-gen@1.14.1
+License: MIT
+Repository: https://github.com/xtuc/webassemblyjs
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@webassemblyjs/wasm-gen/LICENSE
+
+----
+
+Package: @webassemblyjs/wasm-opt@1.14.1
+License: MIT
+Repository: https://github.com/xtuc/webassemblyjs
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@webassemblyjs/wasm-opt/LICENSE
+
+----
+
+Package: @webassemblyjs/wasm-parser@1.14.1
+License: MIT
+Repository: https://github.com/xtuc/webassemblyjs
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@webassemblyjs/wasm-parser/LICENSE
+
+----
+
+Package: @webassemblyjs/wast-printer@1.14.1
+License: MIT
+Repository: https://github.com/xtuc/webassemblyjs
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@webassemblyjs/wast-printer/LICENSE
+
+----
+
+Package: @webpack-cli/configtest@3.0.1
+License: MIT
+Repository: https://github.com/webpack/webpack-cli
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@webpack-cli/configtest/LICENSE
+
+----
+
+Package: @webpack-cli/info@3.0.1
+License: MIT
+Repository: https://github.com/webpack/webpack-cli
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@webpack-cli/info/LICENSE
+
+----
+
+Package: @webpack-cli/serve@3.0.1
+License: MIT
+Repository: https://github.com/webpack/webpack-cli
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@webpack-cli/serve/LICENSE
+
+----
+
+Package: @xmldom/xmldom@0.8.11
+License: MIT
+Repository: https://github.com/xmldom/xmldom
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@xmldom/xmldom/LICENSE
+
+----
+
+Package: @xtuc/ieee754@1.2.0
+License: BSD-3-Clause
+Repository: https://github.com/feross/ieee754
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@xtuc/ieee754/LICENSE
+
+----
+
+Package: @xtuc/long@4.2.2
+License: Apache-2.0
+Repository: https://github.com/dcodeIO/long.js
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@xtuc/long/LICENSE
+
+----
+
+Package: 7zip-bin@5.2.0
+License: MIT
+Repository: https://github.com/develar/7zip-bin
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/7zip-bin/LICENSE.txt
+
+----
+
+Package: abbrev@1.1.1
+License: ISC
+Repository: https://github.com/isaacs/abbrev-js
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/abbrev/LICENSE
+
+----
+
+Package: accepts@1.3.8
+License: MIT
+Repository: https://github.com/jshttp/accepts
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/accepts/LICENSE
+
+----
+
+Package: acorn-import-phases@1.0.4
+License: MIT
+Repository: https://github.com/nicolo-ribaudo/acorn-import-phases
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/acorn-import-phases/LICENSE
+
+----
+
+Package: acorn@8.15.0
+License: MIT
+Repository: https://github.com/acornjs/acorn
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/acorn/LICENSE
+
+----
+
+Package: agent-base@6.0.2
+License: MIT
+Repository: https://github.com/TooTallNate/node-agent-base
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/make-fetch-happen/node_modules/agent-base/README.md
+
+----
+
+Package: agent-base@7.1.4
+License: MIT
+Repository: https://github.com/TooTallNate/proxy-agents
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/agent-base/LICENSE
+
+----
+
+Package: agentkeepalive@4.6.0
+License: MIT
+Repository: https://github.com/node-modules/agentkeepalive
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/agentkeepalive/LICENSE
+
+----
+
+Package: aggregate-error@3.1.0
+License: MIT
+Repository: https://github.com/sindresorhus/aggregate-error
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/aggregate-error/license
+
+----
+
+Package: ajv-formats@2.1.1
+License: MIT
+Repository: https://github.com/ajv-validator/ajv-formats
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/ajv-formats/LICENSE
+
+----
+
+Package: ajv-keywords@3.5.2
+License: MIT
+Repository: https://github.com/epoberezkin/ajv-keywords
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@develar/schema-utils/node_modules/ajv-keywords/LICENSE
+
+----
+
+Package: ajv-keywords@5.1.0
+License: MIT
+Repository: https://github.com/epoberezkin/ajv-keywords
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/ajv-keywords/LICENSE
+
+----
+
+Package: ajv@6.12.6
+License: MIT
+Repository: https://github.com/ajv-validator/ajv
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@develar/schema-utils/node_modules/ajv/LICENSE
+
+----
+
+Package: ajv@8.17.1
+License: MIT
+Repository: https://github.com/ajv-validator/ajv
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/ajv/LICENSE
+
+----
+
+Package: ansi-html-community@0.0.8
+License: Apache-2.0
+Repository: https://github.com/mahdyar/ansi-html-community
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/ansi-html-community/LICENSE
+
+----
+
+Package: ansi-regex@5.0.1
+License: MIT
+Repository: https://github.com/chalk/ansi-regex
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/ansi-regex/license
+
+----
+
+Package: ansi-regex@6.2.2
+License: MIT
+Repository: https://github.com/chalk/ansi-regex
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@isaacs/cliui/node_modules/ansi-regex/license
+
+----
+
+Package: ansi-styles@4.3.0
+License: MIT
+Repository: https://github.com/chalk/ansi-styles
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/ansi-styles/license
+
+----
+
+Package: ansi-styles@6.2.3
+License: MIT
+Repository: https://github.com/chalk/ansi-styles
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@isaacs/cliui/node_modules/ansi-styles/license
+
+----
+
+Package: anymatch@3.1.3
+License: ISC
+Repository: https://github.com/micromatch/anymatch
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/anymatch/LICENSE
+
+----
+
+Package: app-builder-bin@5.0.0-alpha.12
+License: MIT
+Repository: https://github.com/develar/app-builder
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/app-builder-bin/LICENSE
+
+----
+
+Package: app-builder-lib@26.0.12
+License: MIT
+Repository: https://github.com/electron-userland/electron-builder
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/app-builder-lib/README.md
+
+----
+
+Package: arch@2.2.0
+License: MIT
+Repository: https://github.com/feross/arch
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/arch/LICENSE
+
+----
+
+Package: argparse@2.0.1
+License: Python-2.0
+Repository: https://github.com/nodeca/argparse
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/argparse/LICENSE
+
+----
+
+Package: array-flatten@1.1.1
+License: MIT
+Repository: https://github.com/blakeembrey/array-flatten
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/array-flatten/LICENSE
+
+----
+
+Package: assert-plus@1.0.0
+License: MIT
+Repository: https://github.com/mcavage/node-assert-plus
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/assert-plus/README.md
+
+----
+
+Package: astral-regex@2.0.0
+License: MIT
+Repository: https://github.com/kevva/astral-regex
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/astral-regex/license
+
+----
+
+Package: async-exit-hook@2.0.1
+License: MIT
+Repository: https://github.com/tapppi/async-exit-hook
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/async-exit-hook/license
+
+----
+
+Package: async@3.2.6
+License: MIT
+Repository: https://github.com/caolan/async
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/async/LICENSE
+
+----
+
+Package: asynckit@0.4.0
+License: MIT
+Repository: https://github.com/alexindigo/asynckit
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/asynckit/LICENSE
+
+----
+
+Package: at-least-node@1.0.0
+License: ISC
+Repository: https://github.com/RyanZim/at-least-node
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/at-least-node/LICENSE
+
+----
+
+Package: axios@1.13.2
+License: MIT
+Repository: https://github.com/axios/axios
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/axios/LICENSE
+
+----
+
+Package: balanced-match@1.0.2
+License: MIT
+Repository: https://github.com/juliangruber/balanced-match
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/balanced-match/LICENSE.md
+
+----
+
+Package: base64-js@1.5.1
+License: MIT
+Repository: https://github.com/beatgammit/base64-js
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/base64-js/LICENSE
+
+----
+
+Package: baseline-browser-mapping@2.9.11
+License: Apache-2.0
+Repository: https://github.com/web-platform-dx/baseline-browser-mapping
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/baseline-browser-mapping/LICENSE.txt
+
+----
+
+Package: batch@0.6.1
+License: MIT
+Repository: https://github.com/visionmedia/batch
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/batch/LICENSE
+
+----
+
+Package: big.js@5.2.2
+License: MIT
+Repository: https://github.com/MikeMcl/big.js
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/big.js/LICENCE
+
+----
+
+Package: binary-extensions@2.3.0
+License: MIT
+Repository: https://github.com/sindresorhus/binary-extensions
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/binary-extensions/license
+
+----
+
+Package: bl@4.1.0
+License: MIT
+Repository: https://github.com/rvagg/bl
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/bl/LICENSE.md
+
+----
+
+Package: body-parser@1.20.4
+License: MIT
+Repository: https://github.com/expressjs/body-parser
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/body-parser/LICENSE
+
+----
+
+Package: bonjour-service@1.3.0
+License: MIT
+Repository: https://github.com/onlxltd/bonjour-service
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/bonjour-service/LICENSE
+
+----
+
+Package: boolbase@1.0.0
+License: ISC
+Repository: https://github.com/fb55/boolbase
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/boolbase/README.md
+
+----
+
+Package: boolean@3.2.0
+License: MIT
+Repository: https://github.com/thenativeweb/boolean
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/boolean/LICENSE.txt
+
+----
+
+Package: brace-expansion@1.1.12
+License: MIT
+Repository: https://github.com/juliangruber/brace-expansion
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/brace-expansion/LICENSE
+
+----
+
+Package: brace-expansion@2.0.2
+License: MIT
+Repository: https://github.com/juliangruber/brace-expansion
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@electron/node-gyp/node_modules/brace-expansion/LICENSE
+
+----
+
+Package: braces@3.0.3
+License: MIT
+Repository: https://github.com/micromatch/braces
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/braces/LICENSE
+
+----
+
+Package: browserslist@4.28.1
+License: MIT
+Repository: https://github.com/browserslist/browserslist
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/browserslist/LICENSE
+
+----
+
+Package: buffer-crc32@0.2.13
+License: MIT
+Repository: https://github.com/brianloveswords/buffer-crc32
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/buffer-crc32/LICENSE
+
+----
+
+Package: buffer-from@1.1.2
+License: MIT
+Repository: https://github.com/LinusU/buffer-from
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/buffer-from/LICENSE
+
+----
+
+Package: buffer@5.7.1
+License: MIT
+Repository: https://github.com/feross/buffer
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/buffer/LICENSE
+
+----
+
+Package: builder-util-runtime@9.3.1
+License: MIT
+Repository: https://github.com/electron-userland/electron-builder
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/builder-util-runtime/LICENSE
+
+----
+
+Package: builder-util@26.0.11
+License: MIT
+Repository: https://github.com/electron-userland/electron-builder
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/builder-util/LICENSE
+
+----
+
+Package: bundle-name@4.1.0
+License: MIT
+Repository: https://github.com/sindresorhus/bundle-name
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/bundle-name/license
+
+----
+
+Package: bytes@3.1.2
+License: MIT
+Repository: https://github.com/visionmedia/bytes.js
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/bytes/LICENSE
+
+----
+
+Package: cacache@16.1.3
+License: ISC
+Repository: https://github.com/npm/cacache
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/cacache/LICENSE.md
+
+----
+
+Package: cacheable-lookup@5.0.4
+License: MIT
+Repository: https://github.com/szmarczak/cacheable-lookup
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/cacheable-lookup/LICENSE
+
+----
+
+Package: cacheable-request@7.0.4
+License: MIT
+Repository: https://github.com/lukechilds/cacheable-request
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/cacheable-request/LICENSE
+
+----
+
+Package: call-bind-apply-helpers@1.0.2
+License: MIT
+Repository: https://github.com/ljharb/call-bind-apply-helpers
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/call-bind-apply-helpers/LICENSE
+
+----
+
+Package: call-bound@1.0.4
+License: MIT
+Repository: https://github.com/ljharb/call-bound
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/call-bound/LICENSE
+
+----
+
+Package: camel-case@4.1.2
+License: MIT
+Repository: https://github.com/blakeembrey/change-case
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/camel-case/LICENSE
+
+----
+
+Package: caniuse-lite@1.0.30001762
+License: CC-BY-4.0
+Repository: https://github.com/browserslist/caniuse-lite
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/caniuse-lite/LICENSE
+
+----
+
+Package: cc-ai@1.0.0
+License: ISC
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/README.md
+
+----
+
+Package: chalk@4.1.2
+License: MIT
+Repository: https://github.com/chalk/chalk
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/chalk/license
+
+----
+
+Package: chokidar@3.6.0
+License: MIT
+Repository: https://github.com/paulmillr/chokidar
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/chokidar/LICENSE
+
+----
+
+Package: chownr@1.1.4
+License: ISC
+Repository: https://github.com/isaacs/chownr
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/chownr/LICENSE
+
+----
+
+Package: chownr@2.0.0
+License: ISC
+Repository: https://github.com/isaacs/chownr
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/cacache/node_modules/chownr/LICENSE
+
+----
+
+Package: chrome-trace-event@1.0.4
+License: MIT
+Repository: https://github.com/samccone/chrome-trace-event
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/chrome-trace-event/LICENSE.txt
+
+----
+
+Package: chromium-pickle-js@0.2.0
+License: MIT
+Repository: https://github.com/electron/node-chromium-pickle-js
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/chromium-pickle-js/README.md
+
+----
+
+Package: ci-info@3.9.0
+License: MIT
+Repository: https://github.com/watson/ci-info
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/ci-info/LICENSE
+
+----
+
+Package: clean-css@5.3.3
+License: MIT
+Repository: https://github.com/clean-css/clean-css
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/clean-css/LICENSE
+
+----
+
+Package: clean-stack@2.2.0
+License: MIT
+Repository: https://github.com/sindresorhus/clean-stack
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/clean-stack/license
+
+----
+
+Package: cli-cursor@3.1.0
+License: MIT
+Repository: https://github.com/sindresorhus/cli-cursor
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/cli-cursor/license
+
+----
+
+Package: cli-spinners@2.9.2
+License: MIT
+Repository: https://github.com/sindresorhus/cli-spinners
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/cli-spinners/license
+
+----
+
+Package: cli-truncate@2.1.0
+License: MIT
+Repository: https://github.com/sindresorhus/cli-truncate
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/cli-truncate/license
+
+----
+
+Package: clipboard-monitor@1.0.2
+License: MIT
+Repository: https://github.com/mugendi/clipboard-monitor
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/clipboard-monitor/README.md
+
+----
+
+Package: clipboardy@1.2.3
+License: MIT
+Repository: https://github.com/sindresorhus/clipboardy
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/clipboardy/license
+
+----
+
+Package: cliui@8.0.1
+License: ISC
+Repository: https://github.com/yargs/cliui
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/cliui/LICENSE.txt
+
+----
+
+Package: clone-deep@4.0.1
+License: MIT
+Repository: https://github.com/jonschlinkert/clone-deep
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/clone-deep/LICENSE
+
+----
+
+Package: clone-response@1.0.3
+License: MIT
+Repository: https://github.com/sindresorhus/clone-response
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/clone-response/LICENSE
+
+----
+
+Package: clone@1.0.4
+License: MIT
+Repository: https://github.com/pvorb/node-clone
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/clone/LICENSE
+
+----
+
+Package: color-convert@2.0.1
+License: MIT
+Repository: https://github.com/Qix-/color-convert
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/color-convert/LICENSE
+
+----
+
+Package: color-name@1.1.4
+License: MIT
+Repository: https://github.com/colorjs/color-name
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/color-name/LICENSE
+
+----
+
+Package: colorette@2.0.20
+License: MIT
+Repository: https://github.com/jorgebucaran/colorette
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/colorette/LICENSE.md
+
+----
+
+Package: combined-stream@1.0.8
+License: MIT
+Repository: https://github.com/felixge/node-combined-stream
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/combined-stream/License
+
+----
+
+Package: commander@12.1.0
+License: MIT
+Repository: https://github.com/tj/commander.js
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/webpack-cli/node_modules/commander/LICENSE
+
+----
+
+Package: commander@2.20.3
+License: MIT
+Repository: https://github.com/tj/commander.js
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/commander/LICENSE
+
+----
+
+Package: commander@5.1.0
+License: MIT
+Repository: https://github.com/tj/commander.js
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@electron/asar/node_modules/commander/LICENSE
+
+----
+
+Package: commander@8.3.0
+License: MIT
+Repository: https://github.com/tj/commander.js
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/html-minifier-terser/node_modules/commander/LICENSE
+
+----
+
+Package: commander@9.5.0
+License: MIT
+Repository: https://github.com/tj/commander.js
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/postject/node_modules/commander/LICENSE
+
+----
+
+Package: compare-version@0.1.2
+License: MIT
+Repository: https://github.com/kevva/compare-version
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/compare-version/README.md
+
+----
+
+Package: compressible@2.0.18
+License: MIT
+Repository: https://github.com/jshttp/compressible
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/compressible/LICENSE
+
+----
+
+Package: compression@1.8.1
+License: MIT
+Repository: https://github.com/expressjs/compression
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/compression/LICENSE
+
+----
+
+Package: concat-map@0.0.1
+License: MIT
+Repository: https://github.com/substack/node-concat-map
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/concat-map/LICENSE
+
+----
+
+Package: config-file-ts@0.2.8-rc1
+License: MIT
+Repository: https://github.com/mighdoll/config-file-ts
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/config-file-ts/LICENSE
+
+----
+
+Package: connect-history-api-fallback@2.0.0
+License: MIT
+Repository: https://github.com/bripkens/connect-history-api-fallback
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/connect-history-api-fallback/LICENSE
+
+----
+
+Package: content-disposition@0.5.4
+License: MIT
+Repository: https://github.com/jshttp/content-disposition
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/content-disposition/LICENSE
+
+----
+
+Package: content-type@1.0.5
+License: MIT
+Repository: https://github.com/jshttp/content-type
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/content-type/LICENSE
+
+----
+
+Package: cookie-signature@1.0.7
+License: MIT
+Repository: https://github.com/visionmedia/node-cookie-signature
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/cookie-signature/Readme.md
+
+----
+
+Package: cookie@0.7.2
+License: MIT
+Repository: https://github.com/jshttp/cookie
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/cookie/LICENSE
+
+----
+
+Package: core-util-is@1.0.2
+License: MIT
+Repository: https://github.com/isaacs/core-util-is
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/verror/node_modules/core-util-is/LICENSE
+
+----
+
+Package: core-util-is@1.0.3
+License: MIT
+Repository: https://github.com/isaacs/core-util-is
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/core-util-is/LICENSE
+
+----
+
+Package: crc@3.8.0
+License: MIT
+Repository: https://github.com/alexgorbatchev/node-crc
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/crc/LICENSE
+
+----
+
+Package: cross-dirname@0.1.0
+License: MIT
+Repository: https://github.com/JumpLink/cross-dirname
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/cross-dirname/README.md
+
+----
+
+Package: cross-spawn@5.1.0
+License: MIT
+Repository: https://github.com/IndigoUnited/node-cross-spawn
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/execa/node_modules/cross-spawn/LICENSE
+
+----
+
+Package: cross-spawn@7.0.6
+License: MIT
+Repository: https://github.com/moxystudio/node-cross-spawn
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/cross-spawn/LICENSE
+
+----
+
+Package: css-loader@7.1.2
+License: MIT
+Repository: https://github.com/webpack-contrib/css-loader
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/css-loader/LICENSE
+
+----
+
+Package: css-select@4.3.0
+License: BSD-2-Clause
+Repository: https://github.com/fb55/css-select
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/css-select/LICENSE
+
+----
+
+Package: css-what@6.2.2
+License: BSD-2-Clause
+Repository: https://github.com/fb55/css-what
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/css-what/LICENSE
+
+----
+
+Package: cssesc@3.0.0
+License: MIT
+Repository: https://github.com/mathiasbynens/cssesc
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/cssesc/LICENSE-MIT.txt
+
+----
+
+Package: csstype@3.2.3
+License: MIT
+Repository: https://github.com/frenic/csstype
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/csstype/LICENSE
+
+----
+
+Package: debug@2.6.9
+License: MIT
+Repository: https://github.com/visionmedia/debug
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/send/node_modules/debug/LICENSE
+
+----
+
+Package: debug@4.4.3
+License: MIT
+Repository: https://github.com/debug-js/debug
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/debug/LICENSE
+
+----
+
+Package: decompress-response@6.0.0
+License: MIT
+Repository: https://github.com/sindresorhus/decompress-response
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/decompress-response/license
+
+----
+
+Package: deep-extend@0.6.0
+License: MIT
+Repository: https://github.com/unclechu/node-deep-extend
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/deep-extend/LICENSE
+
+----
+
+Package: default-browser-id@5.0.1
+License: MIT
+Repository: https://github.com/sindresorhus/default-browser-id
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/default-browser-id/license
+
+----
+
+Package: default-browser@5.4.0
+License: MIT
+Repository: https://github.com/sindresorhus/default-browser
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/default-browser/license
+
+----
+
+Package: defaults@1.0.4
+License: MIT
+Repository: https://github.com/sindresorhus/node-defaults
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/defaults/LICENSE
+
+----
+
+Package: defer-to-connect@2.0.1
+License: MIT
+Repository: https://github.com/szmarczak/defer-to-connect
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/defer-to-connect/LICENSE
+
+----
+
+Package: define-data-property@1.1.4
+License: MIT
+Repository: https://github.com/ljharb/define-data-property
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/define-data-property/LICENSE
+
+----
+
+Package: define-lazy-prop@3.0.0
+License: MIT
+Repository: https://github.com/sindresorhus/define-lazy-prop
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/define-lazy-prop/license
+
+----
+
+Package: define-properties@1.2.1
+License: MIT
+Repository: https://github.com/ljharb/define-properties
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/define-properties/LICENSE
+
+----
+
+Package: delayed-stream@1.0.0
+License: MIT
+Repository: https://github.com/felixge/node-delayed-stream
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/delayed-stream/License
+
+----
+
+Package: depd@1.1.2
+License: MIT
+Repository: https://github.com/dougwilson/nodejs-depd
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/serve-index/node_modules/depd/LICENSE
+
+----
+
+Package: depd@2.0.0
+License: MIT
+Repository: https://github.com/dougwilson/nodejs-depd
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/depd/LICENSE
+
+----
+
+Package: destroy@1.2.0
+License: MIT
+Repository: https://github.com/stream-utils/destroy
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/destroy/LICENSE
+
+----
+
+Package: detect-libc@2.1.2
+License: Apache-2.0
+Repository: https://github.com/lovell/detect-libc
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/detect-libc/LICENSE
+
+----
+
+Package: detect-node@2.1.0
+License: MIT
+Repository: https://github.com/iliakan/detect-node
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/detect-node/LICENSE
+
+----
+
+Package: dir-compare@4.2.0
+License: MIT
+Repository: https://github.com/gliviu/dir-compare
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/dir-compare/LICENSE
+
+----
+
+Package: dmg-builder@26.0.12
+License: MIT
+Repository: https://github.com/electron-userland/electron-builder
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/dmg-builder/readme.md
+
+----
+
+Package: dmg-license@1.0.11
+License: MIT
+Repository: https://github.com/argv-minus-one/dmg-license
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/dmg-license/LICENSE
+
+----
+
+Package: dns-packet@5.6.1
+License: MIT
+Repository: https://github.com/mafintosh/dns-packet
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/dns-packet/LICENSE
+
+----
+
+Package: dom-converter@0.2.0
+License: MIT
+Repository: https://github.com/AriaMinaei/dom-converter
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/dom-converter/LICENSE
+
+----
+
+Package: dom-serializer@1.4.1
+License: MIT
+Repository: https://github.com/cheeriojs/dom-renderer
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/dom-serializer/LICENSE
+
+----
+
+Package: domelementtype@2.3.0
+License: BSD-2-Clause
+Repository: https://github.com/fb55/domelementtype
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/domelementtype/LICENSE
+
+----
+
+Package: domhandler@4.3.1
+License: BSD-2-Clause
+Repository: https://github.com/fb55/domhandler
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/domhandler/LICENSE
+
+----
+
+Package: domutils@2.8.0
+License: BSD-2-Clause
+Repository: https://github.com/fb55/domutils
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/domutils/LICENSE
+
+----
+
+Package: dot-case@3.0.4
+License: MIT
+Repository: https://github.com/blakeembrey/change-case
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/dot-case/LICENSE
+
+----
+
+Package: dotenv-expand@11.0.7
+License: BSD-2-Clause
+Repository: https://github.com/motdotla/dotenv-expand
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/dotenv-expand/LICENSE
+
+----
+
+Package: dotenv@16.6.1
+License: BSD-2-Clause
+Repository: https://github.com/motdotla/dotenv
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/app-builder-lib/node_modules/dotenv/LICENSE
+
+----
+
+Package: dotenv@17.2.3
+License: BSD-2-Clause
+Repository: https://github.com/motdotla/dotenv
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/dotenv/LICENSE
+
+----
+
+Package: dunder-proto@1.0.1
+License: MIT
+Repository: https://github.com/es-shims/dunder-proto
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/dunder-proto/LICENSE
+
+----
+
+Package: eastasianwidth@0.2.0
+License: MIT
+Repository: https://github.com/komagata/eastasianwidth
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/eastasianwidth/README.md
+
+----
+
+Package: ee-first@1.1.1
+License: MIT
+Repository: https://github.com/jonathanong/ee-first
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/ee-first/LICENSE
+
+----
+
+Package: ejs@3.1.10
+License: Apache-2.0
+Repository: https://github.com/mde/ejs
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/ejs/LICENSE
+
+----
+
+Package: electron-builder-squirrel-windows@26.0.12
+License: MIT
+Repository: https://github.com/electron-userland/electron-builder
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/electron-builder-squirrel-windows/LICENSE
+
+----
+
+Package: electron-builder@26.0.12
+License: MIT
+Repository: https://github.com/electron-userland/electron-builder
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/electron-builder/LICENSE
+
+----
+
+Package: electron-is-accelerator@0.1.2
+License: MIT
+Repository: https://github.com/brrd/electron-is-accelerator
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/electron-is-accelerator/LICENSE
+
+----
+
+Package: electron-is-dev@3.0.1
+License: MIT
+Repository: https://github.com/sindresorhus/electron-is-dev
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/electron-is-dev/license
+
+----
+
+Package: electron-localshortcut@3.2.1
+License: MIT
+Repository: https://github.com/parro-it/electron-localshortcut
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/electron-localshortcut/license
+
+----
+
+Package: electron-publish@26.0.11
+License: MIT
+Repository: https://github.com/electron-userland/electron-builder
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/electron-publish/LICENSE
+
+----
+
+Package: electron-to-chromium@1.5.267
+License: ISC
+Repository: https://github.com/kilian/electron-to-chromium
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/electron-to-chromium/LICENSE
+
+----
+
+Package: electron-winstaller@5.4.0
+License: MIT
+Repository: https://github.com/electron/windows-installer
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/electron-winstaller/LICENSE
+
+----
+
+Package: electron@39.2.7
+License: MIT
+Repository: https://github.com/electron/electron
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/electron/LICENSE
+
+----
+
+Package: emoji-regex@8.0.0
+License: MIT
+Repository: https://github.com/mathiasbynens/emoji-regex
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/emoji-regex/LICENSE-MIT.txt
+
+----
+
+Package: emoji-regex@9.2.2
+License: MIT
+Repository: https://github.com/mathiasbynens/emoji-regex
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@isaacs/cliui/node_modules/emoji-regex/LICENSE-MIT.txt
+
+----
+
+Package: emojis-list@3.0.0
+License: MIT
+Repository: https://github.com/kikobeats/emojis-list
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/emojis-list/LICENSE.md
+
+----
+
+Package: encodeurl@2.0.0
+License: MIT
+Repository: https://github.com/pillarjs/encodeurl
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/encodeurl/LICENSE
+
+----
+
+Package: encoding@0.1.13
+License: MIT
+Repository: https://github.com/andris9/encoding
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/encoding/LICENSE
+
+----
+
+Package: end-of-stream@1.4.5
+License: MIT
+Repository: https://github.com/mafintosh/end-of-stream
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/end-of-stream/LICENSE
+
+----
+
+Package: enhanced-resolve@5.18.4
+License: MIT
+Repository: https://github.com/webpack/enhanced-resolve
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/enhanced-resolve/LICENSE
+
+----
+
+Package: entities@2.2.0
+License: BSD-2-Clause
+Repository: https://github.com/fb55/entities
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/entities/LICENSE
+
+----
+
+Package: env-paths@2.2.1
+License: MIT
+Repository: https://github.com/sindresorhus/env-paths
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/env-paths/license
+
+----
+
+Package: envinfo@7.21.0
+License: MIT
+Repository: https://github.com/tabrindle/envinfo
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/envinfo/LICENSE
+
+----
+
+Package: err-code@2.0.3
+License: MIT
+Repository: https://github.com/IndigoUnited/js-err-code
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/err-code/README.md
+
+----
+
+Package: es-define-property@1.0.1
+License: MIT
+Repository: https://github.com/ljharb/es-define-property
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/es-define-property/LICENSE
+
+----
+
+Package: es-errors@1.3.0
+License: MIT
+Repository: https://github.com/ljharb/es-errors
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/es-errors/LICENSE
+
+----
+
+Package: es-module-lexer@2.0.0
+License: MIT
+Repository: https://github.com/guybedford/es-module-lexer
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/es-module-lexer/LICENSE
+
+----
+
+Package: es-object-atoms@1.1.1
+License: MIT
+Repository: https://github.com/ljharb/es-object-atoms
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/es-object-atoms/LICENSE
+
+----
+
+Package: es-set-tostringtag@2.1.0
+License: MIT
+Repository: https://github.com/es-shims/es-set-tostringtag
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/es-set-tostringtag/LICENSE
+
+----
+
+Package: es6-error@4.1.1
+License: MIT
+Repository: https://github.com/bjyoungblood/es6-error
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/es6-error/LICENSE.md
+
+----
+
+Package: escalade@3.2.0
+License: MIT
+Repository: https://github.com/lukeed/escalade
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/escalade/license
+
+----
+
+Package: escape-html@1.0.3
+License: MIT
+Repository: https://github.com/component/escape-html
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/escape-html/LICENSE
+
+----
+
+Package: escape-string-regexp@4.0.0
+License: MIT
+Repository: https://github.com/sindresorhus/escape-string-regexp
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/escape-string-regexp/license
+
+----
+
+Package: eslint-scope@5.1.1
+License: BSD-2-Clause
+Repository: https://github.com/eslint/eslint-scope
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/eslint-scope/LICENSE
+
+----
+
+Package: esrecurse@4.3.0
+License: BSD-2-Clause
+Repository: https://github.com/estools/esrecurse
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/esrecurse/README.md
+
+----
+
+Package: estraverse@4.3.0
+License: BSD-2-Clause
+Repository: https://github.com/estools/estraverse
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/estraverse/LICENSE.BSD
+
+----
+
+Package: estraverse@5.3.0
+License: BSD-2-Clause
+Repository: https://github.com/estools/estraverse
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/esrecurse/node_modules/estraverse/LICENSE.BSD
+
+----
+
+Package: etag@1.8.1
+License: MIT
+Repository: https://github.com/jshttp/etag
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/etag/LICENSE
+
+----
+
+Package: eventemitter3@4.0.7
+License: MIT
+Repository: https://github.com/primus/eventemitter3
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/eventemitter3/LICENSE
+
+----
+
+Package: events@3.3.0
+License: MIT
+Repository: https://github.com/Gozala/events
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/events/LICENSE
+
+----
+
+Package: execa@0.8.0
+License: MIT
+Repository: https://github.com/sindresorhus/execa
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/execa/license
+
+----
+
+Package: expand-template@2.0.3
+License: (MIT OR WTFPL)
+Repository: https://github.com/ralphtheninja/expand-template
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/expand-template/LICENSE
+
+----
+
+Package: exponential-backoff@3.1.3
+License: Apache-2.0
+Repository: https://github.com/coveooss/exponential-backoff
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/exponential-backoff/LICENSE
+
+----
+
+Package: express@4.22.1
+License: MIT
+Repository: https://github.com/expressjs/express
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/express/LICENSE
+
+----
+
+Package: extract-zip@2.0.1
+License: BSD-2-Clause
+Repository: https://github.com/maxogden/extract-zip
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/extract-zip/LICENSE
+
+----
+
+Package: extsprintf@1.4.1
+License: MIT
+Repository: https://github.com/davepacheco/node-extsprintf
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/extsprintf/LICENSE
+
+----
+
+Package: fast-deep-equal@3.1.3
+License: MIT
+Repository: https://github.com/epoberezkin/fast-deep-equal
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/fast-deep-equal/LICENSE
+
+----
+
+Package: fast-json-stable-stringify@2.1.0
+License: MIT
+Repository: https://github.com/epoberezkin/fast-json-stable-stringify
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/fast-json-stable-stringify/LICENSE
+
+----
+
+Package: fast-uri@3.1.0
+License: BSD-3-Clause
+Repository: https://github.com/fastify/fast-uri
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/fast-uri/LICENSE
+
+----
+
+Package: fastest-levenshtein@1.0.16
+License: MIT
+Repository: https://github.com/ka-weihe/fastest-levenshtein
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/fastest-levenshtein/LICENSE.md
+
+----
+
+Package: faye-websocket@0.11.4
+License: Apache-2.0
+Repository: https://github.com/faye/faye-websocket-node
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/faye-websocket/LICENSE.md
+
+----
+
+Package: fd-slicer@1.1.0
+License: MIT
+Repository: https://github.com/andrewrk/node-fd-slicer
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/fd-slicer/LICENSE
+
+----
+
+Package: filelist@1.0.4
+License: Apache-2.0
+Repository: https://github.com/mde/filelist
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/filelist/README.md
+
+----
+
+Package: fill-range@7.1.1
+License: MIT
+Repository: https://github.com/jonschlinkert/fill-range
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/fill-range/LICENSE
+
+----
+
+Package: finalhandler@1.3.2
+License: MIT
+Repository: https://github.com/pillarjs/finalhandler
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/finalhandler/LICENSE
+
+----
+
+Package: find-up@4.1.0
+License: MIT
+Repository: https://github.com/sindresorhus/find-up
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/find-up/license
+
+----
+
+Package: flat@5.0.2
+License: BSD-3-Clause
+Repository: https://github.com/hughsk/flat
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/flat/LICENSE
+
+----
+
+Package: follow-redirects@1.15.11
+License: MIT
+Repository: https://github.com/follow-redirects/follow-redirects
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/follow-redirects/LICENSE
+
+----
+
+Package: foreground-child@3.3.1
+License: ISC
+Repository: https://github.com/tapjs/foreground-child
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/foreground-child/LICENSE
+
+----
+
+Package: form-data@4.0.5
+License: MIT
+Repository: https://github.com/form-data/form-data
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/form-data/License
+
+----
+
+Package: forwarded@0.2.0
+License: MIT
+Repository: https://github.com/jshttp/forwarded
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/forwarded/LICENSE
+
+----
+
+Package: fresh@0.5.2
+License: MIT
+Repository: https://github.com/jshttp/fresh
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/fresh/LICENSE
+
+----
+
+Package: fs-constants@1.0.0
+License: MIT
+Repository: https://github.com/mafintosh/fs-constants
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/fs-constants/LICENSE
+
+----
+
+Package: fs-extra@10.1.0
+License: MIT
+Repository: https://github.com/jprichardson/node-fs-extra
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@electron/osx-sign/node_modules/fs-extra/LICENSE
+
+----
+
+Package: fs-extra@11.3.3
+License: MIT
+Repository: https://github.com/jprichardson/node-fs-extra
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@electron/universal/node_modules/fs-extra/LICENSE
+
+----
+
+Package: fs-extra@7.0.1
+License: MIT
+Repository: https://github.com/jprichardson/node-fs-extra
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/electron-winstaller/node_modules/fs-extra/LICENSE
+
+----
+
+Package: fs-extra@8.1.0
+License: MIT
+Repository: https://github.com/jprichardson/node-fs-extra
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/fs-extra/LICENSE
+
+----
+
+Package: fs-extra@9.1.0
+License: MIT
+Repository: https://github.com/jprichardson/node-fs-extra
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@electron/fuses/node_modules/fs-extra/LICENSE
+
+----
+
+Package: fs-minipass@2.1.0
+License: ISC
+Repository: https://github.com/npm/fs-minipass
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/fs-minipass/LICENSE
+
+----
+
+Package: fs.realpath@1.0.0
+License: ISC
+Repository: https://github.com/isaacs/fs.realpath
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/fs.realpath/LICENSE
+
+----
+
+Package: fsevents@2.3.3
+License: MIT
+Repository: https://github.com/fsevents/fsevents
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/fsevents/LICENSE
+
+----
+
+Package: function-bind@1.1.2
+License: MIT
+Repository: https://github.com/Raynos/function-bind
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/function-bind/LICENSE
+
+----
+
+Package: get-caller-file@2.0.5
+License: ISC
+Repository: https://github.com/stefanpenner/get-caller-file
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/get-caller-file/LICENSE.md
+
+----
+
+Package: get-intrinsic@1.3.0
+License: MIT
+Repository: https://github.com/ljharb/get-intrinsic
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/get-intrinsic/LICENSE
+
+----
+
+Package: get-proto@1.0.1
+License: MIT
+Repository: https://github.com/ljharb/get-proto
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/get-proto/LICENSE
+
+----
+
+Package: get-stream@3.0.0
+License: MIT
+Repository: https://github.com/sindresorhus/get-stream
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/execa/node_modules/get-stream/license
+
+----
+
+Package: get-stream@5.2.0
+License: MIT
+Repository: https://github.com/sindresorhus/get-stream
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/get-stream/license
+
+----
+
+Package: github-from-package@0.0.0
+License: MIT
+Repository: https://github.com/substack/github-from-package
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/github-from-package/LICENSE
+
+----
+
+Package: glob-parent@5.1.2
+License: ISC
+Repository: https://github.com/gulpjs/glob-parent
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/glob-parent/LICENSE
+
+----
+
+Package: glob-to-regex.js@1.2.0
+License: Apache-2.0
+Repository: https://github.com/streamich/glob-to-regex
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/glob-to-regex.js/README.md
+
+----
+
+Package: glob-to-regexp@0.4.1
+License: BSD-2-Clause
+Repository: https://github.com/fitzgen/glob-to-regexp
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/glob-to-regexp/README.md
+
+----
+
+Package: glob@10.5.0
+License: ISC
+Repository: https://github.com/isaacs/node-glob
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/config-file-ts/node_modules/glob/LICENSE
+
+----
+
+Package: glob@7.2.3
+License: ISC
+Repository: https://github.com/isaacs/node-glob
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/glob/LICENSE
+
+----
+
+Package: glob@8.1.0
+License: ISC
+Repository: https://github.com/isaacs/node-glob
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@electron/node-gyp/node_modules/glob/LICENSE
+
+----
+
+Package: global-agent@3.0.0
+License: BSD-3-Clause
+Repository: https://github.com/gajus/global-agent
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/global-agent/LICENSE
+
+----
+
+Package: globalthis@1.0.4
+License: MIT
+Repository: https://github.com/ljharb/System.global
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/globalthis/LICENSE
+
+----
+
+Package: gopd@1.2.0
+License: MIT
+Repository: https://github.com/ljharb/gopd
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/gopd/LICENSE
+
+----
+
+Package: got@11.8.6
+License: MIT
+Repository: https://github.com/sindresorhus/got
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/got/license
+
+----
+
+Package: graceful-fs@4.2.11
+License: ISC
+Repository: https://github.com/isaacs/node-graceful-fs
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/graceful-fs/LICENSE
+
+----
+
+Package: handle-thing@2.0.1
+License: MIT
+Repository: https://github.com/indutny/handle-thing
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/handle-thing/README.md
+
+----
+
+Package: has-flag@4.0.0
+License: MIT
+Repository: https://github.com/sindresorhus/has-flag
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/has-flag/license
+
+----
+
+Package: has-property-descriptors@1.0.2
+License: MIT
+Repository: https://github.com/inspect-js/has-property-descriptors
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/has-property-descriptors/LICENSE
+
+----
+
+Package: has-symbols@1.1.0
+License: MIT
+Repository: https://github.com/inspect-js/has-symbols
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/has-symbols/LICENSE
+
+----
+
+Package: has-tostringtag@1.0.2
+License: MIT
+Repository: https://github.com/inspect-js/has-tostringtag
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/has-tostringtag/LICENSE
+
+----
+
+Package: hasown@2.0.2
+License: MIT
+Repository: https://github.com/inspect-js/hasOwn
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/hasown/LICENSE
+
+----
+
+Package: he@1.2.0
+License: MIT
+Repository: https://github.com/mathiasbynens/he
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/he/LICENSE-MIT.txt
+
+----
+
+Package: hosted-git-info@4.1.0
+License: ISC
+Repository: https://github.com/npm/hosted-git-info
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/hosted-git-info/LICENSE
+
+----
+
+Package: hpack.js@2.1.6
+License: MIT
+Repository: https://github.com/indutny/hpack.js
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/hpack.js/README.md
+
+----
+
+Package: html-minifier-terser@6.1.0
+License: MIT
+Repository: https://github.com/terser/html-minifier-terser
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/html-minifier-terser/LICENSE
+
+----
+
+Package: html-webpack-plugin@5.6.5
+License: MIT
+Repository: https://github.com/jantimon/html-webpack-plugin
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/html-webpack-plugin/LICENSE
+
+----
+
+Package: htmlparser2@6.1.0
+License: MIT
+Repository: https://github.com/fb55/htmlparser2
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/htmlparser2/LICENSE
+
+----
+
+Package: http-cache-semantics@4.2.0
+License: BSD-2-Clause
+Repository: https://github.com/kornelski/http-cache-semantics
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/http-cache-semantics/LICENSE
+
+----
+
+Package: http-deceiver@1.2.7
+License: MIT
+Repository: https://github.com/indutny/http-deceiver
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/http-deceiver/README.md
+
+----
+
+Package: http-errors@1.6.3
+License: MIT
+Repository: https://github.com/jshttp/http-errors
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/serve-index/node_modules/http-errors/LICENSE
+
+----
+
+Package: http-errors@2.0.1
+License: MIT
+Repository: https://github.com/jshttp/http-errors
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/http-errors/LICENSE
+
+----
+
+Package: http-parser-js@0.5.10
+License: MIT
+Repository: https://github.com/creationix/http-parser-js
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/http-parser-js/LICENSE.md
+
+----
+
+Package: http-proxy-agent@5.0.0
+License: MIT
+Repository: https://github.com/TooTallNate/node-http-proxy-agent
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/make-fetch-happen/node_modules/http-proxy-agent/README.md
+
+----
+
+Package: http-proxy-agent@7.0.2
+License: MIT
+Repository: https://github.com/TooTallNate/proxy-agents
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/http-proxy-agent/LICENSE
+
+----
+
+Package: http-proxy-middleware@2.0.9
+License: MIT
+Repository: https://github.com/chimurai/http-proxy-middleware
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/http-proxy-middleware/LICENSE
+
+----
+
+Package: http-proxy@1.18.1
+License: MIT
+Repository: https://github.com/http-party/node-http-proxy
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/http-proxy/LICENSE
+
+----
+
+Package: http2-wrapper@1.0.3
+License: MIT
+Repository: https://github.com/szmarczak/http2-wrapper
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/http2-wrapper/LICENSE
+
+----
+
+Package: https-proxy-agent@5.0.1
+License: MIT
+Repository: https://github.com/TooTallNate/node-https-proxy-agent
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/make-fetch-happen/node_modules/https-proxy-agent/README.md
+
+----
+
+Package: https-proxy-agent@7.0.6
+License: MIT
+Repository: https://github.com/TooTallNate/proxy-agents
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/https-proxy-agent/LICENSE
+
+----
+
+Package: humanize-ms@1.2.1
+License: MIT
+Repository: https://github.com/node-modules/humanize-ms
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/humanize-ms/LICENSE
+
+----
+
+Package: hyperdyperid@1.2.0
+License: MIT
+Repository: https://github.com/streamich/hyperdyperid
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/hyperdyperid/LICENSE
+
+----
+
+Package: iconv-corefoundation@1.1.7
+License: MIT
+Repository: https://github.com/argv-minus-one/iconv-corefoundation
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/iconv-corefoundation/LICENSE
+
+----
+
+Package: iconv-lite@0.4.24
+License: MIT
+Repository: https://github.com/ashtuchkin/iconv-lite
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/iconv-lite/LICENSE
+
+----
+
+Package: iconv-lite@0.6.3
+License: MIT
+Repository: https://github.com/ashtuchkin/iconv-lite
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/dmg-builder/node_modules/iconv-lite/LICENSE
+
+----
+
+Package: icss-utils@5.1.0
+License: ISC
+Repository: https://github.com/css-modules/icss-utils
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/icss-utils/LICENSE.md
+
+----
+
+Package: ieee754@1.2.1
+License: BSD-3-Clause
+Repository: https://github.com/feross/ieee754
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/ieee754/LICENSE
+
+----
+
+Package: import-local@3.2.0
+License: MIT
+Repository: https://github.com/sindresorhus/import-local
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/import-local/license
+
+----
+
+Package: imurmurhash@0.1.4
+License: MIT
+Repository: https://github.com/jensyt/imurmurhash-js
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/imurmurhash/README.md
+
+----
+
+Package: indent-string@4.0.0
+License: MIT
+Repository: https://github.com/sindresorhus/indent-string
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/indent-string/license
+
+----
+
+Package: infer-owner@1.0.4
+License: ISC
+Repository: https://github.com/npm/infer-owner
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/infer-owner/LICENSE
+
+----
+
+Package: inflight@1.0.6
+License: ISC
+Repository: https://github.com/npm/inflight
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/inflight/LICENSE
+
+----
+
+Package: inherits@2.0.3
+License: ISC
+Repository: https://github.com/isaacs/inherits
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/serve-index/node_modules/inherits/LICENSE
+
+----
+
+Package: inherits@2.0.4
+License: ISC
+Repository: https://github.com/isaacs/inherits
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/inherits/LICENSE
+
+----
+
+Package: ini@1.3.8
+License: ISC
+Repository: https://github.com/isaacs/ini
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/ini/LICENSE
+
+----
+
+Package: interpret@3.1.1
+License: MIT
+Repository: https://github.com/gulpjs/interpret
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/interpret/LICENSE
+
+----
+
+Package: ip-address@10.1.0
+License: MIT
+Repository: https://github.com/beaugunderson/ip-address
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/ip-address/LICENSE
+
+----
+
+Package: ipaddr.js@1.9.1
+License: MIT
+Repository: https://github.com/whitequark/ipaddr.js
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/proxy-addr/node_modules/ipaddr.js/LICENSE
+
+----
+
+Package: ipaddr.js@2.3.0
+License: MIT
+Repository: https://github.com/whitequark/ipaddr.js
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/ipaddr.js/LICENSE
+
+----
+
+Package: is-binary-path@2.1.0
+License: MIT
+Repository: https://github.com/sindresorhus/is-binary-path
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/is-binary-path/license
+
+----
+
+Package: is-ci@3.0.1
+License: MIT
+Repository: https://github.com/watson/is-ci
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/is-ci/LICENSE
+
+----
+
+Package: is-core-module@2.16.1
+License: MIT
+Repository: https://github.com/inspect-js/is-core-module
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/is-core-module/LICENSE
+
+----
+
+Package: is-docker@3.0.0
+License: MIT
+Repository: https://github.com/sindresorhus/is-docker
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/is-docker/license
+
+----
+
+Package: is-extglob@2.1.1
+License: MIT
+Repository: https://github.com/jonschlinkert/is-extglob
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/is-extglob/LICENSE
+
+----
+
+Package: is-fullwidth-code-point@3.0.0
+License: MIT
+Repository: https://github.com/sindresorhus/is-fullwidth-code-point
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/is-fullwidth-code-point/license
+
+----
+
+Package: is-glob@4.0.3
+License: MIT
+Repository: https://github.com/micromatch/is-glob
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/is-glob/LICENSE
+
+----
+
+Package: is-inside-container@1.0.0
+License: MIT
+Repository: https://github.com/sindresorhus/is-inside-container
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/is-inside-container/license
+
+----
+
+Package: is-interactive@1.0.0
+License: MIT
+Repository: https://github.com/sindresorhus/is-interactive
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/is-interactive/license
+
+----
+
+Package: is-lambda@1.0.1
+License: MIT
+Repository: https://github.com/watson/is-lambda
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/is-lambda/LICENSE
+
+----
+
+Package: is-network-error@1.3.0
+License: MIT
+Repository: https://github.com/sindresorhus/is-network-error
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/is-network-error/license
+
+----
+
+Package: is-number@7.0.0
+License: MIT
+Repository: https://github.com/jonschlinkert/is-number
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/is-number/LICENSE
+
+----
+
+Package: is-plain-obj@3.0.0
+License: MIT
+Repository: https://github.com/sindresorhus/is-plain-obj
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/is-plain-obj/license
+
+----
+
+Package: is-plain-object@2.0.4
+License: MIT
+Repository: https://github.com/jonschlinkert/is-plain-object
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/is-plain-object/LICENSE
+
+----
+
+Package: is-stream@1.1.0
+License: MIT
+Repository: https://github.com/sindresorhus/is-stream
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/is-stream/license
+
+----
+
+Package: is-unicode-supported@0.1.0
+License: MIT
+Repository: https://github.com/sindresorhus/is-unicode-supported
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/is-unicode-supported/license
+
+----
+
+Package: is-wsl@3.1.0
+License: MIT
+Repository: https://github.com/sindresorhus/is-wsl
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/is-wsl/license
+
+----
+
+Package: isarray@1.0.0
+License: MIT
+Repository: https://github.com/juliangruber/isarray
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/isarray/README.md
+
+----
+
+Package: isbinaryfile@4.0.10
+License: MIT
+Repository: https://github.com/gjtorikian/isBinaryFile
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@electron/osx-sign/node_modules/isbinaryfile/LICENSE.txt
+
+----
+
+Package: isbinaryfile@5.0.7
+License: MIT
+Repository: https://github.com/gjtorikian/isBinaryFile
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/isbinaryfile/LICENSE.txt
+
+----
+
+Package: isexe@2.0.0
+License: ISC
+Repository: https://github.com/isaacs/isexe
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/isexe/LICENSE
+
+----
+
+Package: isobject@3.0.1
+License: MIT
+Repository: https://github.com/jonschlinkert/isobject
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/isobject/LICENSE
+
+----
+
+Package: jackspeak@3.4.3
+License: BlueOak-1.0.0
+Repository: https://github.com/isaacs/jackspeak
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/jackspeak/LICENSE.md
+
+----
+
+Package: jake@10.9.4
+License: Apache-2.0
+Repository: https://github.com/jakejs/jake
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/jake/README.md
+
+----
+
+Package: jest-worker@27.5.1
+License: MIT
+Repository: https://github.com/facebook/jest
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/jest-worker/LICENSE
+
+----
+
+Package: js-yaml@4.1.1
+License: MIT
+Repository: https://github.com/nodeca/js-yaml
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/js-yaml/LICENSE
+
+----
+
+Package: json-buffer@3.0.1
+License: MIT
+Repository: https://github.com/dominictarr/json-buffer
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/json-buffer/LICENSE
+
+----
+
+Package: json-parse-even-better-errors@2.3.1
+License: MIT
+Repository: https://github.com/npm/json-parse-even-better-errors
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/json-parse-even-better-errors/LICENSE.md
+
+----
+
+Package: json-schema-traverse@0.4.1
+License: MIT
+Repository: https://github.com/epoberezkin/json-schema-traverse
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@develar/schema-utils/node_modules/json-schema-traverse/LICENSE
+
+----
+
+Package: json-schema-traverse@1.0.0
+License: MIT
+Repository: https://github.com/epoberezkin/json-schema-traverse
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/json-schema-traverse/LICENSE
+
+----
+
+Package: json-stringify-safe@5.0.1
+License: ISC
+Repository: https://github.com/isaacs/json-stringify-safe
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/json-stringify-safe/LICENSE
+
+----
+
+Package: json5@2.2.3
+License: MIT
+Repository: https://github.com/json5/json5
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/json5/LICENSE.md
+
+----
+
+Package: jsonfile@4.0.0
+License: MIT
+Repository: https://github.com/jprichardson/node-jsonfile
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/jsonfile/LICENSE
+
+----
+
+Package: jsonfile@6.2.0
+License: MIT
+Repository: https://github.com/jprichardson/node-jsonfile
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@electron/fuses/node_modules/jsonfile/LICENSE
+
+----
+
+Package: keyboardevent-from-electron-accelerator@2.0.0
+License: MIT
+Repository: https://github.com/parro-it/keyboardevent-from-electron-accelerator
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/keyboardevent-from-electron-accelerator/license
+
+----
+
+Package: keyboardevents-areequal@0.2.2
+License: MIT
+Repository: https://github.com/parro-it/keyboardevents-areequal
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/keyboardevents-areequal/license
+
+----
+
+Package: keytar@7.9.0
+License: MIT
+Repository: https://github.com/atom/node-keytar
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/keytar/LICENSE.md
+
+----
+
+Package: keyv@4.5.4
+License: MIT
+Repository: https://github.com/jaredwray/keyv
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/keyv/README.md
+
+----
+
+Package: kind-of@6.0.3
+License: MIT
+Repository: https://github.com/jonschlinkert/kind-of
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/kind-of/LICENSE
+
+----
+
+Package: launch-editor@2.12.0
+License: MIT
+Repository: https://github.com/yyx990803/launch-editor
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/launch-editor/LICENSE
+
+----
+
+Package: lazy-val@1.0.5
+License: MIT
+Repository: https://github.com/develar/lazy-val
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/lazy-val/readme.md
+
+----
+
+Package: loader-runner@4.3.1
+License: MIT
+Repository: https://github.com/webpack/loader-runner
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/loader-runner/LICENSE
+
+----
+
+Package: loader-utils@2.0.4
+License: MIT
+Repository: https://github.com/webpack/loader-utils
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/loader-utils/LICENSE
+
+----
+
+Package: locate-path@5.0.0
+License: MIT
+Repository: https://github.com/sindresorhus/locate-path
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/locate-path/license
+
+----
+
+Package: lodash@4.17.21
+License: MIT
+Repository: https://github.com/lodash/lodash
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/lodash/LICENSE
+
+----
+
+Package: log-symbols@4.1.0
+License: MIT
+Repository: https://github.com/sindresorhus/log-symbols
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/log-symbols/license
+
+----
+
+Package: lower-case@2.0.2
+License: MIT
+Repository: https://github.com/blakeembrey/change-case
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/lower-case/LICENSE
+
+----
+
+Package: lowercase-keys@2.0.0
+License: MIT
+Repository: https://github.com/sindresorhus/lowercase-keys
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/lowercase-keys/license
+
+----
+
+Package: lru-cache@10.4.3
+License: ISC
+Repository: https://github.com/isaacs/node-lru-cache
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/path-scurry/node_modules/lru-cache/LICENSE
+
+----
+
+Package: lru-cache@4.1.5
+License: ISC
+Repository: https://github.com/isaacs/node-lru-cache
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/lru-cache/LICENSE
+
+----
+
+Package: lru-cache@6.0.0
+License: ISC
+Repository: https://github.com/isaacs/node-lru-cache
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/hosted-git-info/node_modules/lru-cache/LICENSE
+
+----
+
+Package: lru-cache@7.18.3
+License: ISC
+Repository: https://github.com/isaacs/node-lru-cache
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/cacache/node_modules/lru-cache/LICENSE
+
+----
+
+Package: make-fetch-happen@10.2.1
+License: ISC
+Repository: https://github.com/npm/make-fetch-happen
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/make-fetch-happen/LICENSE
+
+----
+
+Package: matcher@3.0.0
+License: MIT
+Repository: https://github.com/sindresorhus/matcher
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/matcher/license
+
+----
+
+Package: math-intrinsics@1.1.0
+License: MIT
+Repository: https://github.com/es-shims/math-intrinsics
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/math-intrinsics/LICENSE
+
+----
+
+Package: media-typer@0.3.0
+License: MIT
+Repository: https://github.com/jshttp/media-typer
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/media-typer/LICENSE
+
+----
+
+Package: memfs@4.51.1
+License: Apache-2.0
+Repository: https://github.com/streamich/memfs
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/memfs/LICENSE
+
+----
+
+Package: merge-descriptors@1.0.3
+License: MIT
+Repository: https://github.com/sindresorhus/merge-descriptors
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/merge-descriptors/LICENSE
+
+----
+
+Package: merge-stream@2.0.0
+License: MIT
+Repository: https://github.com/grncdr/merge-stream
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/merge-stream/LICENSE
+
+----
+
+Package: methods@1.1.2
+License: MIT
+Repository: https://github.com/jshttp/methods
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/methods/LICENSE
+
+----
+
+Package: micromatch@4.0.8
+License: MIT
+Repository: https://github.com/micromatch/micromatch
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/micromatch/LICENSE
+
+----
+
+Package: mime-db@1.52.0
+License: MIT
+Repository: https://github.com/jshttp/mime-db
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/mime-db/LICENSE
+
+----
+
+Package: mime-db@1.54.0
+License: MIT
+Repository: https://github.com/jshttp/mime-db
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/webpack-dev-middleware/node_modules/mime-db/LICENSE
+
+----
+
+Package: mime-types@2.1.35
+License: MIT
+Repository: https://github.com/jshttp/mime-types
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/mime-types/LICENSE
+
+----
+
+Package: mime-types@3.0.2
+License: MIT
+Repository: https://github.com/jshttp/mime-types
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/webpack-dev-middleware/node_modules/mime-types/LICENSE
+
+----
+
+Package: mime@1.6.0
+License: MIT
+Repository: https://github.com/broofa/node-mime
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/mime/LICENSE
+
+----
+
+Package: mime@2.6.0
+License: MIT
+Repository: https://github.com/broofa/mime
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/electron-publish/node_modules/mime/LICENSE
+
+----
+
+Package: mimic-fn@2.1.0
+License: MIT
+Repository: https://github.com/sindresorhus/mimic-fn
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/mimic-fn/license
+
+----
+
+Package: mimic-response@1.0.1
+License: MIT
+Repository: https://github.com/sindresorhus/mimic-response
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/mimic-response/license
+
+----
+
+Package: mimic-response@3.1.0
+License: MIT
+Repository: https://github.com/sindresorhus/mimic-response
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/decompress-response/node_modules/mimic-response/license
+
+----
+
+Package: minimalistic-assert@1.0.1
+License: ISC
+Repository: https://github.com/calvinmetcalf/minimalistic-assert
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/minimalistic-assert/LICENSE
+
+----
+
+Package: minimatch@10.1.1
+License: BlueOak-1.0.0
+Repository: https://github.com/isaacs/minimatch
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/minimatch/LICENSE.md
+
+----
+
+Package: minimatch@3.1.2
+License: ISC
+Repository: https://github.com/isaacs/minimatch
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/glob/node_modules/minimatch/LICENSE
+
+----
+
+Package: minimatch@5.1.6
+License: ISC
+Repository: https://github.com/isaacs/minimatch
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@electron/node-gyp/node_modules/minimatch/LICENSE
+
+----
+
+Package: minimatch@9.0.5
+License: ISC
+Repository: https://github.com/isaacs/minimatch
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@electron/universal/node_modules/minimatch/LICENSE
+
+----
+
+Package: minimist@1.2.8
+License: MIT
+Repository: https://github.com/minimistjs/minimist
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/minimist/LICENSE
+
+----
+
+Package: minipass-collect@1.0.2
+License: ISC
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/minipass-collect/LICENSE
+
+----
+
+Package: minipass-fetch@2.1.2
+License: MIT
+Repository: https://github.com/npm/minipass-fetch
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/minipass-fetch/LICENSE
+
+----
+
+Package: minipass-flush@1.0.5
+License: ISC
+Repository: https://github.com/isaacs/minipass-flush
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/minipass-flush/LICENSE
+
+----
+
+Package: minipass-pipeline@1.2.4
+License: ISC
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/minipass-pipeline/LICENSE
+
+----
+
+Package: minipass-sized@1.0.3
+License: ISC
+Repository: https://github.com/isaacs/minipass-sized
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/minipass-sized/LICENSE
+
+----
+
+Package: minipass@3.3.6
+License: ISC
+Repository: https://github.com/isaacs/minipass
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/minipass/LICENSE
+
+----
+
+Package: minipass@5.0.0
+License: ISC
+Repository: https://github.com/isaacs/minipass
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/tar/node_modules/minipass/LICENSE
+
+----
+
+Package: minipass@7.1.2
+License: ISC
+Repository: https://github.com/isaacs/minipass
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/config-file-ts/node_modules/minipass/LICENSE
+
+----
+
+Package: minizlib@2.1.2
+License: MIT
+Repository: https://github.com/isaacs/minizlib
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/minizlib/LICENSE
+
+----
+
+Package: mkdirp-classic@0.5.3
+License: MIT
+Repository: https://github.com/mafintosh/mkdirp-classic
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/mkdirp-classic/LICENSE
+
+----
+
+Package: mkdirp@0.5.6
+License: MIT
+Repository: https://github.com/substack/node-mkdirp
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/temp/node_modules/mkdirp/LICENSE
+
+----
+
+Package: mkdirp@1.0.4
+License: MIT
+Repository: https://github.com/isaacs/node-mkdirp
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/mkdirp/LICENSE
+
+----
+
+Package: ms@2.0.0
+License: MIT
+Repository: https://github.com/zeit/ms
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/send/node_modules/debug/node_modules/ms/license.md
+
+----
+
+Package: ms@2.1.3
+License: MIT
+Repository: https://github.com/vercel/ms
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/ms/license.md
+
+----
+
+Package: multicast-dns@7.2.5
+License: MIT
+Repository: https://github.com/mafintosh/multicast-dns
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/multicast-dns/LICENSE
+
+----
+
+Package: nanoid@3.3.11
+License: MIT
+Repository: https://github.com/ai/nanoid
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/nanoid/LICENSE
+
+----
+
+Package: napi-build-utils@2.0.0
+License: MIT
+Repository: https://github.com/inspiredware/napi-build-utils
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/napi-build-utils/LICENSE
+
+----
+
+Package: negotiator@0.6.3
+License: MIT
+Repository: https://github.com/jshttp/negotiator
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/accepts/node_modules/negotiator/LICENSE
+
+----
+
+Package: negotiator@0.6.4
+License: MIT
+Repository: https://github.com/jshttp/negotiator
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/negotiator/LICENSE
+
+----
+
+Package: neo-async@2.6.2
+License: MIT
+Repository: https://github.com/suguru03/neo-async
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/neo-async/LICENSE
+
+----
+
+Package: no-case@3.0.4
+License: MIT
+Repository: https://github.com/blakeembrey/change-case
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/no-case/LICENSE
+
+----
+
+Package: node-abi@3.85.0
+License: MIT
+Repository: https://github.com/electron/node-abi
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/node-abi/LICENSE
+
+----
+
+Package: node-addon-api@1.7.2
+License: MIT
+Repository: https://github.com/nodejs/node-addon-api
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/iconv-corefoundation/node_modules/node-addon-api/LICENSE.md
+
+----
+
+Package: node-addon-api@4.3.0
+License: MIT
+Repository: https://github.com/nodejs/node-addon-api
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/node-addon-api/LICENSE.md
+
+----
+
+Package: node-api-version@0.2.1
+License: MIT
+Repository: https://github.com/timfish/node-api-version
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/node-api-version/README.md
+
+----
+
+Package: node-forge@1.3.3
+License: (BSD-3-Clause OR GPL-2.0)
+Repository: https://github.com/digitalbazaar/forge
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/node-forge/LICENSE
+
+----
+
+Package: node-loader@2.1.0
+License: MIT
+Repository: https://github.com/webpack-contrib/node-loader
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/node-loader/LICENSE
+
+----
+
+Package: node-releases@2.0.27
+License: MIT
+Repository: https://github.com/chicoxyzzy/node-releases
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/node-releases/LICENSE
+
+----
+
+Package: nopt@6.0.0
+License: ISC
+Repository: https://github.com/npm/nopt
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/nopt/LICENSE
+
+----
+
+Package: normalize-path@3.0.0
+License: MIT
+Repository: https://github.com/jonschlinkert/normalize-path
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/normalize-path/LICENSE
+
+----
+
+Package: normalize-url@6.1.0
+License: MIT
+Repository: https://github.com/sindresorhus/normalize-url
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/normalize-url/license
+
+----
+
+Package: npm-run-path@2.0.2
+License: MIT
+Repository: https://github.com/sindresorhus/npm-run-path
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/npm-run-path/license
+
+----
+
+Package: nth-check@2.1.1
+License: BSD-2-Clause
+Repository: https://github.com/fb55/nth-check
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/nth-check/LICENSE
+
+----
+
+Package: object-inspect@1.13.4
+License: MIT
+Repository: https://github.com/inspect-js/object-inspect
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/object-inspect/LICENSE
+
+----
+
+Package: object-keys@1.1.1
+License: MIT
+Repository: https://github.com/ljharb/object-keys
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/object-keys/LICENSE
+
+----
+
+Package: obuf@1.1.2
+License: MIT
+Repository: https://github.com/indutny/offset-buffer
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/obuf/LICENSE
+
+----
+
+Package: on-finished@2.4.1
+License: MIT
+Repository: https://github.com/jshttp/on-finished
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/on-finished/LICENSE
+
+----
+
+Package: on-headers@1.1.0
+License: MIT
+Repository: https://github.com/jshttp/on-headers
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/on-headers/LICENSE
+
+----
+
+Package: once@1.4.0
+License: ISC
+Repository: https://github.com/isaacs/once
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/once/LICENSE
+
+----
+
+Package: onetime@5.1.2
+License: MIT
+Repository: https://github.com/sindresorhus/onetime
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/onetime/license
+
+----
+
+Package: open@10.2.0
+License: MIT
+Repository: https://github.com/sindresorhus/open
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/open/license
+
+----
+
+Package: ora@5.4.1
+License: MIT
+Repository: https://github.com/sindresorhus/ora
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/ora/license
+
+----
+
+Package: p-cancelable@2.1.1
+License: MIT
+Repository: https://github.com/sindresorhus/p-cancelable
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/p-cancelable/license
+
+----
+
+Package: p-finally@1.0.0
+License: MIT
+Repository: https://github.com/sindresorhus/p-finally
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/p-finally/license
+
+----
+
+Package: p-limit@2.3.0
+License: MIT
+Repository: https://github.com/sindresorhus/p-limit
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/p-limit/license
+
+----
+
+Package: p-limit@3.1.0
+License: MIT
+Repository: https://github.com/sindresorhus/p-limit
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/dir-compare/node_modules/p-limit/license
+
+----
+
+Package: p-locate@4.1.0
+License: MIT
+Repository: https://github.com/sindresorhus/p-locate
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/p-locate/license
+
+----
+
+Package: p-map@4.0.0
+License: MIT
+Repository: https://github.com/sindresorhus/p-map
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/p-map/license
+
+----
+
+Package: p-retry@6.2.1
+License: MIT
+Repository: https://github.com/sindresorhus/p-retry
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/p-retry/license
+
+----
+
+Package: p-try@2.2.0
+License: MIT
+Repository: https://github.com/sindresorhus/p-try
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/p-try/license
+
+----
+
+Package: package-json-from-dist@1.0.1
+License: BlueOak-1.0.0
+Repository: https://github.com/isaacs/package-json-from-dist
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/package-json-from-dist/LICENSE.md
+
+----
+
+Package: param-case@3.0.4
+License: MIT
+Repository: https://github.com/blakeembrey/change-case
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/param-case/LICENSE
+
+----
+
+Package: parseurl@1.3.3
+License: MIT
+Repository: https://github.com/pillarjs/parseurl
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/parseurl/LICENSE
+
+----
+
+Package: pascal-case@3.1.2
+License: MIT
+Repository: https://github.com/blakeembrey/change-case
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/pascal-case/LICENSE
+
+----
+
+Package: path-exists@4.0.0
+License: MIT
+Repository: https://github.com/sindresorhus/path-exists
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/path-exists/license
+
+----
+
+Package: path-is-absolute@1.0.1
+License: MIT
+Repository: https://github.com/sindresorhus/path-is-absolute
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/path-is-absolute/license
+
+----
+
+Package: path-key@2.0.1
+License: MIT
+Repository: https://github.com/sindresorhus/path-key
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/npm-run-path/node_modules/path-key/license
+
+----
+
+Package: path-key@3.1.1
+License: MIT
+Repository: https://github.com/sindresorhus/path-key
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/path-key/license
+
+----
+
+Package: path-parse@1.0.7
+License: MIT
+Repository: https://github.com/jbgutierrez/path-parse
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/path-parse/LICENSE
+
+----
+
+Package: path-scurry@1.11.1
+License: BlueOak-1.0.0
+Repository: https://github.com/isaacs/path-scurry
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/path-scurry/LICENSE.md
+
+----
+
+Package: path-to-regexp@0.1.12
+License: MIT
+Repository: https://github.com/pillarjs/path-to-regexp
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/path-to-regexp/LICENSE
+
+----
+
+Package: pe-library@0.4.1
+License: MIT
+Repository: https://github.com/jet2jet/pe-library-js
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/pe-library/LICENSE
+
+----
+
+Package: pend@1.2.0
+License: MIT
+Repository: https://github.com/andrewrk/node-pend
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/pend/LICENSE
+
+----
+
+Package: picocolors@1.1.1
+License: ISC
+Repository: https://github.com/alexeyraspopov/picocolors
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/picocolors/LICENSE
+
+----
+
+Package: picomatch@2.3.1
+License: MIT
+Repository: https://github.com/micromatch/picomatch
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/picomatch/LICENSE
+
+----
+
+Package: pkg-dir@4.2.0
+License: MIT
+Repository: https://github.com/sindresorhus/pkg-dir
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/pkg-dir/license
+
+----
+
+Package: plist@3.1.0
+License: MIT
+Repository: https://github.com/TooTallNate/node-plist
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/plist/LICENSE
+
+----
+
+Package: postcss-modules-extract-imports@3.1.0
+License: ISC
+Repository: https://github.com/css-modules/postcss-modules-extract-imports
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/postcss-modules-extract-imports/LICENSE
+
+----
+
+Package: postcss-modules-local-by-default@4.2.0
+License: MIT
+Repository: https://github.com/css-modules/postcss-modules-local-by-default
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/postcss-modules-local-by-default/LICENSE
+
+----
+
+Package: postcss-modules-scope@3.2.1
+License: ISC
+Repository: https://github.com/css-modules/postcss-modules-scope
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/postcss-modules-scope/LICENSE
+
+----
+
+Package: postcss-modules-values@4.0.0
+License: ISC
+Repository: https://github.com/css-modules/postcss-modules-values
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/postcss-modules-values/LICENSE
+
+----
+
+Package: postcss-selector-parser@7.1.1
+License: MIT
+Repository: https://github.com/postcss/postcss-selector-parser
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/postcss-selector-parser/LICENSE-MIT
+
+----
+
+Package: postcss-value-parser@4.2.0
+License: MIT
+Repository: https://github.com/TrySound/postcss-value-parser
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/postcss-value-parser/LICENSE
+
+----
+
+Package: postcss@8.5.6
+License: MIT
+Repository: https://github.com/postcss/postcss
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/postcss/LICENSE
+
+----
+
+Package: postject@1.0.0-alpha.6
+License: MIT
+Repository: https://github.com/nodejs/postject
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/postject/LICENSE
+
+----
+
+Package: prebuild-install@7.1.3
+License: MIT
+Repository: https://github.com/prebuild/prebuild-install
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/prebuild-install/LICENSE
+
+----
+
+Package: pretty-error@4.0.0
+License: MIT
+Repository: https://github.com/AriaMinaei/pretty-error
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/pretty-error/LICENSE
+
+----
+
+Package: proc-log@2.0.1
+License: ISC
+Repository: https://github.com/npm/proc-log
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/proc-log/LICENSE
+
+----
+
+Package: process-nextick-args@2.0.1
+License: MIT
+Repository: https://github.com/calvinmetcalf/process-nextick-args
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/process-nextick-args/license.md
+
+----
+
+Package: progress@2.0.3
+License: MIT
+Repository: https://github.com/visionmedia/node-progress
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/progress/LICENSE
+
+----
+
+Package: promise-inflight@1.0.1
+License: ISC
+Repository: https://github.com/iarna/promise-inflight
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/promise-inflight/LICENSE
+
+----
+
+Package: promise-retry@2.0.1
+License: MIT
+Repository: https://github.com/IndigoUnited/node-promise-retry
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/promise-retry/LICENSE
+
+----
+
+Package: proxy-addr@2.0.7
+License: MIT
+Repository: https://github.com/jshttp/proxy-addr
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/proxy-addr/LICENSE
+
+----
+
+Package: proxy-from-env@1.1.0
+License: MIT
+Repository: https://github.com/Rob--W/proxy-from-env
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/proxy-from-env/LICENSE
+
+----
+
+Package: pseudomap@1.0.2
+License: ISC
+Repository: https://github.com/isaacs/pseudomap
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/pseudomap/LICENSE
+
+----
+
+Package: pump@3.0.3
+License: MIT
+Repository: https://github.com/mafintosh/pump
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/pump/LICENSE
+
+----
+
+Package: punycode@2.3.1
+License: MIT
+Repository: https://github.com/mathiasbynens/punycode.js
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/punycode/LICENSE-MIT.txt
+
+----
+
+Package: qs@6.14.1
+License: BSD-3-Clause
+Repository: https://github.com/ljharb/qs
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/qs/LICENSE.md
+
+----
+
+Package: quick-lru@5.1.1
+License: MIT
+Repository: https://github.com/sindresorhus/quick-lru
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/quick-lru/license
+
+----
+
+Package: randombytes@2.1.0
+License: MIT
+Repository: https://github.com/crypto-browserify/randombytes
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/randombytes/LICENSE
+
+----
+
+Package: range-parser@1.2.1
+License: MIT
+Repository: https://github.com/jshttp/range-parser
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/range-parser/LICENSE
+
+----
+
+Package: raw-body@2.5.3
+License: MIT
+Repository: https://github.com/stream-utils/raw-body
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/raw-body/LICENSE
+
+----
+
+Package: rc@1.2.8
+License: (BSD-2-Clause OR MIT OR Apache-2.0)
+Repository: https://github.com/dominictarr/rc
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/rc/LICENSE.APACHE2
+
+----
+
+Package: react-dom@19.2.3
+License: MIT
+Repository: https://github.com/facebook/react
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/react-dom/LICENSE
+
+----
+
+Package: react@19.2.3
+License: MIT
+Repository: https://github.com/facebook/react
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/react/LICENSE
+
+----
+
+Package: read-binary-file-arch@1.0.6
+License: MIT
+Repository: https://github.com/samuelmaddock/read-binary-file-arch
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/read-binary-file-arch/README.md
+
+----
+
+Package: readable-stream@2.3.8
+License: MIT
+Repository: https://github.com/nodejs/readable-stream
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/hpack.js/node_modules/readable-stream/LICENSE
+
+----
+
+Package: readable-stream@3.6.2
+License: MIT
+Repository: https://github.com/nodejs/readable-stream
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/readable-stream/LICENSE
+
+----
+
+Package: readdirp@3.6.0
+License: MIT
+Repository: https://github.com/paulmillr/readdirp
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/readdirp/LICENSE
+
+----
+
+Package: rechoir@0.8.0
+License: MIT
+Repository: https://github.com/gulpjs/rechoir
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/rechoir/LICENSE
+
+----
+
+Package: relateurl@0.2.7
+License: MIT
+Repository: https://github.com/stevenvachon/relateurl
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/relateurl/license
+
+----
+
+Package: renderkid@3.0.0
+License: MIT
+Repository: https://github.com/AriaMinaei/RenderKid
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/renderkid/LICENSE
+
+----
+
+Package: require-directory@2.1.1
+License: MIT
+Repository: https://github.com/troygoode/node-require-directory
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/require-directory/LICENSE
+
+----
+
+Package: require-from-string@2.0.2
+License: MIT
+Repository: https://github.com/floatdrop/require-from-string
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/require-from-string/license
+
+----
+
+Package: requires-port@1.0.0
+License: MIT
+Repository: https://github.com/unshiftio/requires-port
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/requires-port/LICENSE
+
+----
+
+Package: resedit@1.7.2
+License: MIT
+Repository: https://github.com/jet2jet/resedit-js
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/resedit/LICENSE
+
+----
+
+Package: resolve-alpn@1.2.1
+License: MIT
+Repository: https://github.com/szmarczak/resolve-alpn
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/resolve-alpn/LICENSE
+
+----
+
+Package: resolve-cwd@3.0.0
+License: MIT
+Repository: https://github.com/sindresorhus/resolve-cwd
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/resolve-cwd/license
+
+----
+
+Package: resolve-from@5.0.0
+License: MIT
+Repository: https://github.com/sindresorhus/resolve-from
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/resolve-from/license
+
+----
+
+Package: resolve@1.22.11
+License: MIT
+Repository: https://github.com/browserify/resolve
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/resolve/LICENSE
+
+----
+
+Package: responselike@2.0.1
+License: MIT
+Repository: https://github.com/sindresorhus/responselike
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/responselike/LICENSE
+
+----
+
+Package: restore-cursor@3.1.0
+License: MIT
+Repository: https://github.com/sindresorhus/restore-cursor
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/restore-cursor/license
+
+----
+
+Package: retry@0.12.0
+License: MIT
+Repository: https://github.com/tim-kos/node-retry
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/promise-retry/node_modules/retry/License
+
+----
+
+Package: retry@0.13.1
+License: MIT
+Repository: https://github.com/tim-kos/node-retry
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/retry/License
+
+----
+
+Package: rimraf@2.6.3
+License: ISC
+Repository: https://github.com/isaacs/rimraf
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/temp/node_modules/rimraf/LICENSE
+
+----
+
+Package: rimraf@3.0.2
+License: ISC
+Repository: https://github.com/isaacs/rimraf
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/rimraf/LICENSE
+
+----
+
+Package: roarr@2.15.4
+License: BSD-3-Clause
+Repository: https://github.com/gajus/roarr
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/roarr/LICENSE
+
+----
+
+Package: run-applescript@7.1.0
+License: MIT
+Repository: https://github.com/sindresorhus/run-applescript
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/run-applescript/license
+
+----
+
+Package: safe-buffer@5.1.2
+License: MIT
+Repository: https://github.com/feross/safe-buffer
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/hpack.js/node_modules/safe-buffer/LICENSE
+
+----
+
+Package: safe-buffer@5.2.1
+License: MIT
+Repository: https://github.com/feross/safe-buffer
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/safe-buffer/LICENSE
+
+----
+
+Package: safer-buffer@2.1.2
+License: MIT
+Repository: https://github.com/ChALkeR/safer-buffer
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/safer-buffer/LICENSE
+
+----
+
+Package: sanitize-filename@1.6.3
+License: WTFPL OR ISC
+Repository: https://github.com/parshap/node-sanitize-filename
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/sanitize-filename/LICENSE.md
+
+----
+
+Package: sax@1.4.3
+License: BlueOak-1.0.0
+Repository: https://github.com/isaacs/sax-js
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/sax/LICENSE.md
+
+----
+
+Package: scheduler@0.27.0
+License: MIT
+Repository: https://github.com/facebook/react
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/scheduler/LICENSE
+
+----
+
+Package: schema-utils@4.3.3
+License: MIT
+Repository: https://github.com/webpack/schema-utils
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/schema-utils/LICENSE
+
+----
+
+Package: select-hose@2.0.0
+License: MIT
+Repository: https://github.com/indutny/select-hose
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/select-hose/README.md
+
+----
+
+Package: selfsigned@2.4.1
+License: MIT
+Repository: https://github.com/jfromaniello/selfsigned
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/selfsigned/LICENSE
+
+----
+
+Package: semver-compare@1.0.0
+License: MIT
+Repository: https://github.com/substack/semver-compare
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/semver-compare/LICENSE
+
+----
+
+Package: semver@5.7.2
+License: ISC
+Repository: https://github.com/npm/node-semver
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/tiny-async-pool/node_modules/semver/LICENSE
+
+----
+
+Package: semver@6.3.1
+License: ISC
+Repository: https://github.com/npm/node-semver
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/semver/LICENSE
+
+----
+
+Package: semver@7.7.3
+License: ISC
+Repository: https://github.com/npm/node-semver
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/node-abi/node_modules/semver/LICENSE
+
+----
+
+Package: send@0.19.2
+License: MIT
+Repository: https://github.com/pillarjs/send
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/send/LICENSE
+
+----
+
+Package: serialize-error@7.0.1
+License: MIT
+Repository: https://github.com/sindresorhus/serialize-error
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/serialize-error/license
+
+----
+
+Package: serialize-javascript@6.0.2
+License: BSD-3-Clause
+Repository: https://github.com/yahoo/serialize-javascript
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/serialize-javascript/LICENSE
+
+----
+
+Package: serve-index@1.9.1
+License: MIT
+Repository: https://github.com/expressjs/serve-index
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/serve-index/LICENSE
+
+----
+
+Package: serve-static@1.16.3
+License: MIT
+Repository: https://github.com/expressjs/serve-static
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/serve-static/LICENSE
+
+----
+
+Package: setprototypeof@1.1.0
+License: ISC
+Repository: https://github.com/wesleytodd/setprototypeof
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/serve-index/node_modules/setprototypeof/LICENSE
+
+----
+
+Package: setprototypeof@1.2.0
+License: ISC
+Repository: https://github.com/wesleytodd/setprototypeof
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/setprototypeof/LICENSE
+
+----
+
+Package: shallow-clone@3.0.1
+License: MIT
+Repository: https://github.com/jonschlinkert/shallow-clone
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/shallow-clone/LICENSE
+
+----
+
+Package: shebang-command@1.2.0
+License: MIT
+Repository: https://github.com/kevva/shebang-command
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/execa/node_modules/shebang-command/license
+
+----
+
+Package: shebang-command@2.0.0
+License: MIT
+Repository: https://github.com/kevva/shebang-command
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/shebang-command/license
+
+----
+
+Package: shebang-regex@1.0.0
+License: MIT
+Repository: https://github.com/sindresorhus/shebang-regex
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/execa/node_modules/shebang-regex/license
+
+----
+
+Package: shebang-regex@3.0.0
+License: MIT
+Repository: https://github.com/sindresorhus/shebang-regex
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/shebang-regex/license
+
+----
+
+Package: shell-quote@1.8.3
+License: MIT
+Repository: https://github.com/ljharb/shell-quote
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/shell-quote/LICENSE
+
+----
+
+Package: side-channel-list@1.0.0
+License: MIT
+Repository: https://github.com/ljharb/side-channel-list
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/side-channel-list/LICENSE
+
+----
+
+Package: side-channel-map@1.0.1
+License: MIT
+Repository: https://github.com/ljharb/side-channel-map
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/side-channel-map/LICENSE
+
+----
+
+Package: side-channel-weakmap@1.0.2
+License: MIT
+Repository: https://github.com/ljharb/side-channel-weakmap
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/side-channel-weakmap/LICENSE
+
+----
+
+Package: side-channel@1.1.0
+License: MIT
+Repository: https://github.com/ljharb/side-channel
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/side-channel/LICENSE
+
+----
+
+Package: signal-exit@3.0.7
+License: ISC
+Repository: https://github.com/tapjs/signal-exit
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/signal-exit/LICENSE.txt
+
+----
+
+Package: signal-exit@4.1.0
+License: ISC
+Repository: https://github.com/tapjs/signal-exit
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/foreground-child/node_modules/signal-exit/LICENSE.txt
+
+----
+
+Package: simple-concat@1.0.1
+License: MIT
+Repository: https://github.com/feross/simple-concat
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/simple-concat/LICENSE
+
+----
+
+Package: simple-get@4.0.1
+License: MIT
+Repository: https://github.com/feross/simple-get
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/simple-get/LICENSE
+
+----
+
+Package: simple-update-notifier@2.0.0
+License: MIT
+Repository: https://github.com/alexbrazier/simple-update-notifier
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/simple-update-notifier/LICENSE
+
+----
+
+Package: slice-ansi@3.0.0
+License: MIT
+Repository: https://github.com/chalk/slice-ansi
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/slice-ansi/license
+
+----
+
+Package: smart-buffer@4.2.0
+License: MIT
+Repository: https://github.com/JoshGlazebrook/smart-buffer
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/smart-buffer/LICENSE
+
+----
+
+Package: sockjs@0.3.24
+License: MIT
+Repository: https://github.com/sockjs/sockjs-node
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/sockjs/LICENSE
+
+----
+
+Package: socks-proxy-agent@7.0.0
+License: MIT
+Repository: https://github.com/TooTallNate/node-socks-proxy-agent
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/socks-proxy-agent/README.md
+
+----
+
+Package: socks@2.8.7
+License: MIT
+Repository: https://github.com/JoshGlazebrook/socks
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/socks/LICENSE
+
+----
+
+Package: source-map-js@1.2.1
+License: BSD-3-Clause
+Repository: https://github.com/7rulnik/source-map-js
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/source-map-js/LICENSE
+
+----
+
+Package: source-map-support@0.5.21
+License: MIT
+Repository: https://github.com/evanw/node-source-map-support
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/source-map-support/LICENSE.md
+
+----
+
+Package: source-map@0.6.1
+License: BSD-3-Clause
+Repository: https://github.com/mozilla/source-map
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/source-map-support/node_modules/source-map/LICENSE
+
+----
+
+Package: source-map@0.7.6
+License: BSD-3-Clause
+Repository: https://github.com/mozilla/source-map
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/source-map/LICENSE
+
+----
+
+Package: spdy-transport@3.0.0
+License: MIT
+Repository: https://github.com/spdy-http2/spdy-transport
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/spdy-transport/README.md
+
+----
+
+Package: spdy@4.0.2
+License: MIT
+Repository: https://github.com/indutny/node-spdy
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/spdy/README.md
+
+----
+
+Package: sprintf-js@1.1.3
+License: BSD-3-Clause
+Repository: https://github.com/alexei/sprintf.js
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/sprintf-js/LICENSE
+
+----
+
+Package: ssri@9.0.1
+License: ISC
+Repository: https://github.com/npm/ssri
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/ssri/LICENSE.md
+
+----
+
+Package: stat-mode@1.0.0
+License: MIT
+Repository: https://github.com/TooTallNate/stat-mode
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/stat-mode/LICENSE
+
+----
+
+Package: statuses@1.5.0
+License: MIT
+Repository: https://github.com/jshttp/statuses
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/serve-index/node_modules/statuses/LICENSE
+
+----
+
+Package: statuses@2.0.2
+License: MIT
+Repository: https://github.com/jshttp/statuses
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/statuses/LICENSE
+
+----
+
+Package: string_decoder@1.1.1
+License: MIT
+Repository: https://github.com/nodejs/string_decoder
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/hpack.js/node_modules/string_decoder/LICENSE
+
+----
+
+Package: string_decoder@1.3.0
+License: MIT
+Repository: https://github.com/nodejs/string_decoder
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/string_decoder/LICENSE
+
+----
+
+Package: string-width@4.2.3
+License: MIT
+Repository: https://github.com/sindresorhus/string-width
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/string-width/license
+
+----
+
+Package: string-width@5.1.2
+License: MIT
+Repository: https://github.com/sindresorhus/string-width
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@isaacs/cliui/node_modules/string-width/license
+
+----
+
+Package: strip-ansi@6.0.1
+License: MIT
+Repository: https://github.com/chalk/strip-ansi
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/strip-ansi/license
+
+----
+
+Package: strip-ansi@7.1.2
+License: MIT
+Repository: https://github.com/chalk/strip-ansi
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@isaacs/cliui/node_modules/strip-ansi/license
+
+----
+
+Package: strip-eof@1.0.0
+License: MIT
+Repository: https://github.com/sindresorhus/strip-eof
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/strip-eof/license
+
+----
+
+Package: strip-json-comments@2.0.1
+License: MIT
+Repository: https://github.com/sindresorhus/strip-json-comments
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/strip-json-comments/license
+
+----
+
+Package: style-loader@4.0.0
+License: MIT
+Repository: https://github.com/webpack-contrib/style-loader
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/style-loader/LICENSE
+
+----
+
+Package: sumchecker@3.0.1
+License: Apache-2.0
+Repository: https://github.com/malept/sumchecker
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/sumchecker/LICENSE
+
+----
+
+Package: supports-color@7.2.0
+License: MIT
+Repository: https://github.com/chalk/supports-color
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/supports-color/license
+
+----
+
+Package: supports-color@8.1.1
+License: MIT
+Repository: https://github.com/chalk/supports-color
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/jest-worker/node_modules/supports-color/license
+
+----
+
+Package: supports-preserve-symlinks-flag@1.0.0
+License: MIT
+Repository: https://github.com/inspect-js/node-supports-preserve-symlinks-flag
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/supports-preserve-symlinks-flag/LICENSE
+
+----
+
+Package: tapable@2.3.0
+License: MIT
+Repository: https://github.com/webpack/tapable
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/tapable/LICENSE
+
+----
+
+Package: tar-fs@2.1.4
+License: MIT
+Repository: https://github.com/mafintosh/tar-fs
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/tar-fs/LICENSE
+
+----
+
+Package: tar-stream@2.2.0
+License: MIT
+Repository: https://github.com/mafintosh/tar-stream
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/tar-stream/LICENSE
+
+----
+
+Package: tar@6.2.1
+License: ISC
+Repository: https://github.com/isaacs/node-tar
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/tar/LICENSE
+
+----
+
+Package: temp-file@3.4.0
+License: MIT
+Repository: https://github.com/develar/temp-file
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/temp-file/readme.md
+
+----
+
+Package: temp@0.9.4
+License: MIT
+Repository: https://github.com/bruce/node-temp
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/temp/LICENSE
+
+----
+
+Package: terser-webpack-plugin@5.3.16
+License: MIT
+Repository: https://github.com/webpack/terser-webpack-plugin
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/terser-webpack-plugin/LICENSE
+
+----
+
+Package: terser@5.44.1
+License: BSD-2-Clause
+Repository: https://github.com/terser/terser
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/terser/LICENSE
+
+----
+
+Package: thingies@2.5.0
+License: MIT
+Repository: https://github.com/streamich/thingies
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/thingies/LICENSE
+
+----
+
+Package: thunky@1.1.0
+License: MIT
+Repository: https://github.com/mafintosh/thunky
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/thunky/LICENSE
+
+----
+
+Package: tiny-async-pool@1.3.0
+License: MIT
+Repository: https://github.com/rxaviers/async-pool
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/tiny-async-pool/LICENSE-MIT
+
+----
+
+Package: tmp-promise@3.0.3
+License: MIT
+Repository: https://github.com/benjamingr/tmp-promise
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/tmp-promise/README.md
+
+----
+
+Package: tmp@0.2.5
+License: MIT
+Repository: https://github.com/raszi/node-tmp
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/tmp/LICENSE
+
+----
+
+Package: to-regex-range@5.0.1
+License: MIT
+Repository: https://github.com/micromatch/to-regex-range
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/to-regex-range/LICENSE
+
+----
+
+Package: toidentifier@1.0.1
+License: MIT
+Repository: https://github.com/component/toidentifier
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/toidentifier/LICENSE
+
+----
+
+Package: tree-dump@1.1.0
+License: Apache-2.0
+Repository: https://github.com/streamich/tree-dump
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/tree-dump/LICENSE
+
+----
+
+Package: truncate-utf8-bytes@1.0.2
+License: WTFPL
+Repository: https://github.com/parshap/truncate-utf8-bytes
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/truncate-utf8-bytes/README.md
+
+----
+
+Package: ts-loader@9.5.4
+License: MIT
+Repository: https://github.com/TypeStrong/ts-loader
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/ts-loader/LICENSE
+
+----
+
+Package: tslib@2.8.1
+License: 0BSD
+Repository: https://github.com/Microsoft/tslib
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/tslib/LICENSE.txt
+
+----
+
+Package: tunnel-agent@0.6.0
+License: Apache-2.0
+Repository: https://github.com/mikeal/tunnel-agent
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/tunnel-agent/LICENSE
+
+----
+
+Package: type-fest@0.13.1
+License: (MIT OR CC0-1.0)
+Repository: https://github.com/sindresorhus/type-fest
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/type-fest/license
+
+----
+
+Package: type-is@1.6.18
+License: MIT
+Repository: https://github.com/jshttp/type-is
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/type-is/LICENSE
+
+----
+
+Package: typescript@5.9.3
+License: Apache-2.0
+Repository: https://github.com/microsoft/TypeScript
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/typescript/LICENSE.txt
+
+----
+
+Package: undici-types@6.21.0
+License: MIT
+Repository: https://github.com/nodejs/undici
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/electron/node_modules/undici-types/LICENSE
+
+----
+
+Package: undici-types@7.16.0
+License: MIT
+Repository: https://github.com/nodejs/undici
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/undici-types/LICENSE
+
+----
+
+Package: unique-filename@2.0.1
+License: ISC
+Repository: https://github.com/npm/unique-filename
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/unique-filename/LICENSE
+
+----
+
+Package: unique-slug@3.0.0
+License: ISC
+Repository: https://github.com/npm/unique-slug
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/unique-slug/LICENSE
+
+----
+
+Package: universalify@0.1.2
+License: MIT
+Repository: https://github.com/RyanZim/universalify
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/universalify/LICENSE
+
+----
+
+Package: universalify@2.0.1
+License: MIT
+Repository: https://github.com/RyanZim/universalify
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@electron/fuses/node_modules/universalify/LICENSE
+
+----
+
+Package: unpipe@1.0.0
+License: MIT
+Repository: https://github.com/stream-utils/unpipe
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/unpipe/LICENSE
+
+----
+
+Package: update-browserslist-db@1.2.3
+License: MIT
+Repository: https://github.com/browserslist/update-db
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/update-browserslist-db/LICENSE
+
+----
+
+Package: uri-js@4.4.1
+License: BSD-2-Clause
+Repository: https://github.com/garycourt/uri-js
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/uri-js/LICENSE
+
+----
+
+Package: utf8-byte-length@1.0.5
+License: (WTFPL OR MIT)
+Repository: https://github.com/parshap/utf8-byte-length
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/utf8-byte-length/README.md
+
+----
+
+Package: util-deprecate@1.0.2
+License: MIT
+Repository: https://github.com/TooTallNate/util-deprecate
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/util-deprecate/LICENSE
+
+----
+
+Package: utila@0.4.0
+License: MIT
+Repository: https://github.com/AriaMinaei/utila
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/utila/LICENSE
+
+----
+
+Package: utils-merge@1.0.1
+License: MIT
+Repository: https://github.com/jaredhanson/utils-merge
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/utils-merge/LICENSE
+
+----
+
+Package: uuid@8.3.2
+License: MIT
+Repository: https://github.com/uuidjs/uuid
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/uuid/LICENSE.md
+
+----
+
+Package: vary@1.1.2
+License: MIT
+Repository: https://github.com/jshttp/vary
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/vary/LICENSE
+
+----
+
+Package: verror@1.10.1
+License: MIT
+Repository: https://github.com/joyent/node-verror
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/verror/LICENSE
+
+----
+
+Package: watchpack@2.5.0
+License: MIT
+Repository: https://github.com/webpack/watchpack
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/watchpack/LICENSE
+
+----
+
+Package: wbuf@1.7.3
+License: MIT
+Repository: https://github.com/indutny/wbuf
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/wbuf/README.md
+
+----
+
+Package: wcwidth@1.0.1
+License: MIT
+Repository: https://github.com/timoxley/wcwidth
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/wcwidth/LICENSE
+
+----
+
+Package: webpack-cli@6.0.1
+License: MIT
+Repository: https://github.com/webpack/webpack-cli
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/webpack-cli/LICENSE
+
+----
+
+Package: webpack-dev-middleware@7.4.5
+License: MIT
+Repository: https://github.com/webpack/webpack-dev-middleware
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/webpack-dev-middleware/LICENSE
+
+----
+
+Package: webpack-dev-server@5.2.2
+License: MIT
+Repository: https://github.com/webpack/webpack-dev-server
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/webpack-dev-server/LICENSE
+
+----
+
+Package: webpack-merge@6.0.1
+License: MIT
+Repository: https://github.com/survivejs/webpack-merge
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/webpack-merge/LICENSE
+
+----
+
+Package: webpack-sources@3.3.3
+License: MIT
+Repository: https://github.com/webpack/webpack-sources
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/webpack-sources/LICENSE
+
+----
+
+Package: webpack@5.104.1
+License: MIT
+Repository: https://github.com/webpack/webpack
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/webpack/LICENSE
+
+----
+
+Package: websocket-driver@0.7.4
+License: Apache-2.0
+Repository: https://github.com/faye/websocket-driver-node
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/websocket-driver/LICENSE.md
+
+----
+
+Package: websocket-extensions@0.1.4
+License: Apache-2.0
+Repository: https://github.com/faye/websocket-extensions-node
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/websocket-extensions/LICENSE.md
+
+----
+
+Package: which@1.3.1
+License: ISC
+Repository: https://github.com/isaacs/node-which
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/execa/node_modules/which/LICENSE
+
+----
+
+Package: which@2.0.2
+License: ISC
+Repository: https://github.com/isaacs/node-which
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/which/LICENSE
+
+----
+
+Package: wildcard@2.0.1
+License: MIT
+Repository: https://github.com/DamonOehlman/wildcard
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/wildcard/LICENSE
+
+----
+
+Package: wrap-ansi@7.0.0
+License: MIT
+Repository: https://github.com/chalk/wrap-ansi
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/wrap-ansi/license
+
+----
+
+Package: wrap-ansi@8.1.0
+License: MIT
+Repository: https://github.com/chalk/wrap-ansi
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/@isaacs/cliui/node_modules/wrap-ansi/license
+
+----
+
+Package: wrappy@1.0.2
+License: ISC
+Repository: https://github.com/npm/wrappy
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/wrappy/LICENSE
+
+----
+
+Package: ws@8.18.3
+License: MIT
+Repository: https://github.com/websockets/ws
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/ws/LICENSE
+
+----
+
+Package: wsl-utils@0.1.0
+License: MIT
+Repository: https://github.com/sindresorhus/wsl-utils
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/wsl-utils/license
+
+----
+
+Package: xmlbuilder@15.1.1
+License: MIT
+Repository: https://github.com/oozcitak/xmlbuilder-js
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/xmlbuilder/LICENSE
+
+----
+
+Package: y18n@5.0.8
+License: ISC
+Repository: https://github.com/yargs/y18n
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/y18n/LICENSE
+
+----
+
+Package: yallist@2.1.2
+License: ISC
+Repository: https://github.com/isaacs/yallist
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/yallist/LICENSE
+
+----
+
+Package: yallist@4.0.0
+License: ISC
+Repository: https://github.com/isaacs/yallist
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/minipass/node_modules/yallist/LICENSE
+
+----
+
+Package: yargs-parser@21.1.1
+License: ISC
+Repository: https://github.com/yargs/yargs-parser
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/yargs-parser/LICENSE.txt
+
+----
+
+Package: yargs@17.7.2
+License: MIT
+Repository: https://github.com/yargs/yargs
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/yargs/LICENSE
+
+----
+
+Package: yauzl@2.10.0
+License: MIT
+Repository: https://github.com/thejoshwolfe/yauzl
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/yauzl/LICENSE
+
+----
+
+Package: yocto-queue@0.1.0
+License: MIT
+Repository: https://github.com/sindresorhus/yocto-queue
+License File: /Users/tatsuta_2023/Dropbox/DB_Vault/Vault_code/-AI-/node_modules/yocto-queue/license

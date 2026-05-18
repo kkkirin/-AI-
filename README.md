@@ -1,227 +1,150 @@
-# cc-AI: コピー（cc）でAIに送信する翻訳・文章変換アプリ
+# QuickText
 
-## 概要
+ショートカットキーでCodex CLIやローカルAIを使って翻訳・文章変換を行うデスクトップアプリ
 
-**cc-AI** は、コピー操作を2回（cc）することでテキストをAIに送信し、翻訳・文章変換を行うElectronベースのデスクトップアプリケーションです。
+## 特徴
 
-### 主な特徴
+- **Codex CLI対応**: 既定でCodex CLIの `gpt-5.5` を利用
+- **ローカルAI対応**: AI推論エンジン（llama-server）を内蔵
+- **高速操作**: Cmd+C 2回で即座にAI処理
+- **多機能**: 翻訳、丁寧語変換、言い換え、要約、校正など
+- **日本語特化**: LFM 2.5 1.2B JP モデルを使用
 
-- ⚡ **高速操作**: ccトリガーで即座にAIに送信
-- 🌐 **多機能**: 翻訳、ていねい化、言い換え、要約、校正など
-- 🔒 **セキュア**: APIキーはOSキーチェーン/DPAPIで安全に保存
-- 🎯 **プライバシー重視**: 除外アプリ、パターンマッチング、履歴管理
-- 🔄 **拡張性**: Phase 2でローカルAIに切り替え可能な設計
+## ダウンロード
 
-## 技術スタック
+| OS | ファイル |
+|----|---------|
+| macOS (Apple Silicon) | `QuickText-1.0.1-arm64.dmg` |
+| Windows (64bit) | `QuickText Setup 1.0.0.exe`（旧バージョン） |
+
+## インストール方法
+
+### macOS
+1. `QuickText-1.0.1-arm64.dmg` を開く
+2. QuickTextをアプリケーションフォルダにドラッグ
+
+### Windows
+1. `QuickText Setup 1.0.0.exe` を実行
+2. インストーラーの指示に従ってインストール
+
+### 初回セットアップ
+
+1. QuickTextを起動
+2. 「AIモデルをダウンロード」をクリック（約730MB、初回のみ）
+3. 「AI推論エンジンを起動」をクリック
+4. 「QuickTextを開始」をクリック
+
+## 使い方
+
+### 基本操作
+
+1. 任意のアプリでテキストを選択
+2. `Cmd+C` を素早く2回押す
+3. QuickTextが開き、選択テキストが自動で入力される
+4. モードを選んで「生成」をクリック
+5. 結果がクリップボードにコピーされる
+
+### モード一覧
+
+| モード | 説明 |
+|--------|------|
+| 翻訳 | 日本語→英語、英語→日本語を自動判定して翻訳 |
+| 丁寧語 | カジュアルな表現をビジネス敬語に変換 |
+| フランク | 敬語・丁寧な文をカジュアルに変換 |
+| 要約 | テキストを3つの要点にまとめる |
+| 校正 | 誤字脱字・読みやすさを改善 |
+
+
+### メニューバー操作
+
+システムトレイ（メニューバー）のアイコンから：
+- 右クリック: モード選択メニュー
+- 左クリック: ウィンドウの表示/非表示
+
+## ショートカットキー
+
+デフォルト: `Cmd+C` 2回（Mac）/ `Ctrl+C` 2回（Windows）
+
+設定画面からホットキー方式に変更可能:
+- `Cmd+Shift+V` / `Cmd+Shift+C` / `Cmd+Shift+T` (Mac)
+- `Ctrl+Shift+V` / `Ctrl+Shift+C` / `Ctrl+Shift+T` (Windows)
+- `F9` / `F10` / `F11` / `F12`
+
+## AIモデル
+
+| モデル | サイズ | 説明 |
+|--------|--------|------|
+| LFM 2.5 1.2B JP (Q4_K_M) | 731MB | 日本語特化、軽量高速 |
+
+モデルは初回起動時にダウンロードされ、PC内に保存されます。
+
+## AI実行方式
+
+設定画面の「AI」タブから以下を選べます。
+
+| 方式 | 用途 |
+|------|------|
+| ローカルAI | 内蔵 llama-server と LFM モデルで実行 |
+| OpenAI互換API | OpenAI互換の `/v1/chat/completions` エンドポイントで実行 |
+| Codex / Claude Code CLI | ローカルの `codex exec` または `claude --print` で実行 |
+
+Codex / Claude Code CLI を使う場合は、事前に各CLIをインストールしてログインしてください。Codex CLI の既定モデルは `gpt-5.5` です。
+
+## 動作環境
+
+- macOS (Apple Silicon / M1以降)
+- Windows 10/11 (64bit)
+- ストレージ: 約1GB（アプリ + AIモデル）
+- メモリ: 8GB以上推奨
+
+## トラブルシューティング
+
+### 「AI推論エンジンに接続できません」と表示される
+
+1. 設定画面でAI推論エンジンの状態を確認
+2. アプリを再起動してください
+3. モデルがダウンロード済みか確認してください
+
+### 生成が遅い
+
+- 初回起動時はモデル読み込みに時間がかかります（数十秒）
+- 2回目以降は高速に応答します
+
+### Cmd+C 2回が反応しない
+
+- 2回のCmd+Cの間隔を0.5秒以内にしてください
+- 反応しない場合は、設定画面からホットキー方式（例: F11）に変更してください
+
+## 技術仕様
 
 - **フレームワーク**: Electron + React + TypeScript
-- **ビルドツール**: Webpack 5
-- **AI連携**: OpenAI互換API（gpt-4-mini推奨）
-- **セキュリティ**: keytar（OSキーチェーン統合）
-- **クリップボード監視**: clipboard-monitor
+- **AI推論**: llama-server（llama.cpp）内蔵
+- **AIモデル**: LFM 2.5 1.2B JP (GGUF Q4_K_M)
+- **ビルド**: Webpack 5 + electron-builder
 
-## プロジェクト構成
-
-```
-cc-ai/
-├── src/
-│   ├── main.ts                 # Electronメインプロセス
-│   ├── preload.ts              # プリロードスクリプト
-│   ├── types/
-│   │   └── index.ts            # 型定義
-│   ├── services/
-│   │   ├── AIProvider.ts       # AIプロバイダー抽象クラス
-│   │   ├── OpenAIProvider.ts   # OpenAI実装
-│   │   ├── ClipboardMonitor.ts # クリップボード監視
-│   │   └── SettingsManager.ts  # 設定管理
-│   └── renderer/
-│       ├── App.tsx             # メインコンポーネント
-│       ├── index.tsx           # エントリーポイント
-│       ├── components/
-│       │   ├── MainView.tsx    # メイン画面
-│       │   └── SettingsView.tsx # 設定画面
-│       └── styles/
-│           ├── App.css
-│           ├── MainView.css
-│           └── SettingsView.css
-├── public/
-│   └── index.html              # HTMLテンプレート
-├── webpack.config.js           # Webpack設定
-├── tsconfig.json               # TypeScript設定
-└── package.json                # 依存パッケージ
-```
-
-## インストール
-
-### 前提条件
-
-- Node.js 18+
-- npm または yarn
-- OpenAI APIキー
-
-### セットアップ
+## 開発者向け
 
 ```bash
-# リポジトリをクローン
-git clone https://github.com/kkkirin/-AI-.git
-cd -AI-
-
-# 依存パッケージをインストール
+# 依存パッケージのインストール
 npm install
+
+# 開発モードで起動
+npm start
 
 # ビルド
 npm run build
 
-# アプリを起動
-npm start
+# macOS用パッケージ作成
+npm run dist:mac
 ```
-
-## 使用方法
-
-### 基本的な流れ
-
-1. **アプリを起動**: `npm start`
-2. **APIキーを設定**: 設定画面でOpenAI APIキーを入力
-3. **テキストを選択**: 任意のアプリでテキストを選択
-4. **ccトリガー**: Ctrl+C（またはCmd+C）を0.5秒以内に2回押す
-5. **結果を確認**: フローティング画面に結果が表示される
-6. **クリップボードにコピー**: 自動または手動でコピー
-
-### モード選択
-
-- **翻訳**: 日本語 ↔ 英語の自動翻訳
-- **ていねい化**: カジュアルな表現をビジネス丁寧に変換
-- **言い換え**: 異なる表現で同じ意味を表現
-- **要約**: テキストを3行の箇条書きに要約
-- **校正**: 誤字脱字・読みやすさを改善
-- **コード/技術文**: 技術用語を保持して処理
-
-## 設定
-
-### 一般設定
-
-- 自動起動
-- テーマ（ライト/ダーク）
-- フォントサイズ
-
-### AI設定
-
-- APIプロバイダ（OpenAI / Azure OpenAI）
-- APIエンドポイント
-- モデル選択
-- トークン上限設定
-
-### 出力設定
-
-- 自動クリップボード保存
-- 自動貼り付け（危険度高）
-- 改行保持
-
-### プライバシー設定
-
-- 履歴の有効/無効
-- 履歴の暗号化
-- 除外パターン（正規表現）
-- 除外アプリ
-
-## 開発
-
-### 開発モードで起動
-
-```bash
-npm run dev
-```
-
-Webpackがファイル変更を監視し、自動的に再ビルドします。
-
-### ビルド
-
-```bash
-npm run build
-```
-
-### TypeScript コンパイル
-
-```bash
-npx tsc
-```
-
-## API設計
-
-### AIプロバイダーインターフェース
-
-```typescript
-abstract class AIProvider {
-  abstract generate(request: AIRequest): Promise<AIResponse>;
-  abstract estimate(inputText: string): Promise<{ language: Language; suggestedMode: AIMode }>;
-  abstract healthCheck(): Promise<boolean>;
-}
-```
-
-このインターフェースにより、Phase 2でローカルAIプロバイダーに簡単に切り替え可能です。
-
-## エラーハンドリング
-
-| エラー | 対応 |
-|--------|------|
-| 401/403 | APIキーが無効 → 設定を確認 |
-| 429 | レート制限 → 時間を置いて再試行 |
-| 5xx | プロバイダ障害 → 再試行 |
-| タイムアウト | ネットワーク問題 → 再試行 |
-
-## セキュリティ
-
-- ✅ APIキーはOSキーチェーン/DPAPIで暗号化保存
-- ✅ 送信前に除外パターンをチェック
-- ✅ 履歴は暗号化して保存（オプション）
-- ✅ 送信内容をUIで確認可能
-
-## 仕様書
-
-詳細な仕様書は以下を参照してください：
-- [仕様書 Phase 1](./docs/specification.md)
-
-## ロードマップ
-
-### Phase 1 ✅ 完了
-- API経由のAI処理
-- ccトリガー検出
-- 基本的なモード実装
-- 設定画面
-
-### Phase 2 🔄 計画中
-- ローカルAI（オンデバイス）への切り替え
-- 履歴管理の充実
-- 用語集機能
-- 除外アプリ設定の自動化
-
-### Phase 3 🔄 計画中
-- DB参照による仕様書ドラフト自動生成
-- チーム共有機能
-- 共同編集機能
-
-## トラブルシューティング
-
-### libsecret-1.so.0 エラー
-
-Linux環境で以下を実行してください：
-
-```bash
-sudo apt-get install libsecret-1-0
-```
-
-### X Server エラー
-
-GUI環境が必要です。WSL2やリモート環境では、X11フォワーディングを設定してください。
 
 ## ライセンス
 
-MIT
+MIT License
 
-## 作成者
+## サードパーティライセンス
 
-kkkirin
+- **llama.cpp**: MIT License
+- **LFM 2.5 1.2B JP**: LFM Open License v1.0
 
-## サポート
-
-問題が発生した場合は、GitHubのIssuesで報告してください。
+使用しているライブラリのライセンスは `THIRD_PARTY_LICENSES.txt` を参照してください。

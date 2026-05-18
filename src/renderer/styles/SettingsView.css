@@ -228,3 +228,108 @@
 .btn-secondary:hover {
   background-color: #eeeeee;
 }
+
+/* ダークモード対応 */
+.dark .settings-view {
+  background-color: #1a1a2e;
+}
+
+.dark .settings-header {
+  background-color: #16213e;
+  border-bottom-color: #0f3460;
+}
+
+.dark .settings-header h2 {
+  color: #e0e0e0;
+}
+
+.dark .close-btn {
+  color: #e0e0e0;
+}
+
+.dark .close-btn:hover {
+  background-color: #0f3460;
+}
+
+.dark .tabs {
+  background-color: #16213e;
+  border-bottom-color: #0f3460;
+}
+
+.dark .tab {
+  color: #aaa;
+}
+
+.dark .tab:hover {
+  color: #e0e0e0;
+}
+
+.dark .tab.active {
+  color: #64b5f6;
+  border-bottom-color: #64b5f6;
+}
+
+.dark .settings-group {
+  background-color: #16213e;
+}
+
+.dark .settings-group h3 {
+  color: #e0e0e0;
+}
+
+.dark .setting-item label {
+  color: #e0e0e0;
+}
+
+.dark .setting-item input[type='text'],
+.dark .setting-item input[type='password'],
+.dark .setting-item input[type='number'],
+.dark .setting-item select,
+.dark .setting-item textarea {
+  background-color: #1a1a2e;
+  border-color: #0f3460;
+  color: #e0e0e0;
+}
+
+.dark .setting-item input[type='text']:disabled,
+.dark .setting-item input[type='password']:disabled,
+.dark .setting-item input[type='number']:disabled,
+.dark .setting-item select:disabled,
+.dark .setting-item textarea:disabled {
+  background-color: #0f0f1a;
+  color: #888;
+}
+
+.dark .api-key-status {
+  background-color: #1b4332;
+  border-color: #2d6a4f;
+  color: #52b788;
+}
+
+.dark .message {
+  background-color: #1a365d;
+  color: #90cdf4;
+}
+
+.dark .settings-footer {
+  background-color: #16213e;
+  border-top-color: #0f3460;
+}
+
+.dark .btn-secondary {
+  background-color: #0f3460;
+  color: #e0e0e0;
+  border-color: #1a4a7a;
+}
+
+.dark .btn-secondary:hover {
+  background-color: #1a4a7a;
+}
+
+.dark .btn-primary {
+  background-color: #1976d2;
+}
+
+.dark .btn-primary:hover {
+  background-color: #1565c0;
+}

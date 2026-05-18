@@ -69,17 +69,6 @@ export const MODE_TEMPLATES: Record<AIMode, { systemPrompt: string; userPromptTe
     userPromptTemplate: 'Proofread and correct the following text:\n\n{inputText}',
   },
 
-  [AIMode.CODE_TECHNICAL]: {
-    systemPrompt: `You are an expert in technical documentation. Follow these rules strictly:
-- Process technical content and code carefully
-- Preserve all code blocks and syntax highlighting markers
-- Keep technical terms and variable names unchanged
-- Do not modify code or add explanations
-- Preserve all formatting and line breaks
-- Do not add information not present in the original text
-- Return only the processed text`,
-    userPromptTemplate: 'Process the following technical content:\n\n{inputText}',
-  },
 };
 
 /**

@@ -7,24 +7,28 @@ import { AIRequest, AIResponse, Language, AIMode } from '../types';
  */
 export class OpenAIProvider extends AIProvider {
   private client: AxiosInstance;
-  private apiKey: string;
+  private apiKey?: string;
   private model: string;
   private maxTokens: number;
   private endpoint: string;
 
-  constructor(apiKey: string, model: string = 'gpt-4-mini', endpoint?: string, maxTokens: number = 2000) {
+  constructor(apiKey?: string, model: string = 'gpt-4o-mini', endpoint?: string, maxTokens: number = 2000) {
     super();
-    this.apiKey = apiKey;
+    this.apiKey = apiKey?.trim();
     this.model = model;
     this.maxTokens = maxTokens;
-    this.endpoint = endpoint || 'https://api.openai.com/v1';
+    this.endpoint = this.normalizeEndpoint(endpoint || 'https://api.openai.com/v1');
+
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+    };
+    if (this.apiKey) {
+      headers.Authorization = `Bearer ${this.apiKey}`;
+    }
 
     this.client = axios.create({
       baseURL: this.endpoint,
-      headers: {
-        'Authorization': `Bearer ${this.apiKey}`,
-        'Content-Type': 'application/json',
-      },
+      headers,
       timeout: 30000,
     });
   }
@@ -85,6 +89,12 @@ export class OpenAIProvider extends AIProvider {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 401 || error.response?.status === 403) {
           throw new Error('APIキーが無効です。設定を確認してください。');
+        } else if (error.response?.status === 404) {
+          const rawMessage = (error.response.data as any)?.error?.message;
+          const detail = rawMessage ? ` (${rawMessage})` : '';
+          throw new Error(
+            `APIエンドポイントまたはモデル名が無効です。モデル例: gpt-4o-mini${detail}`
+          );
         } else if (error.response?.status === 429) {
           throw new Error('レート制限に達しました。しばらく待ってから再試行してください。');
         } else if (error.response?.status && error.response.status >= 500) {
@@ -131,5 +141,13 @@ export class OpenAIProvider extends AIProvider {
       [Language.ENGLISH]: 'English',
     };
     return names[language] || 'Unknown';
+  }
+
+  private normalizeEndpoint(endpoint: string): string {
+    let normalized = endpoint.trim();
+    normalized = normalized.replace(/\/chat\/completions\/?$/i, '');
+    normalized = normalized.replace(/\/v1\/chat\/completions\/?$/i, '/v1');
+    normalized = normalized.replace(/\/+$/g, '');
+    return normalized;
   }
 }

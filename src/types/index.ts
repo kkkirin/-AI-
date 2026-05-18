@@ -7,7 +7,6 @@ export enum AIMode {
   REPHRASE = 'rephrase',
   SUMMARIZE = 'summarize',
   PROOFREADING = 'proofreading',
-  CODE_TECHNICAL = 'code_technical',
 }
 
 /**
@@ -25,7 +24,11 @@ export enum Language {
 export enum ProviderType {
   API = 'api',
   LOCAL = 'local',
+  CLI = 'cli',
 }
+
+export type APIProviderType = 'openai' | 'azure' | 'other';
+export type CLIProviderType = 'codex' | 'claude';
 
 /**
  * APIリクエスト構造
@@ -82,17 +85,19 @@ export interface GlossaryEntry {
 export interface AppSettings {
   // ショートカット設定
   shortcut: {
-    triggerType: 'double_copy' | 'triple_copy' | 'hotkey';
-    doubleCopyThreshold: number; // ミリ秒
+    triggerType: 'hotkey' | 'double_copy';
     alternateHotkey?: string;
   };
 
   // AI実行方式
   provider: {
     type: ProviderType;
-    apiProvider: 'openai' | 'azure' | 'other';
+    apiProvider: APIProviderType;
+    cliProvider?: CLIProviderType;
     apiKey?: string;
     apiEndpoint?: string;
+    cliCommand?: string;
+    localServerPort?: number;
     model: string;
     maxTokensPerRequest: number;
     dailyTokenLimit: number;
@@ -127,6 +132,7 @@ export interface AppSettings {
     theme: 'light' | 'dark';
     fontSize: number;
     fontFamily: string;
+    closeAction: 'minimize_to_tray' | 'confirm' | 'quit';
   };
 }
 
@@ -137,6 +143,7 @@ export interface ClipboardEvent {
   text: string;
   timestamp: number;
   count: number; // コピー回数
+  mode?: AIMode; // オプション: AIモード
 }
 
 /**

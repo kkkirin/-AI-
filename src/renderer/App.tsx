@@ -1,73 +1,121 @@
 import React, { useState, useEffect } from 'react';
 
-import { AIMode, Language, ClipboardEvent } from '../types';
+import { AIMode, Language, ClipboardEvent, ProviderType } from '../types';
 import MainView from './components/MainView';
 import SettingsView from './components/SettingsView';
-import { ToastContainer, Notification } from './components/Toast';
+import SetupView from './components/SetupView';
 import './App.css';
 
-type ViewType = 'main' | 'settings';
+type ViewType = 'main' | 'settings' | 'setup';
 
 export default function App() {
-  const [currentView, setCurrentView] = useState<ViewType>('main');
+  const [currentView, setCurrentView] = useState<ViewType | null>(null);
   const [inputText, setInputText] = useState('');
   const [outputText, setOutputText] = useState('');
   const [mode, setMode] = useState<AIMode>(AIMode.TRANSLATE);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const isElectronRuntime = Boolean(window.electronAPI);
 
-  // ccトリガーをリッスン
+  // 初回セットアップのチェック
   useEffect(() => {
-    window.electronAPI.onCCTriggered((event: ClipboardEvent) => {
+    if (!isElectronRuntime) {
+      return undefined;
+    }
+
+    const checkSetup = async () => {
+      try {
+        const settings = await window.electronAPI.getSettings();
+        if (settings.provider.type !== ProviderType.LOCAL) {
+          setCurrentView('main');
+          return;
+        }
+
+        // モデルがダウンロード済みか確認
+        const modelResult = await window.electronAPI.checkModel();
+        if (!modelResult.success || !modelResult.hasModel) {
+          setCurrentView('setup');
+          return;
+        }
+
+        // llama-serverが起動しているか確認、起動していなければ起動
+        const connection = await window.electronAPI.checkLocalAIConnection();
+        if (!connection.connected) {
+          // サーバー起動を試みる
+          await window.electronAPI.startServer();
+        }
+
+        setCurrentView('main');
+      } catch (error) {
+        // エラー時はセットアップ画面を表示
+        setCurrentView('setup');
+      }
+    };
+
+    checkSetup();
+  }, [isElectronRuntime]);
+
+  // ホットキートリガーをリッスン
+  useEffect(() => {
+    if (!isElectronRuntime) {
+      return undefined;
+    }
+
+    const handleCCTriggered = async (event: ClipboardEvent) => {
       setInputText(event.text);
       setError('');
       setOutputText('');
-      // cc検出の通知
-      addNotification('info', 'cc検出', 'クリップボードから取得しました', 2000);
-    });
+      setSuccessMessage('');
+      
+      // 自動生成を実行
+      if (event.text && event.text.trim().length > 0) {
+        // モードが指定されている場合は設定
+        if (event.mode) {
+          setMode(event.mode);
+        }
+        
+        // 少し待ってから自動生成
+        setTimeout(async () => {
+          setIsLoading(true);
+          setError('');
+          setOutputText('');
+          setSuccessMessage('');
 
-    // クリップボード監視を開始
-    window.electronAPI.startClipboardMonitor(500);
+          try {
+            const response = await window.electronAPI.generateAI({
+              inputText: event.text,
+              mode: event.mode || mode,
+              inputLanguage: Language.AUTO,
+              outputLanguage: Language.AUTO,
+            });
 
-    return () => {
-      window.electronAPI.stopClipboardMonitor();
+            if ('error' in response) {
+              setError(response.error);
+            } else {
+              setOutputText(response.outputText);
+
+              // 自動コピー設定を確認
+              const settings = await window.electronAPI.getSettings();
+              if (settings.output.autoClipboard) {
+                await window.electronAPI.writeClipboard(response.outputText);
+                setSuccessMessage('📋 クリップボードにコピーしました');
+                setTimeout(() => setSuccessMessage(''), 3000);
+              }
+            }
+          } catch (err: any) {
+            const errorMessage = err.message || 'エラーが発生しました';
+            setError(errorMessage);
+          } finally {
+            setIsLoading(false);
+          }
+        }, 300);
+      }
     };
-  }, []);
 
-  /**
-   * 通知を追加
-   */
-  const addNotification = (
-    type: 'info' | 'success' | 'warning' | 'error',
-    title: string,
-    message: string,
-    duration: number = 3000
-  ) => {
-    const id = `notification-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-    const notification: Notification = {
-      id,
-      type,
-      title,
-      message,
-      duration,
-      timestamp: Date.now(),
-    };
-    setNotifications((prev) => [...prev, notification]);
-    if (duration > 0) {
-      setTimeout(() => {
-        removeNotification(id);
-      }, duration);
-    }
-  };
-
-  /**
-   * 通知を削除
-   */
-  const removeNotification = (id: string) => {
-    setNotifications((prev) => prev.filter((n) => n.id !== id));
-  };
+    const cleanup = window.electronAPI.onCCTriggered(handleCCTriggered);
+    return cleanup;
+  }, [isElectronRuntime, mode]);
 
   /**
    * AI生成を実行
@@ -76,14 +124,13 @@ export default function App() {
     if (e) e.preventDefault();
     if (!inputText.trim()) {
       setError('入力テキストが空です');
-      addNotification('error', 'エラー', '入力テキストが空です');
       return;
     }
 
     setIsLoading(true);
     setError('');
     setOutputText('');
-    addNotification('info', '処理中', 'AIに送信中...');
+    setSuccessMessage('');
 
     try {
       const response = await window.electronAPI.generateAI({
@@ -95,24 +142,21 @@ export default function App() {
 
       if ('error' in response) {
         setError(response.error);
-        addNotification('error', 'エラー', response.error);
       } else {
         setOutputText(response.outputText);
-        setSuccessMessage('生成完了');
-        addNotification('success', '完了', '処理が完了しました');
-        setTimeout(() => setSuccessMessage(''), 3000);
-
         // 自動コピー設定を確認
         const settings = await window.electronAPI.getSettings();
         if (settings.output.autoClipboard) {
           await window.electronAPI.writeClipboard(response.outputText);
-          addNotification('success', 'コピー完了', 'クリップボードにコピーしました');
+          setSuccessMessage('📋 クリップボードにコピーしました');
+        } else {
+          setSuccessMessage('生成完了');
         }
+        setTimeout(() => setSuccessMessage(''), 3000);
       }
     } catch (err: any) {
       const errorMessage = err.message || 'エラーが発生しました';
       setError(errorMessage);
-      addNotification('error', 'エラー', errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -126,8 +170,23 @@ export default function App() {
     if (outputText) {
       await window.electronAPI.writeClipboard(outputText);
       setSuccessMessage('クリップボードにコピーしました');
-      addNotification('success', 'コピー完了', 'クリップボードにコピーしました');
       setTimeout(() => setSuccessMessage(''), 2000);
+    }
+  };
+
+  /**
+   * 入力変更時は生成済み結果を破棄して、表示内容の対応関係を保つ
+   */
+  const handleInputChange = (text: string) => {
+    setInputText(text);
+    if (outputText) {
+      setOutputText('');
+    }
+    if (successMessage) {
+      setSuccessMessage('');
+    }
+    if (error) {
+      setError('');
     }
   };
 
@@ -147,10 +206,37 @@ export default function App() {
     setCurrentView('main');
   };
 
+  const handleSetupComplete = () => {
+    setCurrentView('main');
+  };
+
+  if (!isElectronRuntime) {
+    return (
+      <div className="app dark" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px', textAlign: 'center' }}>
+        <div>
+          <h1 style={{ margin: '0 0 12px' }}>QuickText</h1>
+          <p style={{ margin: 0, color: '#888' }}>
+            このHTMLはElectronアプリ用です。プロジェクトルートで npm start を実行してください。
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // 初期化中は何も表示しない
+  if (currentView === null) {
+    return (
+      <div className="app dark" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <p style={{ color: '#888' }}>読み込み中...</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="app">
-      <ToastContainer notifications={notifications} onClose={removeNotification} />
-      {currentView === 'main' ? (
+    <div className="app dark">
+      {currentView === 'setup' ? (
+        <SetupView onComplete={handleSetupComplete} />
+      ) : currentView === 'main' ? (
         <MainView
           inputText={inputText}
           outputText={outputText}
@@ -158,7 +244,7 @@ export default function App() {
           isLoading={isLoading}
           error={error}
           successMessage={successMessage}
-          onInputChange={setInputText}
+          onInputChange={handleInputChange}
           onModeChange={setMode}
           onGenerate={handleGenerate}
           onCopyOutput={handleCopyOutput}

@@ -1,0 +1,36 @@
+LFM Open License v1.0
+
+TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+1. Definitions.
+"License" shall mean the terms and conditions for use, reproduction, and distribution as defined by this document.
+"Licensor" shall mean Liquid AI, Inc.
+"Legal Entity" shall mean the union of the acting entity and all other entities that control, are controlled by, or are under common control with that entity.
+"You" (or "Your") shall mean an individual or Legal Entity exercising permissions granted by this License.
+"Work" shall mean the work of authorship, whether in Source or Object form, made available under the License.
+"Derivative Works" shall mean any work that is based on (or derived from) the Work.
+"Commercial Use" shall mean any use of the Work for direct or indirect commercial advantage or monetary compensation.
+"Threshold" shall mean annual revenue of 10 million United States dollars ($10,000,000) or more.
+
+2. Grant of Copyright License. Subject to the terms and conditions of this License, including the Commercial Use limitation set forth in Section 5, each Contributor hereby grants to You a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable copyright license to reproduce, prepare Derivative Works of, publicly display, publicly perform, sublicense, and distribute the Work and such Derivative Works in Source or Object form.
+
+3. Grant of Patent License. Subject to the terms and conditions of this License, each Contributor hereby grants to You a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable patent license to make, have made, use, offer to sell, sell, import, and otherwise transfer the Work.
+
+4. Redistribution. You may reproduce and distribute copies of the Work or Derivative Works thereof provided that You meet the following conditions:
+(a) You must give any other recipients a copy of this License; and
+(b) You must cause any modified files to carry prominent notices stating that You changed the files; and
+(c) You must retain all copyright, patent, trademark, and attribution notices from the Source form of the Work.
+
+5. Commercial Use Limitation.
+(a) The rights granted under this License for Commercial Use are conditioned upon You or Your Legal Entity not exceeding the Threshold.
+(b) Any Commercial Use by a Legal Entity that exceeds the Threshold is not licensed under this Agreement.
+
+8. Disclaimer of Warranty. Licensor provides the Work on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND.
+
+9. Limitation of Liability. In no event shall any Contributor be liable to You for damages arising as a result of this License or out of the use or inability to use the Work.
+
+11. Termination. This License will terminate automatically and immediately if You fail to comply with any of its terms and conditions.
+
+END OF TERMS AND CONDITIONS
+
+Full license text: https://huggingface.co/LiquidAI/LFM2.5-1.2B-JP-GGUF/blob/main/LICENSE

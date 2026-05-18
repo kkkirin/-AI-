@@ -3,7 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>cc-AI</title>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' http://127.0.0.1:*; object-src 'none'; base-uri 'self'"
+    />
+    <title>QuickText</title>
     <style>
       html,
       body {
@@ -20,6 +24,28 @@
     </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div
+        style="
+          box-sizing: border-box;
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 24px;
+          background: #111827;
+          color: #e5e7eb;
+          font-family: system-ui, -apple-system, sans-serif;
+          text-align: center;
+        "
+      >
+        <div>
+          <h1 style="margin: 0 0 12px; font-size: 24px;">QuickText</h1>
+          <p style="margin: 0; color: #9ca3af;">
+            このHTMLはElectronアプリ用です。プロジェクトルートで npm start を実行してください。
+          </p>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
