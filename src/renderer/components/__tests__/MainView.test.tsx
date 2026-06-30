@@ -12,6 +12,7 @@ describe('MainView', () => {
     error: '',
     successMessage: '',
     onInputChange: jest.fn(),
+    onOutputChange: jest.fn(),
     onModeChange: jest.fn(),
     onGenerate: jest.fn(),
     onCopyOutput: jest.fn(),
@@ -72,23 +73,29 @@ describe('MainView', () => {
     expect(onGenerate).toHaveBeenCalledTimes(1);
   });
 
-  it('toggles the source input preview after output is generated', () => {
+  it('keeps both input and output editable after output is generated', () => {
     const sourceText = 'original source text';
+    const onInputChange = jest.fn();
+    const onOutputChange = jest.fn();
 
     render(
       <MainView
         {...defaultProps}
         inputText={sourceText}
         outputText="generated result"
+        onInputChange={onInputChange}
+        onOutputChange={onOutputChange}
       />
     );
 
-    expect(screen.queryByText(sourceText)).not.toBeInTheDocument();
+    const input = screen.getByLabelText('入力');
+    const output = screen.getByLabelText('出力');
+    expect(input).toHaveValue(sourceText);
+    expect(output).toHaveValue('generated result');
 
-    fireEvent.click(screen.getByRole('button', { name: /入力/ }));
-    expect(screen.getByText(sourceText)).toBeInTheDocument();
-
-    fireEvent.click(screen.getByRole('button', { name: /入力/ }));
-    expect(screen.queryByText(sourceText)).not.toBeInTheDocument();
+    fireEvent.change(input, { target: { value: 'edited source' } });
+    fireEvent.change(output, { target: { value: 'edited result' } });
+    expect(onInputChange).toHaveBeenCalledWith('edited source');
+    expect(onOutputChange).toHaveBeenCalledWith('edited result');
   });
 });

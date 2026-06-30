@@ -175,13 +175,23 @@ export default function App() {
   };
 
   /**
-   * 入力変更時は生成済み結果を破棄して、表示内容の対応関係を保つ
+   * 入力変更
    */
   const handleInputChange = (text: string) => {
     setInputText(text);
-    if (outputText) {
-      setOutputText('');
+    if (successMessage) {
+      setSuccessMessage('');
     }
+    if (error) {
+      setError('');
+    }
+  };
+
+  /**
+   * 出力変更
+   */
+  const handleOutputChange = (text: string) => {
+    setOutputText(text);
     if (successMessage) {
       setSuccessMessage('');
     }
@@ -245,6 +255,7 @@ export default function App() {
           error={error}
           successMessage={successMessage}
           onInputChange={handleInputChange}
+          onOutputChange={handleOutputChange}
           onModeChange={setMode}
           onGenerate={handleGenerate}
           onCopyOutput={handleCopyOutput}

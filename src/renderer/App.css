@@ -47,7 +47,6 @@ body {
 .app.dark .workspace,
 .app.dark .input-section,
 .app.dark .output-section,
-.app.dark .input-preview,
 .app.dark .button-group,
 .app.dark .footer,
 .app.dark .settings-footer,
@@ -64,7 +63,6 @@ body {
 .app.dark .input-section label,
 .app.dark .output-section label,
 .app.dark .section-header label,
-.app.dark .preview-toggle,
 .app.dark .setting-item label {
   color: var(--text-primary);
 }
@@ -85,28 +83,14 @@ body {
   background-color: var(--bg-tertiary);
 }
 
-.app.dark .section-meta,
-.app.dark .preview-toggle-meta {
+.app.dark .section-meta {
   color: var(--text-secondary);
 }
 
-.app.dark .preview-toggle:hover {
-  background-color: var(--bg-tertiary);
-}
-
-.app.dark .input-preview-body {
-  color: var(--text-secondary);
-}
-
-.app.dark .output-reader,
 .app.dark .output-state {
   background-color: var(--bg-tertiary);
   color: var(--text-primary);
   border-color: var(--border-color);
-}
-
-.app.dark .output-state.muted {
-  color: var(--text-secondary);
 }
 
 .app.dark .btn-secondary {

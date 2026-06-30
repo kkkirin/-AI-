@@ -26,10 +26,11 @@ export class OpenAIProvider extends AIProvider {
       headers.Authorization = `Bearer ${this.apiKey}`;
     }
 
+    const isLocalEndpoint = /^https?:\/\/(localhost|127\.0\.0\.1|\[::1\])(:\d+)?(\/|$)/i.test(this.endpoint);
     this.client = axios.create({
       baseURL: this.endpoint,
       headers,
-      timeout: 30000,
+      timeout: isLocalEndpoint ? 120000 : 30000,
     });
   }
 
