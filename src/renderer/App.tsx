@@ -5,6 +5,7 @@ import type { LocalAIStatus } from '../preload';
 import MainView from './components/MainView';
 import SettingsView from './components/SettingsView';
 import SetupView from './components/SetupView';
+import AccessibilityBanner from './components/AccessibilityBanner';
 import './App.css';
 
 type ViewType = 'main' | 'settings' | 'setup';
@@ -18,6 +19,7 @@ export default function App() {
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [aiStatus, setAIStatus] = useState<LocalAIStatus | undefined>(undefined);
+  const [needsAccessibility, setNeedsAccessibility] = useState(false);
   const isElectronRuntime = Boolean(window.electronAPI);
 
   // 初回セットアップのチェック
@@ -61,6 +63,27 @@ export default function App() {
       .catch(() => undefined);
 
     return window.electronAPI.onLocalAIStatusChanged(setAIStatus);
+  }, [isElectronRuntime]);
+
+  useEffect(() => {
+    if (!isElectronRuntime) {
+      return undefined;
+    }
+
+    const checkAccessibility = async () => {
+      try {
+        const settings = await window.electronAPI.getSettings();
+        if (settings.shortcut.triggerType === 'double_copy') {
+          const granted = await window.electronAPI.checkAccessibility();
+          setNeedsAccessibility(!granted);
+        }
+      } catch {}
+    };
+
+    checkAccessibility();
+    return window.electronAPI.onAccessibilityStatus(({ granted }) => {
+      setNeedsAccessibility(!granted);
+    });
   }, [isElectronRuntime]);
 
   // ホットキートリガーをリッスン
@@ -243,6 +266,14 @@ export default function App() {
     setCurrentView('main');
   };
 
+  const handleGrantAccessibility = async () => {
+    try {
+      await window.electronAPI.requestAccessibility();
+      const granted = await window.electronAPI.reapplyTriggers();
+      setNeedsAccessibility(!granted);
+    } catch {}
+  };
+
   if (!isElectronRuntime) {
     return (
       <div className="app dark" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px', textAlign: 'center' }}>
@@ -270,21 +301,24 @@ export default function App() {
       {currentView === 'setup' ? (
         <SetupView onComplete={handleSetupComplete} />
       ) : currentView === 'main' ? (
-        <MainView
-          inputText={inputText}
-          outputText={outputText}
-          mode={mode}
-          isLoading={isLoading}
-          error={error}
-          successMessage={successMessage}
-          status={aiStatus}
-          onInputChange={handleInputChange}
-          onOutputChange={handleOutputChange}
-          onModeChange={setMode}
-          onGenerate={handleGenerate}
-          onCopyOutput={handleCopyOutput}
-          onOpenSettings={handleOpenSettings}
-        />
+        <div className="main-with-accessibility">
+          {needsAccessibility && <AccessibilityBanner onGrant={handleGrantAccessibility} />}
+          <MainView
+            inputText={inputText}
+            outputText={outputText}
+            mode={mode}
+            isLoading={isLoading}
+            error={error}
+            successMessage={successMessage}
+            status={aiStatus}
+            onInputChange={handleInputChange}
+            onOutputChange={handleOutputChange}
+            onModeChange={setMode}
+            onGenerate={handleGenerate}
+            onCopyOutput={handleCopyOutput}
+            onOpenSettings={handleOpenSettings}
+          />
+        </div>
       ) : (
         <SettingsView onClose={handleCloseSettings} />
       )}

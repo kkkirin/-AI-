@@ -968,6 +968,14 @@ function setupIPCHandlers(): void {
   ipcMain.handle('permissions:request-accessibility', () =>
     process.platform !== 'darwin' ? true : systemPreferences.isTrustedAccessibilityClient(true),
   );
+  ipcMain.handle('permissions:reapply-triggers', () => {
+    try {
+      setupTriggers();
+    } catch (e) {
+      console.error('reapply-triggers error:', e);
+    }
+    return process.platform !== 'darwin' ? true : systemPreferences.isTrustedAccessibilityClient(false);
+  });
 
   // AI生成リクエスト
     ipcMain.handle('ai:generate', async (event, request: AIRequest) => {

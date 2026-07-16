@@ -95,6 +95,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   // アクセシビリティ権限
   checkAccessibility: () => ipcRenderer.invoke('permissions:check-accessibility'),
   requestAccessibility: () => ipcRenderer.invoke('permissions:request-accessibility'),
+  reapplyTriggers: () => ipcRenderer.invoke('permissions:reapply-triggers'),
   onAccessibilityStatus: (callback: (status: { granted: boolean }) => void) => {
     const handler = (_event: Electron.IpcRendererEvent, status: { granted: boolean }) => callback(status);
     ipcRenderer.on('permissions:accessibility-status', handler);
@@ -147,6 +148,7 @@ declare global {
       onDownloadProgress: (callback: (data: { model: string; message: string; downloaded?: number; total?: number }) => void) => void;
       checkAccessibility: () => Promise<boolean>;
       requestAccessibility: () => Promise<boolean>;
+      reapplyTriggers: () => Promise<boolean>;
       onAccessibilityStatus: (callback: (status: { granted: boolean }) => void) => (() => void);
       isSetupCompleted: () => Promise<boolean>;
       setSetupCompleted: () => Promise<{ success: boolean }>;
