@@ -3,6 +3,8 @@ import { AIMode } from '../../types';
 import type { LocalAIStatus } from '../../preload';
 import '../styles/MainView.css';
 
+type TranslateDirection = 'auto' | 'ja2en' | 'en2ja';
+
 interface MainViewProps {
   inputText: string;
   outputText: string;
@@ -11,9 +13,11 @@ interface MainViewProps {
   error: string;
   successMessage: string;
   status?: LocalAIStatus;
+  translateDirection?: TranslateDirection;
   onInputChange: (text: string) => void;
   onOutputChange: (text: string) => void;
   onModeChange: (mode: AIMode) => void;
+  onTranslateDirectionChange?: (direction: TranslateDirection) => void;
   onGenerate: () => void;
   onCopyOutput: () => void;
   onOpenSettings: () => void;
@@ -27,9 +31,11 @@ export default function MainView({
   error,
   successMessage,
   status,
+  translateDirection,
   onInputChange,
   onOutputChange,
   onModeChange,
+  onTranslateDirectionChange,
   onGenerate,
   onCopyOutput,
   onOpenSettings,
@@ -53,6 +59,10 @@ export default function MainView({
   const hasInput = inputText.trim().length > 0;
   const hasOutput = outputText.trim().length > 0;
   const isResultView = hasOutput && !isLoading;
+  const activeTranslateDirection: TranslateDirection =
+    translateDirection === 'ja2en' || translateDirection === 'en2ja'
+      ? translateDirection
+      : 'auto';
   const isLocalNotReady = status?.providerType === 'local' && status.ready === false;
   const providerLabel = status?.providerType === 'local'
     ? 'ローカル'
@@ -104,6 +114,26 @@ export default function MainView({
           ))}
         </select>
         <div className="mode-description">{modeDescriptions[mode]}</div>
+        {mode === AIMode.TRANSLATE && (
+          <div className="translate-direction" role="group" aria-label="翻訳方向">
+            {([
+              ['auto', '自動'],
+              ['ja2en', '日本語→英語'],
+              ['en2ja', '英語→日本語'],
+            ] as const).map(([direction, label]) => (
+              <button
+                key={direction}
+                type="button"
+                className={activeTranslateDirection === direction ? 'active' : ''}
+                onClick={() => onTranslateDirectionChange?.(direction)}
+                disabled={isLoading}
+                aria-pressed={activeTranslateDirection === direction}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       <div className={`workspace ${isResultView ? 'has-result' : 'is-editing'}`}>

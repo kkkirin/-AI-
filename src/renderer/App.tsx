@@ -9,18 +9,30 @@ import AccessibilityBanner from './components/AccessibilityBanner';
 import './App.css';
 
 type ViewType = 'main' | 'settings' | 'setup';
+type TranslateDirection = 'auto' | 'ja2en' | 'en2ja';
+
+const DIRECTION_LANGS: Record<TranslateDirection, { input: Language; output: Language }> = {
+  auto: { input: Language.AUTO, output: Language.AUTO },
+  ja2en: { input: Language.JAPANESE, output: Language.ENGLISH },
+  en2ja: { input: Language.ENGLISH, output: Language.JAPANESE },
+};
 
 export default function App() {
   const [currentView, setCurrentView] = useState<ViewType | null>(null);
   const [inputText, setInputText] = useState('');
   const [outputText, setOutputText] = useState('');
   const [mode, setMode] = useState<AIMode>(AIMode.TRANSLATE);
+  const [translateDirection, setTranslateDirection] = useState<TranslateDirection>('auto');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [aiStatus, setAIStatus] = useState<LocalAIStatus | undefined>(undefined);
   const [needsAccessibility, setNeedsAccessibility] = useState(false);
   const isElectronRuntime = Boolean(window.electronAPI);
+  const resolveLangs = (requestMode: AIMode) => {
+    const directionLangs = DIRECTION_LANGS[translateDirection] || DIRECTION_LANGS.auto;
+    return requestMode === AIMode.TRANSLATE ? directionLangs : DIRECTION_LANGS.auto;
+  };
 
   // 初回セットアップのチェック
   useEffect(() => {
@@ -118,12 +130,14 @@ export default function App() {
           setSuccessMessage('');
 
           try {
+          const requestMode = event.mode || mode;
+          const requestLangs = resolveLangs(requestMode);
           const response = await window.electronAPI.generateAIStream(
             {
               inputText: event.text,
-              mode: event.mode || mode,
-              inputLanguage: Language.AUTO,
-              outputLanguage: Language.AUTO,
+              mode: requestMode,
+              inputLanguage: requestLangs.input,
+              outputLanguage: requestLangs.output,
             },
             (token: string) => setOutputText((prev) => prev + token)
           );
@@ -154,7 +168,7 @@ export default function App() {
     const cleanup = window.electronAPI.onCCTriggered(handleCCTriggered);
     window.electronAPI.notifyRendererReady();
     return cleanup;
-  }, [aiStatus, isElectronRuntime, mode]);
+  }, [aiStatus, isElectronRuntime, mode, translateDirection]);
 
   /**
    * AI生成を実行
@@ -176,12 +190,13 @@ export default function App() {
     setSuccessMessage('');
 
     try {
+      const requestLangs = resolveLangs(mode);
       const response = await window.electronAPI.generateAIStream(
         {
           inputText,
           mode,
-          inputLanguage: Language.AUTO,
-          outputLanguage: Language.AUTO,
+          inputLanguage: requestLangs.input,
+          outputLanguage: requestLangs.output,
         },
         (token: string) => setOutputText((prev) => prev + token)
       );
@@ -307,6 +322,7 @@ export default function App() {
             inputText={inputText}
             outputText={outputText}
             mode={mode}
+            translateDirection={translateDirection}
             isLoading={isLoading}
             error={error}
             successMessage={successMessage}
@@ -314,6 +330,7 @@ export default function App() {
             onInputChange={handleInputChange}
             onOutputChange={handleOutputChange}
             onModeChange={setMode}
+            onTranslateDirectionChange={setTranslateDirection}
             onGenerate={handleGenerate}
             onCopyOutput={handleCopyOutput}
             onOpenSettings={handleOpenSettings}
