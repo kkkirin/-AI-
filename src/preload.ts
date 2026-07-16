@@ -63,6 +63,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
     ipcRenderer.on('clipboard:cc-triggered', handler);
     return () => { ipcRenderer.removeListener('clipboard:cc-triggered', handler); };
   },
+  notifyRendererReady: () => ipcRenderer.send('renderer:ready'),
 
   onNotificationReceived: (callback: (notification: Notification) => void) => {
     ipcRenderer.on('notification:received', (event, notification) => callback(notification));
@@ -129,6 +130,7 @@ declare global {
       writeClipboard: (text: string) => Promise<void>;
       showNotification: (notification: Notification) => Promise<void>;
       onCCTriggered: (callback: (event: ClipboardEvent) => void) => (() => void);
+      notifyRendererReady: () => void;
       onNotificationReceived: (callback: (notification: Notification) => void) => void;
       toggleWindow: () => Promise<void>;
       closeWindow: () => Promise<void>;

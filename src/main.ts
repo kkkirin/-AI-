@@ -32,6 +32,8 @@ let currentShortcutHandler: (() => void) | null = null;
 let isQuitting = false;
 let forceQuit = false;
 let isShowingWindow = false;
+let rendererReady = false;
+let pendingCC: { text: string; mode?: AIMode } | null = null;
 
 
 function getDefaultHotkey(): string {
@@ -118,6 +120,10 @@ function createWindow(): void {
   // ローカルファイルから読み込み（開発サーバーを使わない）
   const startUrl = `file://${path.join(__dirname, 'index.html')}`;
   mainWindow.loadURL(startUrl);
+  rendererReady = false;
+  mainWindow.webContents.on('did-start-loading', () => {
+    rendererReady = false;
+  });
 
   // デバッグモード
   if (isDev_check) {
@@ -143,6 +149,31 @@ function createWindow(): void {
   mainWindow.once('ready-to-show', () => {
     mainWindow?.show();
   });
+}
+
+function dispatchCCTrigger(text: string, mode?: AIMode): void {
+  if (!mainWindow || mainWindow.isDestroyed()) {
+    createWindow();
+  }
+
+  showWindow();
+
+  const alive =
+    mainWindow &&
+    !mainWindow.isDestroyed() &&
+    mainWindow.webContents &&
+    !mainWindow.webContents.isDestroyed();
+
+  if (rendererReady && alive && mainWindow) {
+    mainWindow.webContents.send('clipboard:cc-triggered', {
+      text,
+      timestamp: Date.now(),
+      count: mode ? 2 : 1,
+      mode,
+    });
+  } else {
+    pendingCC = { text, mode };
+  }
 }
 
 /**
@@ -316,24 +347,7 @@ async function triggerClipboardAI(mode?: AIMode): Promise<void> {
  * クリップボードイベントを送信して自動生成を実行
  */
 async function sendClipboardEventAndAutoGenerate(text: string, mode?: AIMode): Promise<void> {
-  if (mainWindow && !mainWindow.isDestroyed()) {
-    showWindow();
-
-    // テキストを設定
-    mainWindow.webContents.send('clipboard:cc-triggered', {
-      text: text,
-      timestamp: Date.now(),
-      count: 2,
-      mode: mode,
-    });
-
-    // 自動生成を実行
-    setTimeout(() => {
-      mainWindow?.webContents.send('ai:auto-generate', {
-        mode: mode,
-      });
-    }, 300);
-  }
+  dispatchCCTrigger(text, mode);
 }
 
 /**
@@ -443,46 +457,7 @@ const onDoubleCopyTrigger = (): void => {
  */
 function openAppWithText(text: string): void {
   console.log('アプリを開いてテキストを挿入:', text.substring(0, 50));
-  
-  // アプリを開く/フォーカス
-  if (!mainWindow || mainWindow.isDestroyed()) {
-    createWindow();
-    // ウィンドウが準備できるまで待つ
-    setTimeout(() => {
-      if (mainWindow && !mainWindow.isDestroyed()) {
-        // webContentsが準備できているか確認
-        if (mainWindow.webContents && !mainWindow.webContents.isDestroyed()) {
-          mainWindow.webContents.send('clipboard:cc-triggered', {
-            text: text,
-            timestamp: Date.now(),
-            count: 1,
-          });
-        } else {
-          // もう少し待つ
-          setTimeout(() => {
-            if (mainWindow && !mainWindow.isDestroyed() && mainWindow.webContents && !mainWindow.webContents.isDestroyed()) {
-              mainWindow.webContents.send('clipboard:cc-triggered', {
-                text: text,
-                timestamp: Date.now(),
-                count: 1,
-              });
-            }
-          }, 300);
-        }
-      }
-    }, 300);
-  } else {
-    showWindow();
-
-    // 入力欄に挿入
-    if (mainWindow.webContents && !mainWindow.webContents.isDestroyed()) {
-      mainWindow.webContents.send('clipboard:cc-triggered', {
-        text: text,
-        timestamp: Date.now(),
-        count: 1,
-      });
-    }
-  }
+  dispatchCCTrigger(text);
 }
 
 /**
@@ -968,6 +943,25 @@ async function warmupLocalAI(): Promise<void> {
  * IPC ハンドラーをセットアップ
  */
 function setupIPCHandlers(): void {
+  ipcMain.on('renderer:ready', () => {
+    rendererReady = true;
+    if (
+      pendingCC &&
+      mainWindow &&
+      !mainWindow.isDestroyed() &&
+      !mainWindow.webContents.isDestroyed()
+    ) {
+      const { text, mode } = pendingCC;
+      pendingCC = null;
+      mainWindow.webContents.send('clipboard:cc-triggered', {
+        text,
+        timestamp: Date.now(),
+        count: mode ? 2 : 1,
+        mode,
+      });
+    }
+  });
+
   ipcMain.handle('permissions:check-accessibility', () =>
     process.platform !== 'darwin' ? true : systemPreferences.isTrustedAccessibilityClient(false),
   );

@@ -59,6 +59,7 @@ const electronAPI = {
   writeClipboard: jest.fn().mockResolvedValue(undefined),
   showNotification: jest.fn().mockResolvedValue(undefined),
   onCCTriggered: jest.fn(),
+  notifyRendererReady: jest.fn(),
   onNotificationReceived: jest.fn(),
   toggleWindow: jest.fn().mockResolvedValue(undefined),
   closeWindow: jest.fn().mockResolvedValue(undefined),

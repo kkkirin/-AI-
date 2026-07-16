@@ -129,6 +129,7 @@ export default function App() {
     };
 
     const cleanup = window.electronAPI.onCCTriggered(handleCCTriggered);
+    window.electronAPI.notifyRendererReady();
     return cleanup;
   }, [aiStatus, isElectronRuntime, mode]);
 
