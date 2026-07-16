@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu, ipcMain, Tray, nativeImage, clipboard, globalShortcut, shell, dialog } from 'electron';
+import { app, BrowserWindow, Menu, ipcMain, Tray, nativeImage, clipboard, globalShortcut, shell, dialog, systemPreferences } from 'electron';
 import * as path from 'path';
 import { exec, spawn, ChildProcess } from 'child_process';
 import isDev from 'electron-is-dev';
@@ -8,6 +8,7 @@ import { LocalAIProvider } from './services/LocalAIProvider';
 import { OpenAIProvider } from './services/OpenAIProvider';
 import { CLIProvider } from './services/CLIProvider';
 import { getLlamaServerManager } from './services/LlamaServerManager';
+import { getKeyboardTriggerMonitor } from './services/KeyboardTriggerMonitor';
 import { getModelManager, DEFAULT_MODELS } from './services/ModelManager';
 import { AIProvider } from './services/AIProvider';
 import { AIRequest, Language, AIMode, ProviderType } from './types';
@@ -32,14 +33,6 @@ let isQuitting = false;
 let forceQuit = false;
 let isShowingWindow = false;
 
-const DOUBLE_COPY_INTERVAL_MS = 350;
-const COPY_SIMULATION_DELAY_MS = 100;
-let lastCopyTimestamp = 0;
-let lastCopyText = '';
-let waitingForSecondCopy = false;
-let secondCopyTimer: ReturnType<typeof setTimeout> | null = null;
-let lastClipboardContent = '';
-let clipboardPollTimer: ReturnType<typeof setInterval> | null = null;
 
 function getDefaultHotkey(): string {
   return process.platform === 'darwin' ? 'Command+Shift+V' : 'Ctrl+Shift+V';
@@ -352,7 +345,7 @@ async function simulateCopyAndReadClipboard(): Promise<{ text: string; success: 
       setTimeout(() => {
         const text = clipboard.readText();
         resolve({ text, success });
-      }, COPY_SIMULATION_DELAY_MS);
+      }, 100);
     };
 
     if (process.platform === 'darwin') {
@@ -436,132 +429,14 @@ function isTextOnlyClipboard(): boolean {
   }
 }
 
-/** クリップボードの全テキスト系データを保存 */
-interface ClipboardSnapshot {
-  text: string;
-  html: string;
-  rtf: string;
-  image: Electron.NativeImage;
-}
+const onDoubleCopyTrigger = (): void => {
+  if (!isTextOnlyClipboard()) return;
 
-function saveClipboardSnapshot(): ClipboardSnapshot {
-  return {
-    text: clipboard.readText() || '',
-    html: clipboard.readHTML() || '',
-    rtf: clipboard.readRTF() || '',
-    image: clipboard.readImage(),
-  };
-}
-
-/** 保存したクリップボードデータを復元（テキスト＋HTML＋RTF＋画像） */
-function restoreClipboardSnapshot(snapshot: ClipboardSnapshot): void {
-  const writeData: Electron.Data = {};
-  if (snapshot.text) writeData.text = snapshot.text;
-  if (snapshot.html) writeData.html = snapshot.html;
-  if (snapshot.rtf) writeData.rtf = snapshot.rtf;
-  if (snapshot.image && !snapshot.image.isEmpty()) writeData.image = snapshot.image;
-  clipboard.write(writeData);
-}
-
-/**
- * Cmd+C を2回でアプリを起動（DeepL風）
- * クリップボードの変更を監視してトリガーする
- *
- * 安全策:
- * - テキストのみのクリップボードだけダブルコピー検出を行う
- * - ファイル・画像などテキスト以外が含まれる場合は一切触れない
- * - 復元時はテキスト＋HTML＋RTF＋画像をまとめて書き戻す
- */
-let savedClipboardSnapshot: ClipboardSnapshot | null = null;
-
-function startDoubleCopyMonitor(): void {
-  if (clipboardPollTimer) {
-    return;
+  const text = clipboard.readText();
+  if (text && text.trim().length > 0) {
+    openAppWithText(text);
   }
-
-  // 起動時のクリップボード内容を記憶
-  lastClipboardContent = clipboard.readText() || '';
-
-  clipboardPollTimer = setInterval(() => {
-    const currentText = clipboard.readText() || '';
-
-    // クリップボード内容が前回と同じなら何もしない
-    if (currentText === lastClipboardContent) return;
-    lastClipboardContent = currentText;
-
-    // 空テキスト（自分のクリアによるもの）は無視
-    if (!currentText.trim()) return;
-
-    // テキスト以外が含まれている場合（ファイル、画像等）はスキップ
-    if (!isTextOnlyClipboard()) {
-      // 待機中だった場合はキャンセル（ファイル/画像が優先）
-      if (waitingForSecondCopy) {
-        waitingForSecondCopy = false;
-        if (secondCopyTimer) {
-          clearTimeout(secondCopyTimer);
-          secondCopyTimer = null;
-        }
-        lastCopyText = '';
-        savedClipboardSnapshot = null;
-      }
-      return;
-    }
-
-    if (waitingForSecondCopy) {
-      const isSameTextSecondCopy = currentText === lastCopyText;
-
-      waitingForSecondCopy = false;
-      if (secondCopyTimer) {
-        clearTimeout(secondCopyTimer);
-        secondCopyTimer = null;
-      }
-      savedClipboardSnapshot = null;
-
-      if (isSameTextSecondCopy) {
-        // 2回目の同一テキストコピー → ダブルコピー成立
-        lastCopyText = '';
-        openAppWithText(currentText);
-      } else {
-        // 別テキストの連続コピーは通常操作として扱い、AI起動しない
-        lastCopyText = '';
-        lastClipboardContent = currentText;
-      }
-    } else {
-      // 1回目のコピー → クリップボード全体を保存してからクリア
-      savedClipboardSnapshot = saveClipboardSnapshot();
-      lastCopyText = currentText;
-      waitingForSecondCopy = true;
-
-      // クリップボードをクリア（同じテキストの2回目コピーを検知可能にする）
-      clipboard.writeText('');
-      lastClipboardContent = '';
-
-      // タイムアウト: 2回目が来なければ全データを復元
-      secondCopyTimer = setTimeout(() => {
-        if (waitingForSecondCopy) {
-          waitingForSecondCopy = false;
-          if (savedClipboardSnapshot) {
-            restoreClipboardSnapshot(savedClipboardSnapshot);
-            lastClipboardContent = savedClipboardSnapshot.text;
-            savedClipboardSnapshot = null;
-          } else {
-            clipboard.writeText(lastCopyText);
-            lastClipboardContent = lastCopyText;
-          }
-          lastCopyText = '';
-        }
-      }, DOUBLE_COPY_INTERVAL_MS);
-    }
-  }, 150);
-}
-
-function stopDoubleCopyMonitor(): void {
-  if (clipboardPollTimer) {
-    clearInterval(clipboardPollTimer);
-    clipboardPollTimer = null;
-  }
-}
-
+};
 
 /**
  * アプリを開いてテキストを入力欄に挿入
@@ -653,12 +528,18 @@ function setupTriggers(): void {
   let onTrigger: () => void;
 
   if (isDoubleCopyEnabled) {
-    stopDoubleCopyMonitor();
-    startDoubleCopyMonitor();
+    if (process.platform === 'darwin' && !systemPreferences.isTrustedAccessibilityClient(false)) {
+      console.warn('[keyboard-trigger] accessibility permission is not granted');
+      if (mainWindow && !mainWindow.isDestroyed()) {
+        mainWindow.webContents.send('permissions:accessibility-status', { granted: false });
+      }
+    }
+
+    getKeyboardTriggerMonitor().start(onDoubleCopyTrigger);
     targetShortcut = '';
     onTrigger = () => {};
   } else {
-    stopDoubleCopyMonitor();
+    getKeyboardTriggerMonitor().stop();
 
     const defaultShortcut = getDefaultHotkey();
     targetShortcut = settings.shortcut.alternateHotkey || defaultShortcut;
@@ -741,18 +622,9 @@ app.whenReady().then(() => {
 
   // 設定を読み込んでデフォルトを設定
   const settings = getSettingsManager().getSettings();
-  const settingsWithMigration = settings as any;
   if (!settings.shortcut.triggerType) {
     settings.shortcut.triggerType = 'hotkey';
     settings.shortcut.alternateHotkey = settings.shortcut.alternateHotkey || getDefaultHotkey();
-    getSettingsManager().saveSettings(settings);
-  } else if (
-    settings.shortcut.triggerType === 'double_copy' &&
-    settingsWithMigration.shortcutMigration !== 'hotkey-default-v2'
-  ) {
-    settings.shortcut.triggerType = 'hotkey';
-    settings.shortcut.alternateHotkey = settings.shortcut.alternateHotkey || getDefaultHotkey();
-    settingsWithMigration.shortcutMigration = 'hotkey-default-v2';
     getSettingsManager().saveSettings(settings);
   }
 
@@ -791,6 +663,7 @@ app.on('before-quit', (event) => {
   if (forceQuit) {
     console.log('[quit] forceQuit=true, 完全に終了します');
     isQuitting = true;
+    getKeyboardTriggerMonitor().stop();
     getLlamaServerManager().stop();
     if (tray) {
       tray.destroy();
@@ -812,6 +685,7 @@ app.on('before-quit', (event) => {
   if (closeAction === 'quit') {
     // 「そのまま終了する」設定の場合のみ終了を許可
     isQuitting = true;
+    getKeyboardTriggerMonitor().stop();
     getLlamaServerManager().stop();
     if (tray) {
       tray.destroy();
@@ -857,13 +731,14 @@ app.on('before-quit', (event) => {
 app.on('will-quit', () => {
   // すべてのショートカットを解除
   globalShortcut.unregisterAll();
-  stopDoubleCopyMonitor();
   // llama-server 二重停止保険
+  getKeyboardTriggerMonitor().stop();
   getLlamaServerManager().stop();
 });
 
 // プロセス終了時のフォールバック
 process.on('exit', () => {
+  getKeyboardTriggerMonitor().stop();
   getLlamaServerManager().stop();
 });
 
@@ -994,6 +869,13 @@ async function initializeAIProvider(): Promise<void> {
  * IPC ハンドラーをセットアップ
  */
 function setupIPCHandlers(): void {
+  ipcMain.handle('permissions:check-accessibility', () =>
+    process.platform !== 'darwin' ? true : systemPreferences.isTrustedAccessibilityClient(false),
+  );
+  ipcMain.handle('permissions:request-accessibility', () =>
+    process.platform !== 'darwin' ? true : systemPreferences.isTrustedAccessibilityClient(true),
+  );
+
   // AI生成リクエスト
   ipcMain.handle('ai:generate', async (event, request: AIRequest) => {
     try {
