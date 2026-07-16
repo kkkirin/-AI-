@@ -27,6 +27,19 @@ export interface LocalAIStatus {
 contextBridge.exposeInMainWorld('electronAPI', {
   // AI生成
   generateAI: (request: AIRequest) => ipcRenderer.invoke('ai:generate', request),
+  generateAIStream: (request: AIRequest, onToken: (token: string) => void) => {
+    const requestId = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    const listener = (_event: Electron.IpcRendererEvent, data: { requestId: string; token: string }) => {
+      if (data.requestId === requestId) {
+        onToken(data.token);
+      }
+    };
+
+    ipcRenderer.on('ai:stream-token', listener);
+    return ipcRenderer
+      .invoke('ai:generate-stream', { request, requestId })
+      .finally(() => ipcRenderer.removeListener('ai:stream-token', listener));
+  },
   estimateLanguage: (text: string) => ipcRenderer.invoke('ai:estimate', text),
 
   // 設定管理
@@ -102,6 +115,10 @@ declare global {
   interface Window {
     electronAPI: {
       generateAI: (request: AIRequest) => Promise<AIResponse | { error: string }>;
+      generateAIStream: (
+        request: AIRequest,
+        onToken: (token: string) => void
+      ) => Promise<AIResponse | { error: string }>;
       estimateLanguage: (text: string) => Promise<any>;
       getSettings: () => Promise<AppSettings>;
       saveSettings: (settings: Partial<AppSettings>) => Promise<{ success: boolean; error?: string }>;

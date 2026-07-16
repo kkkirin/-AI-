@@ -976,8 +976,8 @@ function setupIPCHandlers(): void {
   );
 
   // AI生成リクエスト
-  ipcMain.handle('ai:generate', async (event, request: AIRequest) => {
-    try {
+    ipcMain.handle('ai:generate', async (event, request: AIRequest) => {
+      try {
       if (!aiProvider) {
         // 再接続を試みる
         await initializeAIProvider();
@@ -1003,11 +1003,47 @@ function setupIPCHandlers(): void {
     } catch (error: any) {
       return {
         error: error.message || 'Unknown error occurred',
-      };
-    }
-  });
+        };
+      }
+    });
 
-  // 設定取得
+    ipcMain.handle('ai:generate-stream', async (
+      event,
+      payload: { request: AIRequest; requestId: string }
+    ) => {
+      try {
+        const { request, requestId } = payload;
+        if (!aiProvider) {
+          await initializeAIProvider();
+          if (!aiProvider) {
+            throw new Error('AI推論エンジンに接続できません。モデルがダウンロードされているか確認してください。');
+          }
+        }
+
+        const settingsManager = getSettingsManager();
+        const textExclusionMatch = settingsManager.getTextExclusionMatch(request.inputText);
+        if (textExclusionMatch) {
+          console.warn('[privacy] 送信をブロックしました。除外パターン:', textExclusionMatch.pattern);
+          throw new Error(`このテキストは送信が禁止されています（除外パターンに一致: ${textExclusionMatch.pattern}）。`);
+        }
+
+        if (typeof aiProvider.generateStream === 'function') {
+          return await aiProvider.generateStream(request, (token: string) => {
+            if (!event.sender.isDestroyed()) {
+              event.sender.send('ai:stream-token', { requestId, token });
+            }
+          });
+        }
+
+        return await aiProvider.generate(request);
+      } catch (error: any) {
+        return {
+          error: error.message || 'Unknown error occurred',
+        };
+      }
+    });
+
+    // 設定取得
   ipcMain.handle('settings:get', () => {
     return getSettingsManager().getSettings();
   });

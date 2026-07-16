@@ -48,6 +48,7 @@ const mockSettings: AppSettings = {
 
 const electronAPI = {
   generateAI: jest.fn(),
+  generateAIStream: jest.fn(),
   estimateLanguage: jest.fn(),
   getSettings: jest.fn().mockResolvedValue(mockSettings),
   saveSettings: jest.fn().mockResolvedValue({ success: true }),

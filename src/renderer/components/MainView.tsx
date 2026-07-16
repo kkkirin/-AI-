@@ -127,7 +127,7 @@ export default function MainView({
             <label htmlFor="output">出力</label>
             <span className="section-meta">{hasOutput ? `${outputText.length}文字` : '未入力'}</span>
           </div>
-          {isLoading ? (
+          {isLoading && !outputText ? (
             <div className="output-state" role="status" aria-live="polite">
               処理中...
             </div>

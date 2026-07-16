@@ -95,12 +95,15 @@ export default function App() {
           setSuccessMessage('');
 
           try {
-            const response = await window.electronAPI.generateAI({
+          const response = await window.electronAPI.generateAIStream(
+            {
               inputText: event.text,
               mode: event.mode || mode,
               inputLanguage: Language.AUTO,
               outputLanguage: Language.AUTO,
-            });
+            },
+            (token: string) => setOutputText((prev) => prev + token)
+          );
 
             if ('error' in response) {
               setError(response.error);
@@ -149,12 +152,15 @@ export default function App() {
     setSuccessMessage('');
 
     try {
-      const response = await window.electronAPI.generateAI({
-        inputText,
-        mode,
-        inputLanguage: Language.AUTO,
-        outputLanguage: Language.AUTO,
-      });
+      const response = await window.electronAPI.generateAIStream(
+        {
+          inputText,
+          mode,
+          inputLanguage: Language.AUTO,
+          outputLanguage: Language.AUTO,
+        },
+        (token: string) => setOutputText((prev) => prev + token)
+      );
 
       if ('error' in response) {
         setError(response.error);
