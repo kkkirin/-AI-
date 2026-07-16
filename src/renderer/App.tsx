@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { AIMode, Language, ClipboardEvent, ProviderType } from '../types';
+import type { LocalAIStatus } from '../preload';
 import MainView from './components/MainView';
 import SettingsView from './components/SettingsView';
 import SetupView from './components/SetupView';
@@ -16,6 +17,7 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [aiStatus, setAIStatus] = useState<LocalAIStatus | undefined>(undefined);
   const isElectronRuntime = Boolean(window.electronAPI);
 
   // 初回セットアップのチェック
@@ -39,14 +41,7 @@ export default function App() {
           return;
         }
 
-        // llama-serverが起動しているか確認、起動していなければ起動
-        const connection = await window.electronAPI.checkLocalAIConnection();
-        if (!connection.connected) {
-          // サーバー起動を試みる
-          await window.electronAPI.startServer();
-        }
-
-        setCurrentView('main');
+      setCurrentView('main');
       } catch (error) {
         // エラー時はセットアップ画面を表示
         setCurrentView('setup');
@@ -54,6 +49,18 @@ export default function App() {
     };
 
     checkSetup();
+  }, [isElectronRuntime]);
+
+  useEffect(() => {
+    if (!isElectronRuntime) {
+      return undefined;
+    }
+
+    window.electronAPI.getLocalAIStatus()
+      .then(setAIStatus)
+      .catch(() => undefined);
+
+    return window.electronAPI.onLocalAIStatusChanged(setAIStatus);
   }, [isElectronRuntime]);
 
   // ホットキートリガーをリッスン
@@ -67,6 +74,11 @@ export default function App() {
       setError('');
       setOutputText('');
       setSuccessMessage('');
+
+      if (aiStatus?.providerType === ProviderType.LOCAL && !aiStatus.ready) {
+        setError('モデル準備中');
+        return;
+      }
       
       // 自動生成を実行
       if (event.text && event.text.trim().length > 0) {
@@ -115,13 +127,17 @@ export default function App() {
 
     const cleanup = window.electronAPI.onCCTriggered(handleCCTriggered);
     return cleanup;
-  }, [isElectronRuntime, mode]);
+  }, [aiStatus, isElectronRuntime, mode]);
 
   /**
    * AI生成を実行
    */
   const handleGenerate = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
+    if (aiStatus?.providerType === ProviderType.LOCAL && !aiStatus.ready) {
+      setError('モデル準備中');
+      return;
+    }
     if (!inputText.trim()) {
       setError('入力テキストが空です');
       return;
@@ -254,6 +270,7 @@ export default function App() {
           isLoading={isLoading}
           error={error}
           successMessage={successMessage}
+          status={aiStatus}
           onInputChange={handleInputChange}
           onOutputChange={handleOutputChange}
           onModeChange={setMode}

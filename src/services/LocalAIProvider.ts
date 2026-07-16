@@ -121,6 +121,15 @@ export class LocalAIProvider extends AIProvider {
     }
   }
 
+  async warmup(): Promise<void> {
+    await this.client.post('/chat/completions', {
+      messages: [{ role: 'user', content: 'hi' }],
+      max_tokens: 1,
+      stream: false,
+      temperature: 0,
+    });
+  }
+
   /**
    * 言語を推定し、推奨モードを返す
    */

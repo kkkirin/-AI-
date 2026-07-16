@@ -611,7 +611,7 @@ function setupTriggers(): void {
 /**
  * アプリケーション初期化
  */
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
   createWindow();
   try {
     createTray();
@@ -641,11 +641,24 @@ app.whenReady().then(() => {
     setupTriggers();
   }
 
-  // APIプロバイダーを初期化
-  initializeAIProvider();
-
   // IPC ハンドラーをセットアップ
   setupIPCHandlers();
+
+  // APIプロバイダーを初期化
+  await broadcastAIStatus({ running: true, ready: false });
+  await initializeAIProvider();
+  await broadcastAIStatus();
+
+  if (aiProvider instanceof LocalAIProvider) {
+    await broadcastAIStatus({ running: true, ready: false });
+  }
+
+  try {
+    await warmupLocalAI();
+  } catch {
+    // ウォームアップ失敗は起動を妨げない
+  }
+  await broadcastAIStatus();
 });
 
 app.on('window-all-closed', () => {
@@ -665,6 +678,7 @@ app.on('before-quit', (event) => {
     isQuitting = true;
     getKeyboardTriggerMonitor().stop();
     getLlamaServerManager().stop();
+    void broadcastAIStatus();
     if (tray) {
       tray.destroy();
       tray = null;
@@ -687,6 +701,7 @@ app.on('before-quit', (event) => {
     isQuitting = true;
     getKeyboardTriggerMonitor().stop();
     getLlamaServerManager().stop();
+    void broadcastAIStatus();
     if (tray) {
       tray.destroy();
       tray = null;
@@ -734,12 +749,14 @@ app.on('will-quit', () => {
   // llama-server 二重停止保険
   getKeyboardTriggerMonitor().stop();
   getLlamaServerManager().stop();
+  void broadcastAIStatus();
 });
 
 // プロセス終了時のフォールバック
 process.on('exit', () => {
   getKeyboardTriggerMonitor().stop();
   getLlamaServerManager().stop();
+  void broadcastAIStatus();
 });
 
 app.on('activate', () => {
@@ -770,7 +787,7 @@ async function startLlamaServer(): Promise<{ success: boolean; message: string }
   }
 
   try {
-    const modelPath = modelManager.getModelPath(models[0]);
+    const modelPath = modelManager.resolveExistingModelPath(models[0]) ?? modelManager.getModelPath(models[0]);
     await llamaManager.start(modelPath, getConfiguredLocalServerPort());
     return { success: true, message: 'AI推論エンジンを起動しました' };
   } catch (error: any) {
@@ -828,6 +845,7 @@ async function initializeAIProvider(): Promise<void> {
 
     if (llamaManager.isRunning() && llamaManager.getPort() !== localServerPort) {
       llamaManager.stop();
+      await broadcastAIStatus();
       await new Promise((resolve) => setTimeout(resolve, 500));
     }
 
@@ -841,7 +859,7 @@ async function initializeAIProvider(): Promise<void> {
 
     // llama-serverが起動していなければ起動
     if (!llamaManager.isRunning()) {
-      const modelPath = modelManager.getModelPath(models[0]);
+      const modelPath = modelManager.resolveExistingModelPath(models[0]) ?? modelManager.getModelPath(models[0]);
       await llamaManager.start(modelPath, localServerPort);
     }
 
@@ -863,6 +881,87 @@ async function initializeAIProvider(): Promise<void> {
     console.error('Error initializing AI provider:', error);
     aiProvider = null;
   }
+}
+
+interface LocalAIStatus {
+  providerType: ProviderType;
+  running: boolean;
+  ready: boolean;
+  modelId: string | null;
+  modelName: string;
+  endpoint: string | null;
+  port: number | null;
+}
+
+async function getAIStatus(): Promise<LocalAIStatus> {
+  const settings = getSettingsManager().getSettings();
+  const providerType = settings.provider.type;
+
+  if (providerType !== ProviderType.LOCAL) {
+    const providerName = providerType === ProviderType.API
+      ? settings.provider.apiProvider || 'API'
+      : settings.provider.cliProvider || 'CLI';
+    const modelName = settings.provider.model?.trim() || providerName;
+
+    return {
+      providerType,
+      running: aiProvider !== null,
+      ready: aiProvider !== null,
+      modelId: settings.provider.model?.trim() || null,
+      modelName,
+      endpoint: null,
+      port: null,
+    };
+  }
+
+  const llamaManager = getLlamaServerManager();
+  const modelManager = getModelManager();
+  const running = llamaManager.isRunning();
+  const ready = running ? await llamaManager.healthCheck() : false;
+  const loadedFilename = llamaManager.getModelPath()
+    ? path.basename(llamaManager.getModelPath())
+    : null;
+  const modelId = (
+    loadedFilename
+      ? DEFAULT_MODELS.find((model) => model.filename === loadedFilename)?.id
+      : null
+  ) ?? modelManager.getAvailableModels()[0] ?? null;
+  const port = llamaManager.getPort() || getConfiguredLocalServerPort();
+
+  return {
+    providerType,
+    running,
+    ready,
+    modelId,
+    modelName: modelId ? modelManager.getModelDisplayName(modelId) : 'ローカルAI',
+    endpoint: getLocalAIEndpoint(port),
+    port,
+  };
+}
+
+async function broadcastAIStatus(overrides: Partial<LocalAIStatus> = {}): Promise<void> {
+  if (!mainWindow || mainWindow.isDestroyed() || mainWindow.webContents.isDestroyed()) {
+    return;
+  }
+
+  try {
+    const status = await getAIStatus();
+    mainWindow.webContents.send('local-ai:status-changed', { ...status, ...overrides });
+  } catch (error) {
+    console.warn('AI状態の通知に失敗しました:', error);
+  }
+}
+
+async function warmupLocalAI(): Promise<void> {
+  if (!(aiProvider instanceof LocalAIProvider)) {
+    return;
+  }
+
+  if (!(await aiProvider.healthCheck())) {
+    return;
+  }
+
+  await aiProvider.warmup();
 }
 
 /**
@@ -920,6 +1019,7 @@ function setupIPCHandlers(): void {
       // トリガー方法を再設定
       setupTriggers();
       await initializeAIProvider();
+      await broadcastAIStatus();
       return { success: true };
     } catch (error: any) {
       return { success: false, error: error.message };
@@ -1018,11 +1118,14 @@ function setupIPCHandlers(): void {
   ipcMain.handle('local-ai:start-server', async () => {
     try {
       const result = await startLlamaServer();
+      await broadcastAIStatus();
       return result;
     } catch (error: any) {
       return { success: false, message: error.message };
     }
   });
+
+  ipcMain.handle('local-ai:get-status', async () => getAIStatus());
 
   // ローカルAI: モデルがダウンロード済みかチェック
   ipcMain.handle('local-ai:check-model', async () => {
@@ -1089,6 +1192,7 @@ function setupIPCHandlers(): void {
   ipcMain.handle('ai:reinitialize', async () => {
     try {
       await initializeAIProvider();
+      await broadcastAIStatus();
       return { success: true };
     } catch (error: any) {
       return { success: false, error: error.message };

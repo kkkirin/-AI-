@@ -2,6 +2,7 @@ import { app } from 'electron';
 import { ChildProcess, spawn, exec } from 'child_process';
 import * as path from 'path';
 import * as net from 'net';
+import * as os from 'os';
 import axios from 'axios';
 
 /**
@@ -102,6 +103,9 @@ export class LlamaServerManager {
       '--host', '127.0.0.1',
       '--port', String(this.port),
     ];
+
+    const threads = Math.max(1, os.cpus().length - 2);
+    args.push('-fa', 'on', '-t', String(threads));
 
     // GPU オフロード設定: macOS は Metal、Windows は Vulkan
     if (process.platform === 'darwin') {

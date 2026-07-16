@@ -23,6 +23,47 @@
   font-weight: 600;
 }
 
+.header-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.ai-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  max-width: 280px;
+  padding: 4px 9px;
+  border: 1px solid #e0e0e0;
+  border-radius: 999px;
+  background-color: #fafafa;
+  color: #555;
+  font-size: 11px;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ai-status-dot {
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #d32f2f;
+}
+
+.ai-status-pill.ready .ai-status-dot {
+  background-color: #2e7d32;
+}
+
+.ai-status-pill.loading .ai-status-dot {
+  background-color: #f9a825;
+}
+
 .settings-btn {
   background: none;
   border: none;
