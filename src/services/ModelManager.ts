@@ -5,11 +5,13 @@ import axios from 'axios';
 
 export interface ModelInfo {
   id: string;
+  displayName: string;
   filename: string;
   url: string;
   sizeLabel: string;
   sizeBytes: number;
   description: string;
+  tier?: 'fast' | 'quality';
 }
 
 /**
@@ -18,11 +20,23 @@ export interface ModelInfo {
 export const DEFAULT_MODELS: ModelInfo[] = [
   {
     id: 'LFM2.5-1.2B-JP-Q4_K_M',
+    displayName: 'LFM2.5-1.2B-JP',
     filename: 'LFM2.5-1.2B-JP-Q4_K_M.gguf',
     url: 'https://huggingface.co/LiquidAI/LFM2.5-1.2B-JP-GGUF/resolve/main/LFM2.5-1.2B-JP-Q4_K_M.gguf',
     sizeLabel: '731MB',
     sizeBytes: 766279680, // approx 731MB
-    description: 'LFM 2.5 1.2B JP (Q4_K_M) - 日本語特化、軽量高速',
+    description: '軽量・高速。日本語特化。サッと翻訳向け',
+    tier: 'fast',
+  },
+  {
+    id: 'gemma-3-4b-it-Q4_K_M',
+    displayName: 'Gemma 3 4B',
+    filename: 'google_gemma-3-4b-it-Q4_K_M.gguf',
+    url: 'https://huggingface.co/bartowski/google_gemma-3-4b-it-GGUF/resolve/main/google_gemma-3-4b-it-Q4_K_M.gguf',
+    sizeLabel: '2.5GB',
+    sizeBytes: 2489758112,
+    description: '高品質・多言語。訳が自然になりやすい（やや重い）',
+    tier: 'quality',
   },
 ];
 
@@ -65,15 +79,35 @@ export class ModelManager {
   }
 
   /**
+   * 現在または旧アプリ名の保存先から既存モデルを解決
+   */
+  resolveExistingModelPath(modelId: string): string | null {
+    const info = DEFAULT_MODELS.find((model) => model.id === modelId);
+    if (!info) {
+      return null;
+    }
+
+    const candidates = [path.join(this.modelsDir, info.filename)];
+    if (process.platform === 'darwin') {
+      const appData = app.getPath('appData');
+      candidates.push(
+        path.join(appData, 'QuickText', 'models', info.filename),
+        path.join(appData, 'cc-ai', 'models', info.filename)
+      );
+    }
+
+    return candidates.find((candidate) => fs.existsSync(candidate)) ?? null;
+  }
+
+  getModelDisplayName(modelId: string): string {
+    return DEFAULT_MODELS.find((model) => model.id === modelId)?.displayName ?? modelId;
+  }
+
+  /**
    * モデルがダウンロード済みかチェック
    */
   isModelDownloaded(modelId: string): boolean {
-    try {
-      const modelPath = this.getModelPath(modelId);
-      return fs.existsSync(modelPath);
-    } catch {
-      return false;
-    }
+    return this.resolveExistingModelPath(modelId) !== null;
   }
 
   /**

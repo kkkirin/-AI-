@@ -7,6 +7,7 @@ import { AIRequest, AIResponse, Language, AIMode } from '../types';
  */
 export abstract class AIProvider {
   abstract generate(request: AIRequest): Promise<AIResponse>;
+  generateStream?(request: AIRequest, onToken: (token: string) => void): Promise<AIResponse>;
   abstract estimate(inputText: string): Promise<{ language: Language; suggestedMode: AIMode }>;
   abstract healthCheck(): Promise<boolean>;
 }

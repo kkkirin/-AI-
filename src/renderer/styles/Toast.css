@@ -11,17 +11,23 @@
 }
 
 .toast {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 12px 16px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  animation: slideIn 0.3s ease-out;
-  pointer-events: auto;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  font-size: 14px;
+ --toast-color: var(--accent);
+ display: flex;
+ align-items: flex-start;
+ gap: 12px;
+ padding: 12px 16px;
+ border-radius: 10px;
+ box-shadow: var(--pop-shadow);
+ animation: slideIn 0.3s ease-out;
+ pointer-events: auto;
+ -webkit-backdrop-filter: blur(20px);
+ backdrop-filter: blur(20px);
+ background-color: var(--header-bg);
+ border: 0.5px solid var(--separator-strong);
+ border-left: 3px solid var(--toast-color);
+ color: var(--text);
+ font-family: var(--font);
+ font-size: 13px;
   line-height: 1.4;
   max-width: 100%;
   word-wrap: break-word;
@@ -55,45 +61,41 @@
 
 /* 成功通知 */
 .toast-success {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: white;
+ --toast-color: var(--green);
 }
 
 .toast-success .toast-icon {
-  color: #d1fae5;
+ color: var(--green);
   font-weight: bold;
 }
 
 /* エラー通知 */
 .toast-error {
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-  color: white;
+ --toast-color: var(--red);
 }
 
 .toast-error .toast-icon {
-  color: #fee2e2;
+ color: var(--red);
   font-weight: bold;
 }
 
 /* 警告通知 */
 .toast-warning {
-  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-  color: white;
+ --toast-color: var(--yellow);
 }
 
 .toast-warning .toast-icon {
-  color: #fef3c7;
+ color: var(--yellow);
   font-weight: bold;
 }
 
 /* 情報通知 */
 .toast-info {
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-  color: white;
+ --toast-color: var(--accent);
 }
 
 .toast-info .toast-icon {
-  color: #dbeafe;
+ color: var(--accent);
   font-weight: bold;
 }
 
@@ -116,13 +118,13 @@
 }
 
 .toast-title {
-  font-weight: 600;
-  font-size: 14px;
+ font-weight: 600;
+ font-size: 13px;
 }
 
 .toast-message {
-  font-size: 13px;
-  opacity: 0.9;
+ font-size: 13px;
+ color: var(--text-2);
 }
 
 .toast-close {
@@ -144,14 +146,6 @@
 
 .toast-close:hover {
   opacity: 1;
-}
-
-/* ダークモード対応 */
-@media (prefers-color-scheme: dark) {
-  .toast {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    border-color: rgba(255, 255, 255, 0.1);
-  }
 }
 
 /* モバイル対応 */

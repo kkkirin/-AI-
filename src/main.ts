@@ -1,13 +1,12 @@
-import { app, BrowserWindow, Menu, ipcMain, Tray, nativeImage, clipboard, globalShortcut, shell, dialog } from 'electron';
+import { app, BrowserWindow, Menu, ipcMain, Tray, nativeImage, nativeTheme, clipboard, globalShortcut, shell, dialog, systemPreferences } from 'electron';
 import * as path from 'path';
 import { exec, spawn, ChildProcess } from 'child_process';
 import isDev from 'electron-is-dev';
 import { setupClipboardIPC } from './services/ClipboardMonitor';
 import { getSettingsManager } from './services/SettingsManager';
 import { LocalAIProvider } from './services/LocalAIProvider';
-import { OpenAIProvider } from './services/OpenAIProvider';
-import { CLIProvider } from './services/CLIProvider';
 import { getLlamaServerManager } from './services/LlamaServerManager';
+import { getKeyboardTriggerMonitor } from './services/KeyboardTriggerMonitor';
 import { getModelManager, DEFAULT_MODELS } from './services/ModelManager';
 import { AIProvider } from './services/AIProvider';
 import { AIRequest, Language, AIMode, ProviderType } from './types';
@@ -31,15 +30,9 @@ let currentShortcutHandler: (() => void) | null = null;
 let isQuitting = false;
 let forceQuit = false;
 let isShowingWindow = false;
+let rendererReady = false;
+let pendingCC: { text: string; mode?: AIMode } | null = null;
 
-const DOUBLE_COPY_INTERVAL_MS = 350;
-const COPY_SIMULATION_DELAY_MS = 100;
-let lastCopyTimestamp = 0;
-let lastCopyText = '';
-let waitingForSecondCopy = false;
-let secondCopyTimer: ReturnType<typeof setTimeout> | null = null;
-let lastClipboardContent = '';
-let clipboardPollTimer: ReturnType<typeof setInterval> | null = null;
 
 function getDefaultHotkey(): string {
   return process.platform === 'darwin' ? 'Command+Shift+V' : 'Ctrl+Shift+V';
@@ -111,7 +104,7 @@ function createWindow(): void {
     width: 500,
     height: 700,
     icon: appIcon,
-    backgroundColor: '#1e1e1e', // 白フラッシュ防止（アプリのダーク背景に合わせる）
+    backgroundColor: nativeTheme.shouldUseDarkColors ? '#1E1E20' : '#ECECEE', // 白フラッシュ防止（アプリの外観に合わせる）
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: false,
@@ -125,6 +118,10 @@ function createWindow(): void {
   // ローカルファイルから読み込み（開発サーバーを使わない）
   const startUrl = `file://${path.join(__dirname, 'index.html')}`;
   mainWindow.loadURL(startUrl);
+  rendererReady = false;
+  mainWindow.webContents.on('did-start-loading', () => {
+    rendererReady = false;
+  });
 
   // デバッグモード
   if (isDev_check) {
@@ -150,6 +147,31 @@ function createWindow(): void {
   mainWindow.once('ready-to-show', () => {
     mainWindow?.show();
   });
+}
+
+function dispatchCCTrigger(text: string, mode?: AIMode): void {
+  if (!mainWindow || mainWindow.isDestroyed()) {
+    createWindow();
+  }
+
+  showWindow();
+
+  const alive =
+    mainWindow &&
+    !mainWindow.isDestroyed() &&
+    mainWindow.webContents &&
+    !mainWindow.webContents.isDestroyed();
+
+  if (rendererReady && alive && mainWindow) {
+    mainWindow.webContents.send('clipboard:cc-triggered', {
+      text,
+      timestamp: Date.now(),
+      count: mode ? 2 : 1,
+      mode,
+    });
+  } else {
+    pendingCC = { text, mode };
+  }
 }
 
 /**
@@ -323,24 +345,7 @@ async function triggerClipboardAI(mode?: AIMode): Promise<void> {
  * クリップボードイベントを送信して自動生成を実行
  */
 async function sendClipboardEventAndAutoGenerate(text: string, mode?: AIMode): Promise<void> {
-  if (mainWindow && !mainWindow.isDestroyed()) {
-    showWindow();
-
-    // テキストを設定
-    mainWindow.webContents.send('clipboard:cc-triggered', {
-      text: text,
-      timestamp: Date.now(),
-      count: 2,
-      mode: mode,
-    });
-
-    // 自動生成を実行
-    setTimeout(() => {
-      mainWindow?.webContents.send('ai:auto-generate', {
-        mode: mode,
-      });
-    }, 300);
-  }
+  dispatchCCTrigger(text, mode);
 }
 
 /**
@@ -352,7 +357,7 @@ async function simulateCopyAndReadClipboard(): Promise<{ text: string; success: 
       setTimeout(() => {
         const text = clipboard.readText();
         resolve({ text, success });
-      }, COPY_SIMULATION_DELAY_MS);
+      }, 100);
     };
 
     if (process.platform === 'darwin') {
@@ -436,178 +441,21 @@ function isTextOnlyClipboard(): boolean {
   }
 }
 
-/** クリップボードの全テキスト系データを保存 */
-interface ClipboardSnapshot {
-  text: string;
-  html: string;
-  rtf: string;
-  image: Electron.NativeImage;
-}
+const onDoubleCopyTrigger = (): void => {
+  if (!isTextOnlyClipboard()) return;
 
-function saveClipboardSnapshot(): ClipboardSnapshot {
-  return {
-    text: clipboard.readText() || '',
-    html: clipboard.readHTML() || '',
-    rtf: clipboard.readRTF() || '',
-    image: clipboard.readImage(),
-  };
-}
-
-/** 保存したクリップボードデータを復元（テキスト＋HTML＋RTF＋画像） */
-function restoreClipboardSnapshot(snapshot: ClipboardSnapshot): void {
-  const writeData: Electron.Data = {};
-  if (snapshot.text) writeData.text = snapshot.text;
-  if (snapshot.html) writeData.html = snapshot.html;
-  if (snapshot.rtf) writeData.rtf = snapshot.rtf;
-  if (snapshot.image && !snapshot.image.isEmpty()) writeData.image = snapshot.image;
-  clipboard.write(writeData);
-}
-
-/**
- * Cmd+C を2回でアプリを起動（DeepL風）
- * クリップボードの変更を監視してトリガーする
- *
- * 安全策:
- * - テキストのみのクリップボードだけダブルコピー検出を行う
- * - ファイル・画像などテキスト以外が含まれる場合は一切触れない
- * - 復元時はテキスト＋HTML＋RTF＋画像をまとめて書き戻す
- */
-let savedClipboardSnapshot: ClipboardSnapshot | null = null;
-
-function startDoubleCopyMonitor(): void {
-  if (clipboardPollTimer) {
-    return;
+  const text = clipboard.readText();
+  if (text && text.trim().length > 0) {
+    openAppWithText(text);
   }
-
-  // 起動時のクリップボード内容を記憶
-  lastClipboardContent = clipboard.readText() || '';
-
-  clipboardPollTimer = setInterval(() => {
-    const currentText = clipboard.readText() || '';
-
-    // クリップボード内容が前回と同じなら何もしない
-    if (currentText === lastClipboardContent) return;
-    lastClipboardContent = currentText;
-
-    // 空テキスト（自分のクリアによるもの）は無視
-    if (!currentText.trim()) return;
-
-    // テキスト以外が含まれている場合（ファイル、画像等）はスキップ
-    if (!isTextOnlyClipboard()) {
-      // 待機中だった場合はキャンセル（ファイル/画像が優先）
-      if (waitingForSecondCopy) {
-        waitingForSecondCopy = false;
-        if (secondCopyTimer) {
-          clearTimeout(secondCopyTimer);
-          secondCopyTimer = null;
-        }
-        lastCopyText = '';
-        savedClipboardSnapshot = null;
-      }
-      return;
-    }
-
-    if (waitingForSecondCopy) {
-      const isSameTextSecondCopy = currentText === lastCopyText;
-
-      waitingForSecondCopy = false;
-      if (secondCopyTimer) {
-        clearTimeout(secondCopyTimer);
-        secondCopyTimer = null;
-      }
-      savedClipboardSnapshot = null;
-
-      if (isSameTextSecondCopy) {
-        // 2回目の同一テキストコピー → ダブルコピー成立
-        lastCopyText = '';
-        openAppWithText(currentText);
-      } else {
-        // 別テキストの連続コピーは通常操作として扱い、AI起動しない
-        lastCopyText = '';
-        lastClipboardContent = currentText;
-      }
-    } else {
-      // 1回目のコピー → クリップボード全体を保存してからクリア
-      savedClipboardSnapshot = saveClipboardSnapshot();
-      lastCopyText = currentText;
-      waitingForSecondCopy = true;
-
-      // クリップボードをクリア（同じテキストの2回目コピーを検知可能にする）
-      clipboard.writeText('');
-      lastClipboardContent = '';
-
-      // タイムアウト: 2回目が来なければ全データを復元
-      secondCopyTimer = setTimeout(() => {
-        if (waitingForSecondCopy) {
-          waitingForSecondCopy = false;
-          if (savedClipboardSnapshot) {
-            restoreClipboardSnapshot(savedClipboardSnapshot);
-            lastClipboardContent = savedClipboardSnapshot.text;
-            savedClipboardSnapshot = null;
-          } else {
-            clipboard.writeText(lastCopyText);
-            lastClipboardContent = lastCopyText;
-          }
-          lastCopyText = '';
-        }
-      }, DOUBLE_COPY_INTERVAL_MS);
-    }
-  }, 150);
-}
-
-function stopDoubleCopyMonitor(): void {
-  if (clipboardPollTimer) {
-    clearInterval(clipboardPollTimer);
-    clipboardPollTimer = null;
-  }
-}
-
+};
 
 /**
  * アプリを開いてテキストを入力欄に挿入
  */
 function openAppWithText(text: string): void {
   console.log('アプリを開いてテキストを挿入:', text.substring(0, 50));
-  
-  // アプリを開く/フォーカス
-  if (!mainWindow || mainWindow.isDestroyed()) {
-    createWindow();
-    // ウィンドウが準備できるまで待つ
-    setTimeout(() => {
-      if (mainWindow && !mainWindow.isDestroyed()) {
-        // webContentsが準備できているか確認
-        if (mainWindow.webContents && !mainWindow.webContents.isDestroyed()) {
-          mainWindow.webContents.send('clipboard:cc-triggered', {
-            text: text,
-            timestamp: Date.now(),
-            count: 1,
-          });
-        } else {
-          // もう少し待つ
-          setTimeout(() => {
-            if (mainWindow && !mainWindow.isDestroyed() && mainWindow.webContents && !mainWindow.webContents.isDestroyed()) {
-              mainWindow.webContents.send('clipboard:cc-triggered', {
-                text: text,
-                timestamp: Date.now(),
-                count: 1,
-              });
-            }
-          }, 300);
-        }
-      }
-    }, 300);
-  } else {
-    showWindow();
-
-    // 入力欄に挿入
-    if (mainWindow.webContents && !mainWindow.webContents.isDestroyed()) {
-      mainWindow.webContents.send('clipboard:cc-triggered', {
-        text: text,
-        timestamp: Date.now(),
-        count: 1,
-      });
-    }
-  }
+  dispatchCCTrigger(text);
 }
 
 /**
@@ -653,12 +501,18 @@ function setupTriggers(): void {
   let onTrigger: () => void;
 
   if (isDoubleCopyEnabled) {
-    stopDoubleCopyMonitor();
-    startDoubleCopyMonitor();
+    if (process.platform === 'darwin' && !systemPreferences.isTrustedAccessibilityClient(false)) {
+      console.warn('[keyboard-trigger] accessibility permission is not granted');
+      if (mainWindow && !mainWindow.isDestroyed()) {
+        mainWindow.webContents.send('permissions:accessibility-status', { granted: false });
+      }
+    }
+
+    getKeyboardTriggerMonitor().start(onDoubleCopyTrigger);
     targetShortcut = '';
     onTrigger = () => {};
   } else {
-    stopDoubleCopyMonitor();
+    getKeyboardTriggerMonitor().stop();
 
     const defaultShortcut = getDefaultHotkey();
     targetShortcut = settings.shortcut.alternateHotkey || defaultShortcut;
@@ -730,7 +584,7 @@ function setupTriggers(): void {
 /**
  * アプリケーション初期化
  */
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
   createWindow();
   try {
     createTray();
@@ -741,18 +595,10 @@ app.whenReady().then(() => {
 
   // 設定を読み込んでデフォルトを設定
   const settings = getSettingsManager().getSettings();
-  const settingsWithMigration = settings as any;
+  app.setLoginItemSettings({ openAtLogin: settings.ui.autoStart });
   if (!settings.shortcut.triggerType) {
     settings.shortcut.triggerType = 'hotkey';
     settings.shortcut.alternateHotkey = settings.shortcut.alternateHotkey || getDefaultHotkey();
-    getSettingsManager().saveSettings(settings);
-  } else if (
-    settings.shortcut.triggerType === 'double_copy' &&
-    settingsWithMigration.shortcutMigration !== 'hotkey-default-v2'
-  ) {
-    settings.shortcut.triggerType = 'hotkey';
-    settings.shortcut.alternateHotkey = settings.shortcut.alternateHotkey || getDefaultHotkey();
-    settingsWithMigration.shortcutMigration = 'hotkey-default-v2';
     getSettingsManager().saveSettings(settings);
   }
 
@@ -769,11 +615,24 @@ app.whenReady().then(() => {
     setupTriggers();
   }
 
-  // APIプロバイダーを初期化
-  initializeAIProvider();
-
   // IPC ハンドラーをセットアップ
   setupIPCHandlers();
+
+  // ローカルAIプロバイダーを初期化
+  await broadcastAIStatus({ running: true, ready: false });
+  await initializeAIProvider();
+  await broadcastAIStatus();
+
+  if (aiProvider instanceof LocalAIProvider) {
+    await broadcastAIStatus({ running: true, ready: false });
+  }
+
+  try {
+    await warmupLocalAI();
+  } catch {
+    // ウォームアップ失敗は起動を妨げない
+  }
+  await broadcastAIStatus();
 });
 
 app.on('window-all-closed', () => {
@@ -791,7 +650,9 @@ app.on('before-quit', (event) => {
   if (forceQuit) {
     console.log('[quit] forceQuit=true, 完全に終了します');
     isQuitting = true;
+    getKeyboardTriggerMonitor().stop();
     getLlamaServerManager().stop();
+    void broadcastAIStatus();
     if (tray) {
       tray.destroy();
       tray = null;
@@ -812,7 +673,9 @@ app.on('before-quit', (event) => {
   if (closeAction === 'quit') {
     // 「そのまま終了する」設定の場合のみ終了を許可
     isQuitting = true;
+    getKeyboardTriggerMonitor().stop();
     getLlamaServerManager().stop();
+    void broadcastAIStatus();
     if (tray) {
       tray.destroy();
       tray = null;
@@ -857,14 +720,17 @@ app.on('before-quit', (event) => {
 app.on('will-quit', () => {
   // すべてのショートカットを解除
   globalShortcut.unregisterAll();
-  stopDoubleCopyMonitor();
   // llama-server 二重停止保険
+  getKeyboardTriggerMonitor().stop();
   getLlamaServerManager().stop();
+  void broadcastAIStatus();
 });
 
 // プロセス終了時のフォールバック
 process.on('exit', () => {
+  getKeyboardTriggerMonitor().stop();
   getLlamaServerManager().stop();
+  void broadcastAIStatus();
 });
 
 app.on('activate', () => {
@@ -877,6 +743,16 @@ app.on('activate', () => {
     showWindow();
   }
 });
+
+/**
+ * 設定で選択されているモデルIDを取得（未DLならダウンロード済みの先頭にフォールバック）
+ */
+function getSelectedModelId(): string | null {
+  const s = getSettingsManager().getSettings();
+  const wanted = s.provider.model;
+  const avail = getModelManager().getAvailableModels();
+  return (wanted && avail.includes(wanted)) ? wanted : (avail[0] ?? null);
+}
 
 /**
  * llama-server を起動（モデルが必要）
@@ -895,7 +771,8 @@ async function startLlamaServer(): Promise<{ success: boolean; message: string }
   }
 
   try {
-    const modelPath = modelManager.getModelPath(models[0]);
+    const selectedId = getSelectedModelId() ?? models[0];
+    const modelPath = modelManager.resolveExistingModelPath(selectedId) ?? modelManager.getModelPath(selectedId);
     await llamaManager.start(modelPath, getConfiguredLocalServerPort());
     return { success: true, message: 'AI推論エンジンを起動しました' };
   } catch (error: any) {
@@ -908,44 +785,7 @@ async function startLlamaServer(): Promise<{ success: boolean; message: string }
  */
 async function initializeAIProvider(): Promise<void> {
   try {
-    const settingsManager = getSettingsManager();
-    const settings = settingsManager.getSettings();
     aiProvider = null;
-
-    if (settings.provider.type === ProviderType.API) {
-      const apiKey = await settingsManager.getAPIKey();
-      const endpoint = settings.provider.apiEndpoint?.trim();
-      const model = settings.provider.model?.trim() || 'gpt-4o-mini';
-      aiProvider = new OpenAIProvider(
-        apiKey || process.env.OPENAI_API_KEY,
-        model,
-        endpoint,
-        settings.provider.maxTokensPerRequest
-      );
-      console.log('OpenAI互換APIプロバイダーを初期化しました:', endpoint || 'https://api.openai.com/v1');
-      return;
-    }
-
-    if (settings.provider.type === ProviderType.CLI) {
-      const cliProvider = settings.provider.cliProvider || 'codex';
-      const provider = new CLIProvider({
-        provider: cliProvider,
-        command: settings.provider.cliCommand,
-        model: settings.provider.model,
-        maxTokens: settings.provider.maxTokensPerRequest,
-      });
-      const isHealthy = await provider.healthCheck();
-      if (!isHealthy) {
-        throw new Error(
-          cliProvider === 'codex'
-            ? 'Codex CLI が見つかりません。codex コマンドをインストール/ログインしてください。'
-            : 'Claude Code が見つかりません。claude コマンドをインストール/ログインしてください。'
-        );
-      }
-      aiProvider = provider;
-      console.log('CLI AIプロバイダーを初期化しました:', cliProvider);
-      return;
-    }
 
     const modelManager = getModelManager();
     const llamaManager = getLlamaServerManager();
@@ -953,6 +793,7 @@ async function initializeAIProvider(): Promise<void> {
 
     if (llamaManager.isRunning() && llamaManager.getPort() !== localServerPort) {
       llamaManager.stop();
+      await broadcastAIStatus();
       await new Promise((resolve) => setTimeout(resolve, 500));
     }
 
@@ -964,9 +805,24 @@ async function initializeAIProvider(): Promise<void> {
       return;
     }
 
+    const selectedId = getSelectedModelId() ?? models[0];
+
+    // 選択モデルが切り替わっていたら再起動
+    if (llamaManager.isRunning()) {
+      const selectedInfo = DEFAULT_MODELS.find((model) => model.id === selectedId);
+      const loadedFilename = llamaManager.getModelPath()
+        ? path.basename(llamaManager.getModelPath())
+        : null;
+      if (selectedInfo && loadedFilename && loadedFilename !== selectedInfo.filename) {
+        llamaManager.stop();
+        await broadcastAIStatus();
+        await new Promise((resolve) => setTimeout(resolve, 500));
+      }
+    }
+
     // llama-serverが起動していなければ起動
     if (!llamaManager.isRunning()) {
-      const modelPath = modelManager.getModelPath(models[0]);
+      const modelPath = modelManager.resolveExistingModelPath(selectedId) ?? modelManager.getModelPath(selectedId);
       await llamaManager.start(modelPath, localServerPort);
     }
 
@@ -990,13 +846,108 @@ async function initializeAIProvider(): Promise<void> {
   }
 }
 
+interface LocalAIStatus {
+  providerType: ProviderType;
+  running: boolean;
+  ready: boolean;
+  modelId: string | null;
+  modelName: string;
+  endpoint: string | null;
+  port: number | null;
+}
+
+async function getAIStatus(): Promise<LocalAIStatus> {
+  const llamaManager = getLlamaServerManager();
+  const modelManager = getModelManager();
+  const running = llamaManager.isRunning();
+  const ready = running ? await llamaManager.healthCheck() : false;
+  const loadedFilename = llamaManager.getModelPath()
+    ? path.basename(llamaManager.getModelPath())
+    : null;
+  const modelId = (
+    loadedFilename
+      ? DEFAULT_MODELS.find((model) => model.filename === loadedFilename)?.id
+      : null
+  ) ?? modelManager.getAvailableModels()[0] ?? null;
+  const port = llamaManager.getPort() || getConfiguredLocalServerPort();
+
+  return {
+    providerType: ProviderType.LOCAL,
+    running,
+    ready,
+    modelId,
+    modelName: modelId ? modelManager.getModelDisplayName(modelId) : 'ローカルAI',
+    endpoint: getLocalAIEndpoint(port),
+    port,
+  };
+}
+
+async function broadcastAIStatus(overrides: Partial<LocalAIStatus> = {}): Promise<void> {
+  if (!mainWindow || mainWindow.isDestroyed() || mainWindow.webContents.isDestroyed()) {
+    return;
+  }
+
+  try {
+    const status = await getAIStatus();
+    mainWindow.webContents.send('local-ai:status-changed', { ...status, ...overrides });
+  } catch (error) {
+    console.warn('AI状態の通知に失敗しました:', error);
+  }
+}
+
+async function warmupLocalAI(): Promise<void> {
+  if (!(aiProvider instanceof LocalAIProvider)) {
+    return;
+  }
+
+  if (!(await aiProvider.healthCheck())) {
+    return;
+  }
+
+  await aiProvider.warmup();
+}
+
 /**
  * IPC ハンドラーをセットアップ
  */
 function setupIPCHandlers(): void {
-  // AI生成リクエスト
-  ipcMain.handle('ai:generate', async (event, request: AIRequest) => {
+  ipcMain.on('renderer:ready', () => {
+    rendererReady = true;
+    if (
+      pendingCC &&
+      mainWindow &&
+      !mainWindow.isDestroyed() &&
+      !mainWindow.webContents.isDestroyed()
+    ) {
+      const { text, mode } = pendingCC;
+      pendingCC = null;
+      mainWindow.webContents.send('clipboard:cc-triggered', {
+        text,
+        timestamp: Date.now(),
+        count: mode ? 2 : 1,
+        mode,
+      });
+    }
+  });
+
+  ipcMain.handle('permissions:check-accessibility', () =>
+    process.platform !== 'darwin' ? true : systemPreferences.isTrustedAccessibilityClient(false),
+  );
+  ipcMain.handle('permissions:request-accessibility', () =>
+    process.platform !== 'darwin' ? true : systemPreferences.isTrustedAccessibilityClient(true),
+  );
+  ipcMain.handle('permissions:reapply-triggers', () => {
     try {
+      setupTriggers();
+    } catch (e) {
+      console.error('reapply-triggers error:', e);
+    }
+    return process.platform !== 'darwin' ? true : systemPreferences.isTrustedAccessibilityClient(false);
+  });
+
+  // AI生成リクエスト
+    ipcMain.handle('ai:generate', async (event, request: AIRequest) => {
+      try {
       if (!aiProvider) {
         // 再接続を試みる
         await initializeAIProvider();
@@ -1022,11 +973,47 @@ function setupIPCHandlers(): void {
     } catch (error: any) {
       return {
         error: error.message || 'Unknown error occurred',
-      };
-    }
-  });
+        };
+      }
+    });
 
-  // 設定取得
+    ipcMain.handle('ai:generate-stream', async (
+      event,
+      payload: { request: AIRequest; requestId: string }
+    ) => {
+      try {
+        const { request, requestId } = payload;
+        if (!aiProvider) {
+          await initializeAIProvider();
+          if (!aiProvider) {
+            throw new Error('AI推論エンジンに接続できません。モデルがダウンロードされているか確認してください。');
+          }
+        }
+
+        const settingsManager = getSettingsManager();
+        const textExclusionMatch = settingsManager.getTextExclusionMatch(request.inputText);
+        if (textExclusionMatch) {
+          console.warn('[privacy] 送信をブロックしました。除外パターン:', textExclusionMatch.pattern);
+          throw new Error(`このテキストは送信が禁止されています（除外パターンに一致: ${textExclusionMatch.pattern}）。`);
+        }
+
+        if (typeof aiProvider.generateStream === 'function') {
+          return await aiProvider.generateStream(request, (token: string) => {
+            if (!event.sender.isDestroyed()) {
+              event.sender.send('ai:stream-token', { requestId, token });
+            }
+          });
+        }
+
+        return await aiProvider.generate(request);
+      } catch (error: any) {
+        return {
+          error: error.message || 'Unknown error occurred',
+        };
+      }
+    });
+
+    // 設定取得
   ipcMain.handle('settings:get', () => {
     return getSettingsManager().getSettings();
   });
@@ -1034,41 +1021,13 @@ function setupIPCHandlers(): void {
   // 設定保存
   ipcMain.handle('settings:save', async (event, settings: any) => {
     try {
-      await getSettingsManager().saveSettings(settings);
+      const settingsManager = getSettingsManager();
+      await settingsManager.saveSettings(settings);
+      app.setLoginItemSettings({ openAtLogin: settingsManager.getSettings().ui.autoStart });
       // トリガー方法を再設定
       setupTriggers();
       await initializeAIProvider();
-      return { success: true };
-    } catch (error: any) {
-      return { success: false, error: error.message };
-    }
-  });
-
-  // APIキー設定
-  ipcMain.handle('settings:set-api-key', async (event, apiKey: string) => {
-    try {
-      await getSettingsManager().setAPIKey(apiKey);
-      await initializeAIProvider();
-      return { success: true };
-    } catch (error: any) {
-      return { success: false, error: error.message };
-    }
-  });
-
-  // APIキー設定状態
-  ipcMain.handle('settings:has-api-key', async () => {
-    try {
-      return { success: true, hasAPIKey: await getSettingsManager().hasAPIKey() };
-    } catch (error: any) {
-      return { success: false, hasAPIKey: false, error: error.message };
-    }
-  });
-
-  // APIキー削除
-  ipcMain.handle('settings:delete-api-key', async () => {
-    try {
-      await getSettingsManager().deleteAPIKey();
-      aiProvider = null;
+      await broadcastAIStatus();
       return { success: true };
     } catch (error: any) {
       return { success: false, error: error.message };
@@ -1136,11 +1095,14 @@ function setupIPCHandlers(): void {
   ipcMain.handle('local-ai:start-server', async () => {
     try {
       const result = await startLlamaServer();
+      await broadcastAIStatus();
       return result;
     } catch (error: any) {
       return { success: false, message: error.message };
     }
   });
+
+  ipcMain.handle('local-ai:get-status', async () => getAIStatus());
 
   // ローカルAI: モデルがダウンロード済みかチェック
   ipcMain.handle('local-ai:check-model', async () => {
@@ -1157,8 +1119,10 @@ function setupIPCHandlers(): void {
   ipcMain.handle('local-ai:get-recommended-models', () => {
     return DEFAULT_MODELS.map((m) => ({
       name: m.id,
+      displayName: m.displayName,
       description: m.description,
       size: m.sizeLabel,
+      tier: m.tier,
     }));
   });
 
@@ -1207,6 +1171,7 @@ function setupIPCHandlers(): void {
   ipcMain.handle('ai:reinitialize', async () => {
     try {
       await initializeAIProvider();
+      await broadcastAIStatus();
       return { success: true };
     } catch (error: any) {
       return { success: false, error: error.message };

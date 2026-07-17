@@ -1,7 +1,6 @@
 import { app } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
-import * as keytar from 'keytar';
 import { AppSettings, Language, AIMode, ProviderType } from '../types';
 
 const DEFAULT_EXCLUDE_PATTERNS = [
@@ -22,8 +21,6 @@ const LEGACY_EXCLUDE_PATTERN_REPLACEMENTS: Record<string, string[]> = {
 export class SettingsManager {
   private settingsPath: string;
   private settings: AppSettings;
-  private serviceName = 'quicktext';
-  private accountName = 'api-key';
 
   constructor() {
     this.settingsPath = path.join(app.getPath('userData'), 'settings.json');
@@ -57,22 +54,14 @@ export class SettingsManager {
         alternateHotkey: process.platform === 'darwin' ? 'Command+Shift+V' : 'Ctrl+Shift+V',
       },
       provider: {
-        type: ProviderType.CLI,
-        apiProvider: 'openai',
-        cliProvider: 'codex',
-        apiKey: undefined,
-        apiEndpoint: undefined,
-        cliCommand: undefined,
+        type: ProviderType.LOCAL,
+        model: 'LFM2.5-1.2B-JP-Q4_K_M',
         localServerPort: 8080,
-        model: 'gpt-5.5',
-        maxTokensPerRequest: 2000,
-        dailyTokenLimit: 100000,
       },
       output: {
         autoClipboard: true,
         autoPaste: false,
         formatType: 'text_only',
-        preserveLineBreaks: true,
       },
       privacy: {
         enableHistory: false,
@@ -101,14 +90,7 @@ export class SettingsManager {
   async saveSettings(settings: Partial<AppSettings>): Promise<void> {
     this.settings = this.normalizeSettings(this.deepMerge(this.settings, settings));
     try {
-      const persistedSettings: AppSettings = {
-        ...this.settings,
-        provider: {
-          ...this.settings.provider,
-          apiKey: undefined,
-        },
-      };
-      fs.writeFileSync(this.settingsPath, JSON.stringify(persistedSettings, null, 2), 'utf-8');
+      fs.writeFileSync(this.settingsPath, JSON.stringify(this.settings, null, 2), 'utf-8');
     } catch (error) {
       console.error('Error saving settings:', error);
       throw error;
@@ -132,30 +114,17 @@ export class SettingsManager {
 
   private normalizeSettings(settings: Partial<AppSettings>): AppSettings {
     const merged = this.deepMerge(this.getDefaultSettings(), settings);
-    const migrationState = merged as AppSettings & { providerMigration?: string };
     merged.privacy.excludePatterns = this.migrateExcludePatterns(merged.privacy.excludePatterns);
-    merged.provider.localServerPort = this.normalizePort(merged.provider.localServerPort);
-
-    if (
-      migrationState.providerMigration !== 'codex-gpt55-default-v1' &&
-      merged.provider.type === ProviderType.LOCAL &&
-      merged.provider.model.startsWith('LFM2.5-')
-    ) {
-      merged.provider.type = ProviderType.CLI;
-      merged.provider.cliProvider = 'codex';
-      merged.provider.model = 'gpt-5.5';
-      migrationState.providerMigration = 'codex-gpt55-default-v1';
-    }
-
-    if (
-      merged.provider.type === ProviderType.CLI &&
-      (merged.provider.cliProvider || 'codex') === 'codex' &&
-      (!merged.provider.model ||
-        merged.provider.model.startsWith('LFM2.5-') ||
-        merged.provider.model === 'gpt-4o-mini')
-    ) {
-      merged.provider.model = 'gpt-5.5';
-    }
+    merged.provider = {
+      type: ProviderType.LOCAL,
+      model: merged.provider.model,
+      localServerPort: this.normalizePort(merged.provider.localServerPort),
+    };
+    merged.output = {
+      autoClipboard: merged.output.autoClipboard,
+      autoPaste: merged.output.autoPaste,
+      formatType: merged.output.formatType,
+    };
     return merged;
   }
 
@@ -195,49 +164,6 @@ export class SettingsManager {
    */
   getSettings(): AppSettings {
     return this.settings;
-  }
-
-  /**
-   * APIキーを安全に保存
-   */
-  async setAPIKey(apiKey: string): Promise<void> {
-    try {
-      await keytar.setPassword(this.serviceName, this.accountName, apiKey);
-      this.settings.provider.apiKey = apiKey;
-    } catch (error) {
-      console.error('Error saving API key:', error);
-      throw error;
-    }
-  }
-
-  /**
-   * APIキーを取得
-   */
-  async getAPIKey(): Promise<string | null> {
-    try {
-      const key = await keytar.getPassword(this.serviceName, this.accountName);
-      return key || null;
-    } catch (error) {
-      console.error('Error retrieving API key:', error);
-      return null;
-    }
-  }
-
-  async hasAPIKey(): Promise<boolean> {
-    const key = await this.getAPIKey();
-    return Boolean(key || process.env.OPENAI_API_KEY);
-  }
-
-  /**
-   * APIキーを削除
-   */
-  async deleteAPIKey(): Promise<void> {
-    try {
-      await keytar.deletePassword(this.serviceName, this.accountName);
-      this.settings.provider.apiKey = undefined;
-    } catch (error) {
-      console.error('Error deleting API key:', error);
-    }
   }
 
   /**
@@ -281,7 +207,6 @@ export class SettingsManager {
   async resetSettings(): Promise<void> {
     this.settings = this.getDefaultSettings();
     await this.saveSettings(this.settings);
-    await this.deleteAPIKey();
   }
 }
 

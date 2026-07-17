@@ -10,12 +10,6 @@ jest.mock('electron', () => ({
   },
 }));
 
-jest.mock('keytar', () => ({
-  setPassword: jest.fn(),
-  getPassword: jest.fn(),
-  deletePassword: jest.fn(),
-}));
-
 import { SettingsManager } from '../SettingsManager';
 
 describe('SettingsManager privacy exclude patterns', () => {
@@ -56,18 +50,26 @@ describe('SettingsManager privacy exclude patterns', () => {
     expect(manager.getTextExclusionMatch('-----BEGIN PRIVATE KEY-----')).not.toBeNull();
   });
 
-  it('does not persist API keys into settings.json', async () => {
-    const manager = new SettingsManager();
-
-    await manager.saveSettings({
-      provider: {
-        apiKey: 'sk-test',
-      } as any,
-    });
-
-    const rawSettings = JSON.parse(
-      fs.readFileSync(path.join(mockUserDataPath, 'settings.json'), 'utf-8')
+  it('migrates legacy provider settings to the local-only shape', () => {
+    fs.writeFileSync(
+      path.join(mockUserDataPath, 'settings.json'),
+      JSON.stringify({
+        provider: {
+          type: 'api',
+          model: 'legacy-model',
+          apiKey: 'sk-test',
+          apiEndpoint: 'https://example.com/v1',
+        },
+      }),
+      'utf-8'
     );
-    expect(rawSettings.provider.apiKey).toBeUndefined();
+
+    const provider = new SettingsManager().getSettings().provider as Record<string, unknown>;
+
+    expect(provider).toEqual({
+      type: 'local',
+      model: 'legacy-model',
+      localServerPort: 8080,
+    });
   });
 });

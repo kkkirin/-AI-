@@ -1,6 +1,9 @@
 import React from 'react';
 import { AIMode } from '../../types';
+import type { LocalAIStatus } from '../../preload';
 import '../styles/MainView.css';
+
+type TranslateDirection = 'auto' | 'ja2en' | 'en2ja';
 
 interface MainViewProps {
   inputText: string;
@@ -9,9 +12,12 @@ interface MainViewProps {
   isLoading: boolean;
   error: string;
   successMessage: string;
+  status?: LocalAIStatus;
+  translateDirection?: TranslateDirection;
   onInputChange: (text: string) => void;
   onOutputChange: (text: string) => void;
   onModeChange: (mode: AIMode) => void;
+  onTranslateDirectionChange?: (direction: TranslateDirection) => void;
   onGenerate: () => void;
   onCopyOutput: () => void;
   onOpenSettings: () => void;
@@ -24,9 +30,12 @@ export default function MainView({
   isLoading,
   error,
   successMessage,
+  status,
+  translateDirection,
   onInputChange,
   onOutputChange,
   onModeChange,
+  onTranslateDirectionChange,
   onGenerate,
   onCopyOutput,
   onOpenSettings,
@@ -50,12 +59,40 @@ export default function MainView({
   const hasInput = inputText.trim().length > 0;
   const hasOutput = outputText.trim().length > 0;
   const isResultView = hasOutput && !isLoading;
+  const activeTranslateDirection: TranslateDirection =
+    translateDirection === 'ja2en' || translateDirection === 'en2ja'
+      ? translateDirection
+      : 'auto';
+  const isLocalNotReady = status?.providerType === 'local' && status.ready === false;
+  const providerLabel = status?.providerType === 'local'
+    ? 'ローカル'
+    : status?.providerType === 'api'
+      ? 'API'
+      : 'CLI';
+  const statusClass = status?.ready
+    ? 'ready'
+    : status?.providerType === 'local' && status.running
+      ? 'loading'
+      : 'offline';
+  const statusText = status?.ready
+    ? `${status.modelName}・${providerLabel}`
+    : status?.providerType === 'local' && status.running
+      ? 'モデル読み込み中…'
+      : '未接続';
 
   return (
     <div className="main-view">
       {/* ヘッダー */}
       <div className="header">
-        <h1>QuickText</h1>
+        <div className="header-title-group">
+          <h1>QuickText</h1>
+          {status && (
+            <span className={`ai-status-pill ${statusClass}`}>
+              <span className="ai-status-dot" aria-hidden="true" />
+              {statusText}
+            </span>
+          )}
+        </div>
         <button className="settings-btn" onClick={onOpenSettings} title="設定">
           ⚙️
         </button>
@@ -77,6 +114,26 @@ export default function MainView({
           ))}
         </select>
         <div className="mode-description">{modeDescriptions[mode]}</div>
+        {mode === AIMode.TRANSLATE && (
+          <div className="translate-direction" role="group" aria-label="翻訳方向">
+            {([
+              ['auto', '自動'],
+              ['ja2en', '日本語→英語'],
+              ['en2ja', '英語→日本語'],
+            ] as const).map(([direction, label]) => (
+              <button
+                key={direction}
+                type="button"
+                className={activeTranslateDirection === direction ? 'active' : ''}
+                onClick={() => onTranslateDirectionChange?.(direction)}
+                disabled={isLoading}
+                aria-pressed={activeTranslateDirection === direction}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       <div className={`workspace ${isResultView ? 'has-result' : 'is-editing'}`}>
@@ -100,7 +157,7 @@ export default function MainView({
             <label htmlFor="output">出力</label>
             <span className="section-meta">{hasOutput ? `${outputText.length}文字` : '未入力'}</span>
           </div>
-          {isLoading ? (
+          {isLoading && !outputText ? (
             <div className="output-state" role="status" aria-live="polite">
               処理中...
             </div>
@@ -127,11 +184,11 @@ export default function MainView({
         {isResultView ? (
           <>
             <button
-              className="btn btn-secondary"
-              onClick={onGenerate}
-              disabled={!hasInput}
-            >
-              再生成
+            className="btn btn-secondary"
+            onClick={onGenerate}
+            disabled={!hasInput || isLocalNotReady}
+          >
+            {isLocalNotReady ? '準備中…' : '再生成'}
             </button>
             <button
               className="btn btn-primary"
@@ -145,9 +202,9 @@ export default function MainView({
           <button
             className="btn btn-primary"
             onClick={onGenerate}
-            disabled={isLoading || !hasInput}
+            disabled={isLoading || !hasInput || isLocalNotReady}
           >
-            {isLoading ? '処理中...' : '生成'}
+            {isLocalNotReady ? '準備中…' : isLoading ? '処理中...' : '生成'}
           </button>
         )}
       </div>

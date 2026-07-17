@@ -85,11 +85,12 @@ export class LocalAIProvider extends AIProvider {
         { role: 'system', content: template.systemPrompt },
         { role: 'user', content: userPrompt },
       ];
+      const dynamicMax = Math.min(2000, Math.max(256, request.inputText.length * 3 + 64));
 
       const requestBody: any = {
         messages,
         temperature: template.temperature ?? 0.3,
-        max_tokens: 2000,
+        max_tokens: dynamicMax,
         stream: false,
       };
       if (template.frequency_penalty) {
@@ -119,6 +120,121 @@ export class LocalAIProvider extends AIProvider {
       }
       throw error;
     }
+  }
+
+  async generateStream(request: AIRequest, onToken: (token: string) => void): Promise<AIResponse> {
+    try {
+      const detectedLanguage = detectLanguage(request.inputText);
+      const inputLanguage = request.inputLanguage === Language.AUTO
+        ? detectedLanguage
+        : request.inputLanguage;
+      const outputLanguage = determineOutputLanguage(inputLanguage, request.outputLanguage);
+
+      const template = MODE_TEMPLATES[request.mode];
+      if (!template) {
+        throw new Error(`Unknown mode: ${request.mode}`);
+      }
+
+      const userPrompt = template.userPromptTemplate
+        .replace('{inputLanguage}', this.getLanguageName(inputLanguage))
+        .replace('{outputLanguage}', this.getLanguageName(outputLanguage))
+        .replace('{inputText}', request.inputText);
+
+      const messages = [
+        { role: 'system', content: template.systemPrompt },
+        { role: 'user', content: userPrompt },
+      ];
+      const dynamicMax = Math.min(2000, Math.max(256, request.inputText.length * 3 + 64));
+      const requestBody: any = {
+        messages,
+        temperature: template.temperature ?? 0.3,
+        max_tokens: dynamicMax,
+        stream: true,
+      };
+      if (template.frequency_penalty) {
+        requestBody.frequency_penalty = template.frequency_penalty;
+      }
+
+      const response = await this.client.post('/chat/completions', requestBody, {
+        responseType: 'stream',
+        timeout: 120000,
+      });
+
+      let outputText = '';
+      let lineBuffer = '';
+      let isDone = false;
+
+      for await (const chunk of response.data as AsyncIterable<Buffer | string>) {
+        lineBuffer += Buffer.isBuffer(chunk) ? chunk.toString('utf8') : chunk;
+        const lines = lineBuffer.split(/\r?\n/);
+        lineBuffer = lines.pop() || '';
+
+        for (const line of lines) {
+          if (!line.startsWith('data:')) {
+            continue;
+          }
+
+          const data = line.slice(5).trimStart();
+          if (data === '[DONE]') {
+            isDone = true;
+            break;
+          }
+          if (!data) {
+            continue;
+          }
+
+          const parsed = JSON.parse(data);
+          const token = parsed.choices?.[0]?.delta?.content;
+          if (token) {
+            outputText += token;
+            onToken(token);
+          }
+        }
+
+        if (isDone) {
+          break;
+        }
+      }
+
+      if (!isDone && lineBuffer.startsWith('data:')) {
+        const data = lineBuffer.slice(5).trimStart();
+        if (data && data !== '[DONE]') {
+          const parsed = JSON.parse(data);
+          const token = parsed.choices?.[0]?.delta?.content;
+          if (token) {
+            outputText += token;
+            onToken(token);
+          }
+        }
+      }
+
+      return {
+        outputText,
+        mode: request.mode,
+        inputLanguage,
+        outputLanguage,
+        timestamp: Date.now(),
+        tokensUsed: 0,
+      };
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.code === 'ECONNREFUSED') {
+          throw new Error('AI推論エンジンに接続できません。再起動してください。');
+        } else if (error.code === 'ECONNABORTED') {
+          throw new Error('リクエストがタイムアウトしました。モデルの処理に時間がかかっています。');
+        }
+      }
+      throw error;
+    }
+  }
+
+  async warmup(): Promise<void> {
+    await this.client.post('/chat/completions', {
+      messages: [{ role: 'user', content: 'hi' }],
+      max_tokens: 1,
+      stream: false,
+      temperature: 0,
+    });
   }
 
   /**

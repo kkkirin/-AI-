@@ -29,6 +29,7 @@ const mainConfig = {
   devtool: 'source-map',
   externals: {
     keytar: 'commonjs keytar',
+    'uiohook-napi': 'commonjs uiohook-napi',
   },
 };
 

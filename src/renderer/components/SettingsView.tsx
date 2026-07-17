@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AppSettings, CLIProviderType, ProviderType } from '../../types';
+import { AppSettings, ProviderType } from '../../types';
 import '../styles/SettingsView.css';
 
 interface SettingsViewProps {
@@ -8,8 +8,10 @@ interface SettingsViewProps {
 
 interface LocalModel {
   name: string;
+  displayName?: string;
   description: string;
   size: string;
+  tier?: 'fast' | 'quality';
 }
 
 interface ShortcutPreset {
@@ -24,12 +26,14 @@ export default function SettingsView({ onClose }: SettingsViewProps) {
   const [localModels, setLocalModels] = useState<string[]>([]);
   const [recommendedModels, setRecommendedModels] = useState<LocalModel[]>([]);
   const [serverConnected, setServerConnected] = useState(false);
+  const [downloadingModelId, setDownloadingModelId] = useState<string | null>(null);
+  const [downloadPercent, setDownloadPercent] = useState(0);
+  const [downloadedMB, setDownloadedMB] = useState(0);
+  const [totalMB, setTotalMB] = useState(0);
   const [currentShortcut, setCurrentShortcut] = useState('');
   const [shortcutPresets, setShortcutPresets] = useState<ShortcutPreset[]>([]);
   const [shortcutInput, setShortcutInput] = useState('');
   const [isShortcutRecording, setIsShortcutRecording] = useState(false);
-  const [apiKeyInput, setApiKeyInput] = useState('');
-  const [apiKeyConfigured, setApiKeyConfigured] = useState(false);
 
   // 設定を読み込む
   useEffect(() => {
@@ -38,6 +42,27 @@ export default function SettingsView({ onClose }: SettingsViewProps) {
     loadShortcutInfo();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // ダウンロード進捗を受信
+  useEffect(() => {
+    let cancelled = false;
+    window.electronAPI.onDownloadProgress((data) => {
+      if (cancelled || data.model !== downloadingModelId) {
+        return;
+      }
+      const match = data.message.match(/(\d+)%/);
+      if (match) {
+        setDownloadPercent(parseInt(match[1], 10));
+      }
+      if (data.downloaded && data.total) {
+        setDownloadedMB(Math.round(data.downloaded / (1024 * 1024)));
+        setTotalMB(Math.round(data.total / (1024 * 1024)));
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [downloadingModelId]);
 
   useEffect(() => {
     if (!settings) {
@@ -72,7 +97,7 @@ export default function SettingsView({ onClose }: SettingsViewProps) {
     if (!recommended) {
       return model;
     }
-    return `${model} (${recommended.size}) - ${recommended.description}`;
+    return `${recommended.displayName || model} · ${recommended.size}`;
   };
 
   const isMac = () => window.navigator.platform.toLowerCase().includes('mac');
@@ -161,76 +186,42 @@ export default function SettingsView({ onClose }: SettingsViewProps) {
     try {
       const loadedSettings = await window.electronAPI.getSettings();
       setSettings(loadedSettings);
-      const keyResult = await window.electronAPI.hasAPIKey();
-      setApiKeyConfigured(Boolean(keyResult.success && keyResult.hasAPIKey));
     } catch (error) {
       console.error('Error loading settings:', error);
     }
   };
 
-  const handleProviderTypeChange = (type: ProviderType) => {
-    if (!settings) return;
-
-    const nextProvider = { ...settings.provider, type };
-    const shouldUseCodexDefaultModel =
-      !nextProvider.model ||
-      nextProvider.model.startsWith('LFM2.5-') ||
-      nextProvider.model === 'gpt-4o-mini';
-
-    if (type === ProviderType.API && (!nextProvider.model || nextProvider.model.startsWith('LFM2.5-'))) {
-      nextProvider.model = 'gpt-4o-mini';
-    }
-    if (type === ProviderType.CLI) {
-      nextProvider.cliProvider = nextProvider.cliProvider || 'codex';
-      if (shouldUseCodexDefaultModel) {
-        nextProvider.model = nextProvider.cliProvider === 'codex' ? 'gpt-5.5' : '';
-      }
-    }
-    if (type === ProviderType.LOCAL) {
-      nextProvider.model = localModels[0] || 'LFM2.5-1.2B-JP-Q4_K_M';
-    }
-
-    setSettings({
-      ...settings,
-      provider: nextProvider,
-    });
-  };
-
-  const handleSetAPIKey = async () => {
-    const trimmedKey = apiKeyInput.trim();
-    if (!trimmedKey) {
-      setMessage('APIキーを入力してください');
-      return;
-    }
-
+  const handleStartServer = async () => {
     try {
-      const result = await window.electronAPI.setAPIKey(trimmedKey);
+      const result = await window.electronAPI.startServer();
       if (result.success) {
-        setApiKeyInput('');
-        setApiKeyConfigured(true);
-        setMessage('APIキーを保存しました');
-        setTimeout(() => setMessage(''), 3000);
+        await window.electronAPI.reinitializeAI();
+        await loadLocalAIInfo();
+        setMessage(result.message);
       } else {
-        setMessage(`エラー: ${result.error}`);
+        setMessage(`エラー: ${result.message}`);
       }
     } catch {
-      setMessage('APIキーの保存に失敗しました');
+      setMessage('AI推論エンジンの起動に失敗しました');
     }
   };
 
-  const handleDeleteAPIKey = async () => {
+  const handleDownloadModel = async (modelId: string) => {
+    setDownloadingModelId(modelId);
+    setDownloadPercent(0);
+    setDownloadedMB(0);
+    setTotalMB(0);
     try {
-      const result = await window.electronAPI.deleteAPIKey();
+      const result = await window.electronAPI.downloadModel(modelId);
       if (result.success) {
-        setApiKeyInput('');
-        setApiKeyConfigured(false);
-        setMessage('APIキーを削除しました');
-        setTimeout(() => setMessage(''), 3000);
+        await loadLocalAIInfo();
       } else {
         setMessage(`エラー: ${result.error}`);
       }
-    } catch {
-      setMessage('APIキーの削除に失敗しました');
+    } catch (error) {
+      setMessage('モデルのダウンロードに失敗しました');
+    } finally {
+      setDownloadingModelId(null);
     }
   };
 
@@ -330,7 +321,7 @@ export default function SettingsView({ onClose }: SettingsViewProps) {
                 <option value="confirm">終了前に確認する</option>
                 <option value="quit">そのまま終了する</option>
               </select>
-              <div style={{ fontSize: '12px', color: '#a0a0a0', marginTop: '4px' }}>
+              <div className="setting-note">
                 ※ トレイの「終了」ボタンからはいつでも完全終了できます。
               </div>
             </div>
@@ -372,7 +363,7 @@ export default function SettingsView({ onClose }: SettingsViewProps) {
                   ホットキーで起動（推奨）
                 </label>
               </div>
-              <div style={{ fontSize: '12px', color: '#a0a0a0', marginTop: '6px' }}>
+              <div className="setting-note">
                 ※ {doubleCopyLabel} は通常のコピー操作と競合しやすいため、必要な場合だけ使ってください。
               </div>
             </div>
@@ -401,7 +392,7 @@ export default function SettingsView({ onClose }: SettingsViewProps) {
                   void handleChangeShortcut(shortcut);
                 }}
               />
-              <div style={{ fontSize: '12px', color: '#a0a0a0', marginTop: '4px' }}>
+              <div className="setting-note">
                 ※ 入力欄をクリックしてから希望のキーを押してください。
               </div>
             </div>
@@ -421,14 +412,7 @@ export default function SettingsView({ onClose }: SettingsViewProps) {
             </div>
             <div className="setting-item">
               <label>現在のショートカット:</label>
-              <div style={{ 
-                padding: '8px 12px', 
-                backgroundColor: '#3d3d3d', 
-                borderRadius: '4px', 
-                display: 'inline-block',
-                fontFamily: 'monospace',
-                color: '#4ade80'
-              }}>
+              <div className="shortcut-current">
                 {isDoubleCopy ? doubleCopyLabel : currentShortcut || 'F12'}
               </div>
             </div>
@@ -441,186 +425,93 @@ export default function SettingsView({ onClose }: SettingsViewProps) {
             <h3>AI設定</h3>
 
             <div className="setting-item">
-              <label>AI実行方式:</label>
-              <select
-                value={settings.provider.type}
-                onChange={(e) => handleProviderTypeChange((e.target as HTMLSelectElement).value as ProviderType)}
-              >
-                <option value={ProviderType.LOCAL}>ローカルAI</option>
-                <option value={ProviderType.API}>OpenAI互換API</option>
-                <option value={ProviderType.CLI}>Codex / Claude Code CLI</option>
-              </select>
+              <label>AI推論エンジン状態:</label>
+              <div className={`engine-status ${serverConnected ? 'on' : 'off'}`}>
+                <span className="dot" />
+                <span>{serverConnected ? '起動中' : '停止中'}</span>
+                {!serverConnected && (
+                  <button className="btn-small" onClick={handleStartServer}>
+                    起動
+                  </button>
+                )}
+              </div>
             </div>
-
-            {settings.provider.type === ProviderType.LOCAL && (
-              <>
-                <div className="setting-item">
-                  <label>
-                    AI推論エンジン状態:
-                    {serverConnected ? (
-                      <span style={{ color: '#4ade80', marginLeft: '8px' }}>✓ 起動中</span>
-                    ) : (
-                      <span style={{ color: '#f87171', marginLeft: '8px' }}>✗ 停止中</span>
-                    )}
-                  </label>
-                </div>
-                <div className="setting-item">
-                  <label>ダウンロード済みモデル:</label>
-                  <div style={{ fontSize: '12px', color: '#a0a0a0', marginTop: '4px' }}>
-                    {localModels.length > 0 ? (
-                      localModels.map((m) => (
-                        <div key={m} style={{ padding: '2px 0' }}>
-                          • {getModelLabel(m)}
-                        </div>
-                      ))
-                    ) : (
-                      <div>モデルがダウンロードされていません</div>
-                    )}
-                  </div>
-                </div>
-                <div className="setting-item">
-                  <label>ローカルAIの特性:</label>
-                  <div style={{ fontSize: '12px', color: '#a0a0a0', marginTop: '4px', lineHeight: 1.6 }}>
-                    <div>• 通信はローカルのみ（外部APIに送信しない）</div>
-                    <div>• 初回はモデル読み込みで時間がかかることがある</div>
-                    <div>• 速度と品質はモデルサイズ・PC性能に依存</div>
-                  </div>
-                </div>
-              </>
-            )}
-
-            {settings.provider.type === ProviderType.API && (
-              <>
-                <div className="setting-item">
-                  <label>APIエンドポイント:</label>
-                  <input
-                    type="text"
-                    value={settings.provider.apiEndpoint || ''}
-                    placeholder="https://api.openai.com/v1"
-                    onChange={(e) =>
-                      setSettings({
-                        ...settings,
-                        provider: { ...settings.provider, apiEndpoint: e.target.value },
-                      })
-                    }
-                  />
-                  <div style={{ fontSize: '12px', color: '#a0a0a0', marginTop: '4px' }}>
-                    OpenAI互換の /v1/chat/completions に送信します。空欄ならOpenAI公式APIを使います。
-                  </div>
-                </div>
-                <div className="setting-item">
-                  <label>モデル:</label>
-                  <input
-                    type="text"
-                    value={settings.provider.model}
-                    placeholder="gpt-4o-mini"
-                    onChange={(e) =>
-                      setSettings({
-                        ...settings,
-                        provider: { ...settings.provider, model: e.target.value },
-                      })
-                    }
-                  />
-                </div>
-                <div className="setting-item">
-                  <label>APIキー:</label>
-                  <div className="api-key-controls">
-                    <input
-                      type="password"
-                      value={apiKeyInput}
-                      placeholder={apiKeyConfigured ? '設定済み（変更する場合のみ入力）' : 'APIキーを入力'}
-                      onChange={(e) => setApiKeyInput(e.target.value)}
-                    />
-                    <button className="btn-small" onClick={handleSetAPIKey}>
-                      保存
-                    </button>
-                    {apiKeyConfigured && (
-                      <button className="btn-small" onClick={handleDeleteAPIKey}>
-                        削除
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </>
-            )}
-
-            {settings.provider.type === ProviderType.CLI && (
-              <>
-                <div className="setting-item">
-                  <label>CLI:</label>
-                  <select
-                    value={settings.provider.cliProvider || 'codex'}
-                    onChange={(e) => {
-                      const cliProvider = (e.target as HTMLSelectElement).value as CLIProviderType;
-                      const shouldUseCodexDefault =
-                        cliProvider === 'codex' &&
-                        (!settings.provider.model ||
-                          settings.provider.model.startsWith('LFM2.5-') ||
-                          settings.provider.model === 'gpt-4o-mini');
-                      setSettings({
-                        ...settings,
-                        provider: {
-                          ...settings.provider,
-                          cliProvider,
-                          model: shouldUseCodexDefault ? 'gpt-5.5' : settings.provider.model,
-                        },
-                      });
-                    }}
-                  >
-                    <option value="codex">Codex CLI</option>
-                    <option value="claude">Claude Code</option>
-                  </select>
-                </div>
-                <div className="setting-item">
-                  <label>モデル（任意）:</label>
-                  <input
-                    type="text"
-                    value={settings.provider.model}
-                    placeholder={settings.provider.cliProvider === 'claude' ? '空欄ならClaude Codeの既定モデル' : 'gpt-5.5'}
-                    onChange={(e) =>
-                      setSettings({
-                        ...settings,
-                        provider: { ...settings.provider, model: e.target.value },
-                      })
-                    }
-                  />
-                </div>
-                <div className="setting-item">
-                  <label>CLIコマンド（任意）:</label>
-                  <input
-                    type="text"
-                    value={settings.provider.cliCommand || ''}
-                    placeholder={settings.provider.cliProvider === 'claude' ? 'claude' : 'codex'}
-                    onChange={(e) =>
-                      setSettings({
-                        ...settings,
-                        provider: { ...settings.provider, cliCommand: e.target.value || undefined },
-                      })
-                    }
-                  />
-                  <div style={{ fontSize: '12px', color: '#a0a0a0', marginTop: '4px', lineHeight: 1.6 }}>
-                    <div>• Codexは `codex exec`、Claude Codeは `claude --print` を非対話で実行します。</div>
-                    <div>• 事前に各CLIでログイン済みである必要があります。</div>
-                  </div>
-                </div>
-              </>
-            )}
-
             <div className="setting-item">
-              <label>最大トークン数（リクエスト）:</label>
-              <input
-                type="number"
-                value={settings.provider.maxTokensPerRequest}
-                onChange={(e) =>
-                  setSettings({
-                    ...settings,
-                    provider: {
-                      ...settings.provider,
-                      maxTokensPerRequest: parseInt(e.target.value),
-                    },
-                  })
-                }
-              />
+              <label>使用モデル:</label>
+              <div className="model-list">
+                {recommendedModels.map((model) => {
+                  const isDownloaded = localModels.includes(model.name);
+                  const isActive = settings.provider.model === model.name;
+                  const isDownloading = downloadingModelId === model.name;
+                  return (
+                    <div key={model.name} className="model-choice">
+                      <div className="model-choice-main">
+                        <div className="model-choice-name">
+                          {getModelLabel(model.name)}
+                          {model.tier && (
+                            <span className={`model-badge ${model.tier}`}>
+                              {model.tier === 'fast' ? '速い' : '高品質'}
+                            </span>
+                          )}
+                        </div>
+                        <div className="model-choice-desc">{model.description}</div>
+                        {isDownloading && (
+                          <div className="download-progress">
+                            <div className="progress-header">
+                              <span>ダウンロード中...</span>
+                              <span>{downloadedMB > 0 ? `${downloadedMB}MB / ${totalMB}MB` : ''}</span>
+                            </div>
+                            <div className="progress-bar">
+                              <div className="progress-fill" style={{ width: `${downloadPercent}%` }} />
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                      <div>
+                        {isDownloaded ? (
+                          isActive ? (
+                            <span className="model-active">使用中</span>
+                          ) : (
+                            <label>
+                              <input
+                                type="radio"
+                                name="activeModel"
+                                checked={isActive}
+                                onChange={() =>
+                                  setSettings({
+                                    ...settings,
+                                    provider: { ...settings.provider, model: model.name },
+                                  })
+                                }
+                              />
+                              使用する
+                            </label>
+                          )
+                        ) : (
+                          <button
+                            className="btn-small"
+                            onClick={() => handleDownloadModel(model.name)}
+                            disabled={downloadingModelId !== null}
+                          >
+                            ダウンロード
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="setting-note">
+                モデルを変更したら「保存」で切り替わります（切替時は数十秒かかることがあります）。
+              </div>
+            </div>
+            <div className="setting-item">
+              <label>ローカルAIの特性:</label>
+              <div className="setting-note">
+                <div>• 通信はローカルのみ（外部APIに送信しない）</div>
+                <div>• 初回はモデル読み込みで時間がかかることがある</div>
+                <div>• 速度と品質はモデルサイズ・PC性能に依存</div>
+              </div>
             </div>
           </div>
         )}
@@ -643,19 +534,6 @@ export default function SettingsView({ onClose }: SettingsViewProps) {
                 />
                 自動でクリップボードに保存
               </label>
-            </div>
-            <div className="setting-item">
-              <label>改行を保持:</label>
-              <input
-                type="checkbox"
-                checked={settings.output.preserveLineBreaks}
-                onChange={(e) =>
-                  setSettings({
-                    ...settings,
-                    output: { ...settings.output, preserveLineBreaks: e.target.checked },
-                  })
-                }
-              />
             </div>
           </div>
         )}

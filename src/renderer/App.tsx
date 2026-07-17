@@ -1,22 +1,60 @@
 import React, { useState, useEffect } from 'react';
 
 import { AIMode, Language, ClipboardEvent, ProviderType } from '../types';
+import type { LocalAIStatus } from '../preload';
 import MainView from './components/MainView';
 import SettingsView from './components/SettingsView';
 import SetupView from './components/SetupView';
+import AccessibilityBanner from './components/AccessibilityBanner';
 import './App.css';
 
 type ViewType = 'main' | 'settings' | 'setup';
+type TranslateDirection = 'auto' | 'ja2en' | 'en2ja';
+
+const DIRECTION_LANGS: Record<TranslateDirection, { input: Language; output: Language }> = {
+  auto: { input: Language.AUTO, output: Language.AUTO },
+  ja2en: { input: Language.JAPANESE, output: Language.ENGLISH },
+  en2ja: { input: Language.ENGLISH, output: Language.JAPANESE },
+};
 
 export default function App() {
   const [currentView, setCurrentView] = useState<ViewType | null>(null);
   const [inputText, setInputText] = useState('');
   const [outputText, setOutputText] = useState('');
   const [mode, setMode] = useState<AIMode>(AIMode.TRANSLATE);
+  const [translateDirection, setTranslateDirection] = useState<TranslateDirection>('auto');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [aiStatus, setAIStatus] = useState<LocalAIStatus | undefined>(undefined);
+  const [needsAccessibility, setNeedsAccessibility] = useState(false);
   const isElectronRuntime = Boolean(window.electronAPI);
+  const resolveLangs = (requestMode: AIMode) => {
+    const directionLangs = DIRECTION_LANGS[translateDirection] || DIRECTION_LANGS.auto;
+    return requestMode === AIMode.TRANSLATE ? directionLangs : DIRECTION_LANGS.auto;
+  };
+
+  useEffect(() => {
+    if (!isElectronRuntime) {
+      return undefined;
+    }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && !e.altKey && e.key.toLowerCase() === 'a') {
+        const el = document.activeElement;
+        const isTextInput = el instanceof HTMLInputElement
+          || el instanceof HTMLTextAreaElement
+          || (el as HTMLElement)?.isContentEditable;
+
+        if (!isTextInput) {
+          e.preventDefault();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isElectronRuntime]);
 
   // 初回セットアップのチェック
   useEffect(() => {
@@ -39,14 +77,7 @@ export default function App() {
           return;
         }
 
-        // llama-serverが起動しているか確認、起動していなければ起動
-        const connection = await window.electronAPI.checkLocalAIConnection();
-        if (!connection.connected) {
-          // サーバー起動を試みる
-          await window.electronAPI.startServer();
-        }
-
-        setCurrentView('main');
+      setCurrentView('main');
       } catch (error) {
         // エラー時はセットアップ画面を表示
         setCurrentView('setup');
@@ -54,6 +85,39 @@ export default function App() {
     };
 
     checkSetup();
+  }, [isElectronRuntime]);
+
+  useEffect(() => {
+    if (!isElectronRuntime) {
+      return undefined;
+    }
+
+    window.electronAPI.getLocalAIStatus()
+      .then(setAIStatus)
+      .catch(() => undefined);
+
+    return window.electronAPI.onLocalAIStatusChanged(setAIStatus);
+  }, [isElectronRuntime]);
+
+  useEffect(() => {
+    if (!isElectronRuntime) {
+      return undefined;
+    }
+
+    const checkAccessibility = async () => {
+      try {
+        const settings = await window.electronAPI.getSettings();
+        if (settings.shortcut.triggerType === 'double_copy') {
+          const granted = await window.electronAPI.checkAccessibility();
+          setNeedsAccessibility(!granted);
+        }
+      } catch {}
+    };
+
+    checkAccessibility();
+    return window.electronAPI.onAccessibilityStatus(({ granted }) => {
+      setNeedsAccessibility(!granted);
+    });
   }, [isElectronRuntime]);
 
   // ホットキートリガーをリッスン
@@ -67,6 +131,11 @@ export default function App() {
       setError('');
       setOutputText('');
       setSuccessMessage('');
+
+      if (aiStatus?.providerType === ProviderType.LOCAL && !aiStatus.ready) {
+        setError('モデル準備中');
+        return;
+      }
       
       // 自動生成を実行
       if (event.text && event.text.trim().length > 0) {
@@ -83,12 +152,17 @@ export default function App() {
           setSuccessMessage('');
 
           try {
-            const response = await window.electronAPI.generateAI({
+          const requestMode = event.mode || mode;
+          const requestLangs = resolveLangs(requestMode);
+          const response = await window.electronAPI.generateAIStream(
+            {
               inputText: event.text,
-              mode: event.mode || mode,
-              inputLanguage: Language.AUTO,
-              outputLanguage: Language.AUTO,
-            });
+              mode: requestMode,
+              inputLanguage: requestLangs.input,
+              outputLanguage: requestLangs.output,
+            },
+            (token: string) => setOutputText((prev) => prev + token)
+          );
 
             if ('error' in response) {
               setError(response.error);
@@ -114,14 +188,19 @@ export default function App() {
     };
 
     const cleanup = window.electronAPI.onCCTriggered(handleCCTriggered);
+    window.electronAPI.notifyRendererReady();
     return cleanup;
-  }, [isElectronRuntime, mode]);
+  }, [aiStatus, isElectronRuntime, mode, translateDirection]);
 
   /**
    * AI生成を実行
    */
   const handleGenerate = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
+    if (aiStatus?.providerType === ProviderType.LOCAL && !aiStatus.ready) {
+      setError('モデル準備中');
+      return;
+    }
     if (!inputText.trim()) {
       setError('入力テキストが空です');
       return;
@@ -133,12 +212,16 @@ export default function App() {
     setSuccessMessage('');
 
     try {
-      const response = await window.electronAPI.generateAI({
-        inputText,
-        mode,
-        inputLanguage: Language.AUTO,
-        outputLanguage: Language.AUTO,
-      });
+      const requestLangs = resolveLangs(mode);
+      const response = await window.electronAPI.generateAIStream(
+        {
+          inputText,
+          mode,
+          inputLanguage: requestLangs.input,
+          outputLanguage: requestLangs.output,
+        },
+        (token: string) => setOutputText((prev) => prev + token)
+      );
 
       if ('error' in response) {
         setError(response.error);
@@ -220,9 +303,17 @@ export default function App() {
     setCurrentView('main');
   };
 
+  const handleGrantAccessibility = async () => {
+    try {
+      await window.electronAPI.requestAccessibility();
+      const granted = await window.electronAPI.reapplyTriggers();
+      setNeedsAccessibility(!granted);
+    } catch {}
+  };
+
   if (!isElectronRuntime) {
     return (
-      <div className="app dark" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px', textAlign: 'center' }}>
+      <div className="app" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px', textAlign: 'center' }}>
         <div>
           <h1 style={{ margin: '0 0 12px' }}>QuickText</h1>
           <p style={{ margin: 0, color: '#888' }}>
@@ -236,31 +327,37 @@ export default function App() {
   // 初期化中は何も表示しない
   if (currentView === null) {
     return (
-      <div className="app dark" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div className="app" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <p style={{ color: '#888' }}>読み込み中...</p>
       </div>
     );
   }
 
   return (
-    <div className="app dark">
+    <div className="app">
       {currentView === 'setup' ? (
         <SetupView onComplete={handleSetupComplete} />
       ) : currentView === 'main' ? (
-        <MainView
-          inputText={inputText}
-          outputText={outputText}
-          mode={mode}
-          isLoading={isLoading}
-          error={error}
-          successMessage={successMessage}
-          onInputChange={handleInputChange}
-          onOutputChange={handleOutputChange}
-          onModeChange={setMode}
-          onGenerate={handleGenerate}
-          onCopyOutput={handleCopyOutput}
-          onOpenSettings={handleOpenSettings}
-        />
+        <div className="main-with-accessibility">
+          {needsAccessibility && <AccessibilityBanner onGrant={handleGrantAccessibility} />}
+          <MainView
+            inputText={inputText}
+            outputText={outputText}
+            mode={mode}
+            translateDirection={translateDirection}
+            isLoading={isLoading}
+            error={error}
+            successMessage={successMessage}
+            status={aiStatus}
+            onInputChange={handleInputChange}
+            onOutputChange={handleOutputChange}
+            onModeChange={setMode}
+            onTranslateDirectionChange={setTranslateDirection}
+            onGenerate={handleGenerate}
+            onCopyOutput={handleCopyOutput}
+            onOpenSettings={handleOpenSettings}
+          />
+        </div>
       ) : (
         <SettingsView onClose={handleCloseSettings} />
       )}
