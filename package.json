@@ -62,7 +62,13 @@
             "**/*"
           ]
         }
-      ]
+      ],
+      "identity": "shiki tatsuta (97DQW7G66C)",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist",
+      "notarize": false
     },
     "win": {
       "icon": "assets/icon.png",
