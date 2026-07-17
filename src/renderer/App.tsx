@@ -291,7 +291,7 @@ export default function App() {
 
   if (!isElectronRuntime) {
     return (
-      <div className="app dark" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px', textAlign: 'center' }}>
+      <div className="app" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px', textAlign: 'center' }}>
         <div>
           <h1 style={{ margin: '0 0 12px' }}>QuickText</h1>
           <p style={{ margin: 0, color: '#888' }}>
@@ -305,14 +305,14 @@ export default function App() {
   // 初期化中は何も表示しない
   if (currentView === null) {
     return (
-      <div className="app dark" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div className="app" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <p style={{ color: '#888' }}>読み込み中...</p>
       </div>
     );
   }
 
   return (
-    <div className="app dark">
+    <div className="app">
       {currentView === 'setup' ? (
         <SetupView onComplete={handleSetupComplete} />
       ) : currentView === 'main' ? (

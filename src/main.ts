@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu, ipcMain, Tray, nativeImage, clipboard, globalShortcut, shell, dialog, systemPreferences } from 'electron';
+import { app, BrowserWindow, Menu, ipcMain, Tray, nativeImage, nativeTheme, clipboard, globalShortcut, shell, dialog, systemPreferences } from 'electron';
 import * as path from 'path';
 import { exec, spawn, ChildProcess } from 'child_process';
 import isDev from 'electron-is-dev';
@@ -106,7 +106,7 @@ function createWindow(): void {
     width: 500,
     height: 700,
     icon: appIcon,
-    backgroundColor: '#1e1e1e', // 白フラッシュ防止（アプリのダーク背景に合わせる）
+    backgroundColor: nativeTheme.shouldUseDarkColors ? '#1E1E20' : '#ECECEE', // 白フラッシュ防止（アプリの外観に合わせる）
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: false,

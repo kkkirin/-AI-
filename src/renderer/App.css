@@ -1,153 +1,117 @@
-* {
-  box-sizing: border-box;
+/* ===== QuickText design tokens (auto light/dark) ===== */
+:root {
+  color-scheme: light dark;
+
+  /* surfaces */
+  --bg: #ECECEE;
+  --surface: #FFFFFF;
+  --surface-2: #F7F7F8;
+  --header-bg: rgba(246, 246, 248, 0.72);
+
+  /* text */
+  --text: #1D1D1F;
+  --text-2: #6E6E73;
+  --text-3: #9A9AA0;
+
+  /* lines / fills */
+  --separator: rgba(60, 60, 67, 0.16);
+  --separator-strong: rgba(60, 60, 67, 0.28);
+  --control-bg: #FFFFFF;
+  --control-border: rgba(60, 60, 67, 0.22);
+  --fill-quaternary: rgba(120, 120, 128, 0.10);
+  --fill-tertiary: rgba(120, 120, 128, 0.16);
+  --fill-hover: rgba(120, 120, 128, 0.14);
+
+  /* accent + status */
+  --accent: #007AFF;
+  --accent-hover: #0A6FE8;
+  --accent-press: #0060CE;
+  --on-accent: #FFFFFF;
+  --green: #34C759;
+  --yellow: #FF9F0A;
+  --red: #FF3B30;
+  --danger-bg: rgba(255, 59, 48, 0.12);
+  --danger-text: #C1362C;
+  --success-bg: rgba(52, 199, 89, 0.14);
+  --success-text: #248A3D;
+
+  /* effects */
+  --focus-ring: rgba(0, 122, 255, 0.45);
+  --seg-selected-bg: #FFFFFF;
+  --seg-selected-shadow: 0 1px 2px rgba(0,0,0,0.14), 0 0 0 0.5px rgba(0,0,0,0.04);
+  --pop-shadow: 0 0.5px 1px rgba(0,0,0,0.05), 0 6px 20px rgba(0,0,0,0.08);
+
+  /* radii */
+  --r-sm: 5px;
+  --r-md: 6px;
+  --r-lg: 8px;
+  --r-field: 7px;
+
+  /* type */
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif;
 }
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1E1E20;
+    --surface: #2C2C2E;
+    --surface-2: #242426;
+    --header-bg: rgba(38, 38, 40, 0.72);
+
+    --text: #FFFFFF;
+    --text-2: #A1A1A6;
+    --text-3: #7C7C82;
+
+    --separator: rgba(255, 255, 255, 0.10);
+    --separator-strong: rgba(255, 255, 255, 0.16);
+    --control-bg: #1C1C1E;
+    --control-border: rgba(255, 255, 255, 0.14);
+    --fill-quaternary: rgba(120, 120, 128, 0.24);
+    --fill-tertiary: rgba(120, 120, 128, 0.32);
+    --fill-hover: rgba(255, 255, 255, 0.08);
+
+    --accent: #0A84FF;
+    --accent-hover: #2A97FF;
+    --accent-press: #0066CC;
+    --green: #30D158;
+    --yellow: #FFD60A;
+    --red: #FF453A;
+    --danger-bg: rgba(255, 69, 58, 0.18);
+    --danger-text: #FF6961;
+    --success-bg: rgba(48, 209, 88, 0.18);
+    --success-text: #5FDA80;
+
+    --focus-ring: rgba(10, 132, 255, 0.55);
+    --seg-selected-bg: rgba(120, 120, 128, 0.40);
+    --seg-selected-shadow: 0 1px 2px rgba(0,0,0,0.30), 0 0 0 0.5px rgba(255,255,255,0.04);
+    --pop-shadow: 0 0.5px 1px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.5);
+  }
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root { width: 100%; height: 100%; }
 
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font);
+  font-size: 13px;
+  line-height: 1.45;
+  letter-spacing: -0.08px;
+  color: var(--text);
+  background-color: var(--bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-#root {
-  width: 100%;
-  height: 100%;
-}
+.app { width: 100%; height: 100%; position: relative; background-color: var(--bg); }
 
-.app {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
+/* 初期化中/非Electron のプレースホルダ文言 */
+.app p { color: var(--text-2); }
 
-/* ダークモード */
-.app.dark {
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #2d2d2d;
-  --bg-tertiary: #3d3d3d;
-  --text-primary: #ffffff;
-  --text-secondary: #b0b0b0;
-  --border-color: #404040;
-  --accent-color: #4a9eff;
-  --error-bg: #4a1a1a;
-  --error-text: #ff6b6b;
-  --success-bg: #1a3a1a;
-  --success-text: #6bff6b;
-}
-
-.app.dark .main-view,
-.app.dark .settings-view {
-  background-color: var(--bg-primary);
-}
-
-.app.dark .header,
-.app.dark .settings-header,
-.app.dark .mode-selector,
-.app.dark .workspace,
-.app.dark .input-section,
-.app.dark .output-section,
-.app.dark .button-group,
-.app.dark .footer,
-.app.dark .settings-footer,
-.app.dark .tabs,
-.app.dark .settings-group {
-  background-color: var(--bg-secondary);
-  border-color: var(--border-color);
-}
-
-.app.dark .header h1,
-.app.dark .settings-header h2,
-.app.dark .settings-group h3,
-.app.dark .mode-selector label,
-.app.dark .input-section label,
-.app.dark .output-section label,
-.app.dark .section-header label,
-.app.dark .setting-item label {
-  color: var(--text-primary);
-}
-
-.app.dark .text-area,
-.app.dark .setting-item input[type='text'],
-.app.dark .setting-item input[type='password'],
-.app.dark .setting-item input[type='number'],
-.app.dark .setting-item select,
-.app.dark .setting-item textarea,
-.app.dark .mode-selector select {
-  background-color: var(--bg-tertiary);
-  color: var(--text-primary);
-  border-color: var(--border-color);
-}
-
-.app.dark .text-area.output {
-  background-color: var(--bg-tertiary);
-}
-
-.app.dark .section-meta {
-  color: var(--text-secondary);
-}
-
-.app.dark .output-state {
-  background-color: var(--bg-tertiary);
-  color: var(--text-primary);
-  border-color: var(--border-color);
-}
-
-.app.dark .btn-secondary {
-  background-color: var(--bg-tertiary);
-  color: var(--text-primary);
-  border-color: var(--border-color);
-}
-
-.app.dark .btn-secondary:hover:not(:disabled) {
-  background-color: #4a4a4a;
-}
-
-.app.dark .settings-btn:hover,
-.app.dark .close-btn:hover {
-  background-color: var(--bg-tertiary);
-}
-
-.app.dark .tab {
-  color: var(--text-secondary);
-}
-
-.app.dark .tab:hover {
-  color: var(--text-primary);
-}
-
-.app.dark .tab.active {
-  color: var(--accent-color);
-  border-bottom-color: var(--accent-color);
-}
-
-.app.dark .tab-content {
-  background-color: var(--bg-primary);
-}
-
-.app.dark .error-message {
-  background-color: var(--error-bg);
-  color: var(--error-text);
-  border-color: var(--border-color);
-}
-
-.app.dark .success-message {
-  background-color: var(--success-bg);
-  color: var(--success-text);
-  border-color: var(--border-color);
-}
-
-.app.dark .message {
-  background-color: #1a2a3a;
-  color: #6bb5ff;
-}
-
-.app.dark .api-key-status {
-  background-color: var(--success-bg);
-  border-color: #4a8a4a;
-  color: var(--success-text);
-}
-
-.app.dark .footer {
-  color: var(--text-secondary);
+/* prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
 }
