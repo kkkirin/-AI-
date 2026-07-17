@@ -115,3 +115,8 @@ body {
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
 }
+
+.app { -webkit-user-select: none; user-select: none; }
+.app input, .app textarea, .app [contenteditable="true"], .text-area {
+  -webkit-user-select: text; user-select: text;
+}

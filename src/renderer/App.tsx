@@ -34,6 +34,28 @@ export default function App() {
     return requestMode === AIMode.TRANSLATE ? directionLangs : DIRECTION_LANGS.auto;
   };
 
+  useEffect(() => {
+    if (!isElectronRuntime) {
+      return undefined;
+    }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && !e.altKey && e.key.toLowerCase() === 'a') {
+        const el = document.activeElement;
+        const isTextInput = el instanceof HTMLInputElement
+          || el instanceof HTMLTextAreaElement
+          || (el as HTMLElement)?.isContentEditable;
+
+        if (!isTextInput) {
+          e.preventDefault();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isElectronRuntime]);
+
   // 初回セットアップのチェック
   useEffect(() => {
     if (!isElectronRuntime) {
