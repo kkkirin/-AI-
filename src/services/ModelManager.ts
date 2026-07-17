@@ -11,6 +11,7 @@ export interface ModelInfo {
   sizeLabel: string;
   sizeBytes: number;
   description: string;
+  tier?: 'fast' | 'quality';
 }
 
 /**
@@ -24,7 +25,18 @@ export const DEFAULT_MODELS: ModelInfo[] = [
     url: 'https://huggingface.co/LiquidAI/LFM2.5-1.2B-JP-GGUF/resolve/main/LFM2.5-1.2B-JP-Q4_K_M.gguf',
     sizeLabel: '731MB',
     sizeBytes: 766279680, // approx 731MB
-    description: 'LFM 2.5 1.2B JP (Q4_K_M) - 日本語特化、軽量高速',
+    description: '軽量・高速。日本語特化。サッと翻訳向け',
+    tier: 'fast',
+  },
+  {
+    id: 'gemma-3-4b-it-Q4_K_M',
+    displayName: 'Gemma 3 4B',
+    filename: 'google_gemma-3-4b-it-Q4_K_M.gguf',
+    url: 'https://huggingface.co/bartowski/google_gemma-3-4b-it-GGUF/resolve/main/google_gemma-3-4b-it-Q4_K_M.gguf',
+    sizeLabel: '2.5GB',
+    sizeBytes: 2489758112,
+    description: '高品質・多言語。訳が自然になりやすい（やや重い）',
+    tier: 'quality',
   },
 ];
 

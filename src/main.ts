@@ -745,6 +745,16 @@ app.on('activate', () => {
 });
 
 /**
+ * 設定で選択されているモデルIDを取得（未DLならダウンロード済みの先頭にフォールバック）
+ */
+function getSelectedModelId(): string | null {
+  const s = getSettingsManager().getSettings();
+  const wanted = s.provider.model;
+  const avail = getModelManager().getAvailableModels();
+  return (wanted && avail.includes(wanted)) ? wanted : (avail[0] ?? null);
+}
+
+/**
  * llama-server を起動（モデルが必要）
  */
 async function startLlamaServer(): Promise<{ success: boolean; message: string }> {
@@ -761,7 +771,8 @@ async function startLlamaServer(): Promise<{ success: boolean; message: string }
   }
 
   try {
-    const modelPath = modelManager.resolveExistingModelPath(models[0]) ?? modelManager.getModelPath(models[0]);
+    const selectedId = getSelectedModelId() ?? models[0];
+    const modelPath = modelManager.resolveExistingModelPath(selectedId) ?? modelManager.getModelPath(selectedId);
     await llamaManager.start(modelPath, getConfiguredLocalServerPort());
     return { success: true, message: 'AI推論エンジンを起動しました' };
   } catch (error: any) {
@@ -794,9 +805,24 @@ async function initializeAIProvider(): Promise<void> {
       return;
     }
 
+    const selectedId = getSelectedModelId() ?? models[0];
+
+    // 選択モデルが切り替わっていたら再起動
+    if (llamaManager.isRunning()) {
+      const selectedInfo = DEFAULT_MODELS.find((model) => model.id === selectedId);
+      const loadedFilename = llamaManager.getModelPath()
+        ? path.basename(llamaManager.getModelPath())
+        : null;
+      if (selectedInfo && loadedFilename && loadedFilename !== selectedInfo.filename) {
+        llamaManager.stop();
+        await broadcastAIStatus();
+        await new Promise((resolve) => setTimeout(resolve, 500));
+      }
+    }
+
     // llama-serverが起動していなければ起動
     if (!llamaManager.isRunning()) {
-      const modelPath = modelManager.resolveExistingModelPath(models[0]) ?? modelManager.getModelPath(models[0]);
+      const modelPath = modelManager.resolveExistingModelPath(selectedId) ?? modelManager.getModelPath(selectedId);
       await llamaManager.start(modelPath, localServerPort);
     }
 
@@ -1096,6 +1122,7 @@ function setupIPCHandlers(): void {
       displayName: m.displayName,
       description: m.description,
       size: m.sizeLabel,
+      tier: m.tier,
     }));
   });
 

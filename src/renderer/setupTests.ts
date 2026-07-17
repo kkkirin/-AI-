@@ -63,7 +63,20 @@ const electronAPI = {
   requestAccessibility: jest.fn().mockResolvedValue(true),
   reapplyTriggers: jest.fn().mockResolvedValue(true),
   onAccessibilityStatus: jest.fn(() => jest.fn()),
-  getRecommendedModels: jest.fn().mockResolvedValue([]),
+  getRecommendedModels: jest.fn().mockResolvedValue([
+    {
+      name: 'LFM2.5-1.2B-JP-Q4_K_M',
+      displayName: 'LFM2.5-1.2B-JP',
+      size: '731MB',
+      description: '軽量・高速。日本語特化。サッと翻訳向け',
+    },
+    {
+      name: 'gemma-3-4b-it-Q4_K_M',
+      displayName: 'Gemma 3 4B',
+      size: '2.5GB',
+      description: '高品質・多言語。訳が自然になりやすい（やや重い）',
+    },
+  ]),
   reinitializeAI: jest.fn().mockResolvedValue({ success: true }),
   downloadModel: jest.fn().mockResolvedValue({ success: true }),
   onDownloadProgress: jest.fn(),

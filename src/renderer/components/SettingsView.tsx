@@ -11,6 +11,7 @@ interface LocalModel {
   displayName?: string;
   description: string;
   size: string;
+  tier?: 'fast' | 'quality';
 }
 
 interface ShortcutPreset {
@@ -25,6 +26,10 @@ export default function SettingsView({ onClose }: SettingsViewProps) {
   const [localModels, setLocalModels] = useState<string[]>([]);
   const [recommendedModels, setRecommendedModels] = useState<LocalModel[]>([]);
   const [serverConnected, setServerConnected] = useState(false);
+  const [downloadingModelId, setDownloadingModelId] = useState<string | null>(null);
+  const [downloadPercent, setDownloadPercent] = useState(0);
+  const [downloadedMB, setDownloadedMB] = useState(0);
+  const [totalMB, setTotalMB] = useState(0);
   const [currentShortcut, setCurrentShortcut] = useState('');
   const [shortcutPresets, setShortcutPresets] = useState<ShortcutPreset[]>([]);
   const [shortcutInput, setShortcutInput] = useState('');
@@ -37,6 +42,27 @@ export default function SettingsView({ onClose }: SettingsViewProps) {
     loadShortcutInfo();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // ダウンロード進捗を受信
+  useEffect(() => {
+    let cancelled = false;
+    window.electronAPI.onDownloadProgress((data) => {
+      if (cancelled || data.model !== downloadingModelId) {
+        return;
+      }
+      const match = data.message.match(/(\d+)%/);
+      if (match) {
+        setDownloadPercent(parseInt(match[1], 10));
+      }
+      if (data.downloaded && data.total) {
+        setDownloadedMB(Math.round(data.downloaded / (1024 * 1024)));
+        setTotalMB(Math.round(data.total / (1024 * 1024)));
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [downloadingModelId]);
 
   useEffect(() => {
     if (!settings) {
@@ -177,6 +203,25 @@ export default function SettingsView({ onClose }: SettingsViewProps) {
       }
     } catch {
       setMessage('AI推論エンジンの起動に失敗しました');
+    }
+  };
+
+  const handleDownloadModel = async (modelId: string) => {
+    setDownloadingModelId(modelId);
+    setDownloadPercent(0);
+    setDownloadedMB(0);
+    setTotalMB(0);
+    try {
+      const result = await window.electronAPI.downloadModel(modelId);
+      if (result.success) {
+        await loadLocalAIInfo();
+      } else {
+        setMessage(`エラー: ${result.error}`);
+      }
+    } catch (error) {
+      setMessage('モデルのダウンロードに失敗しました');
+    } finally {
+      setDownloadingModelId(null);
     }
   };
 
@@ -392,17 +437,72 @@ export default function SettingsView({ onClose }: SettingsViewProps) {
               </div>
             </div>
             <div className="setting-item">
-              <label>ダウンロード済みモデル:</label>
+              <label>使用モデル:</label>
               <div className="model-list">
-                {localModels.length > 0 ? (
-                  localModels.map((model) => (
-                    <div key={model} className="model-row">
-                      • {getModelLabel(model)}
+                {recommendedModels.map((model) => {
+                  const isDownloaded = localModels.includes(model.name);
+                  const isActive = settings.provider.model === model.name;
+                  const isDownloading = downloadingModelId === model.name;
+                  return (
+                    <div key={model.name} className="model-choice">
+                      <div className="model-choice-main">
+                        <div className="model-choice-name">
+                          {getModelLabel(model.name)}
+                          {model.tier && (
+                            <span className={`model-badge ${model.tier}`}>
+                              {model.tier === 'fast' ? '速い' : '高品質'}
+                            </span>
+                          )}
+                        </div>
+                        <div className="model-choice-desc">{model.description}</div>
+                        {isDownloading && (
+                          <div className="download-progress">
+                            <div className="progress-header">
+                              <span>ダウンロード中...</span>
+                              <span>{downloadedMB > 0 ? `${downloadedMB}MB / ${totalMB}MB` : ''}</span>
+                            </div>
+                            <div className="progress-bar">
+                              <div className="progress-fill" style={{ width: `${downloadPercent}%` }} />
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                      <div>
+                        {isDownloaded ? (
+                          isActive ? (
+                            <span className="model-active">使用中</span>
+                          ) : (
+                            <label>
+                              <input
+                                type="radio"
+                                name="activeModel"
+                                checked={isActive}
+                                onChange={() =>
+                                  setSettings({
+                                    ...settings,
+                                    provider: { ...settings.provider, model: model.name },
+                                  })
+                                }
+                              />
+                              使用する
+                            </label>
+                          )
+                        ) : (
+                          <button
+                            className="btn-small"
+                            onClick={() => handleDownloadModel(model.name)}
+                            disabled={downloadingModelId !== null}
+                          >
+                            ダウンロード
+                          </button>
+                        )}
+                      </div>
                     </div>
-                  ))
-                ) : (
-                  <div className="model-row">モデルがダウンロードされていません</div>
-                )}
+                  );
+                })}
+              </div>
+              <div className="setting-note">
+                モデルを変更したら「保存」で切り替わります（切替時は数十秒かかることがあります）。
               </div>
             </div>
             <div className="setting-item">
