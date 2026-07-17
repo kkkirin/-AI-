@@ -27,9 +27,6 @@ export enum ProviderType {
   CLI = 'cli',
 }
 
-export type APIProviderType = 'openai' | 'azure' | 'other';
-export type CLIProviderType = 'codex' | 'claude';
-
 /**
  * APIリクエスト構造
  */
@@ -92,15 +89,8 @@ export interface AppSettings {
   // AI実行方式
   provider: {
     type: ProviderType;
-    apiProvider: APIProviderType;
-    cliProvider?: CLIProviderType;
-    apiKey?: string;
-    apiEndpoint?: string;
-    cliCommand?: string;
-    localServerPort?: number;
     model: string;
-    maxTokensPerRequest: number;
-    dailyTokenLimit: number;
+    localServerPort?: number;
   };
 
   // 出力ルール
@@ -108,7 +98,6 @@ export interface AppSettings {
     autoClipboard: boolean;
     autoPaste: boolean;
     formatType: 'text_only' | 'with_supplement' | 'two_pane';
-    preserveLineBreaks: boolean;
   };
 
   // プライバシー設定

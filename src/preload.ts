@@ -45,9 +45,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
   // 設定管理
   getSettings: () => ipcRenderer.invoke('settings:get'),
   saveSettings: (settings: Partial<AppSettings>) => ipcRenderer.invoke('settings:save', settings),
-  setAPIKey: (apiKey: string) => ipcRenderer.invoke('settings:set-api-key', apiKey),
-  hasAPIKey: () => ipcRenderer.invoke('settings:has-api-key'),
-  deleteAPIKey: () => ipcRenderer.invoke('settings:delete-api-key'),
 
   // クリップボード操作
   readClipboard: () => ipcRenderer.invoke('clipboard:read'),
@@ -124,9 +121,6 @@ declare global {
       estimateLanguage: (text: string) => Promise<any>;
       getSettings: () => Promise<AppSettings>;
       saveSettings: (settings: Partial<AppSettings>) => Promise<{ success: boolean; error?: string }>;
-      setAPIKey: (apiKey: string) => Promise<{ success: boolean; error?: string }>;
-      hasAPIKey: () => Promise<{ success: boolean; hasAPIKey: boolean; error?: string }>;
-      deleteAPIKey: () => Promise<{ success: boolean; error?: string }>;
       readClipboard: () => Promise<string>;
       writeClipboard: (text: string) => Promise<void>;
       showNotification: (notification: Notification) => Promise<void>;
@@ -142,7 +136,7 @@ declare global {
       onLocalAIStatusChanged: (callback: (status: LocalAIStatus) => void) => (() => void);
       startServer: () => Promise<{ success: boolean; message: string }>;
       checkModel: () => Promise<{ success: boolean; hasModel: boolean; models?: string[] }>;
-      getRecommendedModels: () => Promise<Array<{ name: string; description: string; size: string }>>;
+      getRecommendedModels: () => Promise<Array<{ name: string; displayName?: string; description: string; size: string }>>;
       reinitializeAI: () => Promise<{ success: boolean; error?: string }>;
       downloadModel: (modelId: string) => Promise<{ success: boolean; error?: string }>;
       onDownloadProgress: (callback: (data: { model: string; message: string; downloaded?: number; total?: number }) => void) => void;

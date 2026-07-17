@@ -5,8 +5,6 @@ import isDev from 'electron-is-dev';
 import { setupClipboardIPC } from './services/ClipboardMonitor';
 import { getSettingsManager } from './services/SettingsManager';
 import { LocalAIProvider } from './services/LocalAIProvider';
-import { OpenAIProvider } from './services/OpenAIProvider';
-import { CLIProvider } from './services/CLIProvider';
 import { getLlamaServerManager } from './services/LlamaServerManager';
 import { getKeyboardTriggerMonitor } from './services/KeyboardTriggerMonitor';
 import { getModelManager, DEFAULT_MODELS } from './services/ModelManager';
@@ -597,6 +595,7 @@ app.whenReady().then(async () => {
 
   // 設定を読み込んでデフォルトを設定
   const settings = getSettingsManager().getSettings();
+  app.setLoginItemSettings({ openAtLogin: settings.ui.autoStart });
   if (!settings.shortcut.triggerType) {
     settings.shortcut.triggerType = 'hotkey';
     settings.shortcut.alternateHotkey = settings.shortcut.alternateHotkey || getDefaultHotkey();
@@ -619,7 +618,7 @@ app.whenReady().then(async () => {
   // IPC ハンドラーをセットアップ
   setupIPCHandlers();
 
-  // APIプロバイダーを初期化
+  // ローカルAIプロバイダーを初期化
   await broadcastAIStatus({ running: true, ready: false });
   await initializeAIProvider();
   await broadcastAIStatus();
@@ -775,44 +774,7 @@ async function startLlamaServer(): Promise<{ success: boolean; message: string }
  */
 async function initializeAIProvider(): Promise<void> {
   try {
-    const settingsManager = getSettingsManager();
-    const settings = settingsManager.getSettings();
     aiProvider = null;
-
-    if (settings.provider.type === ProviderType.API) {
-      const apiKey = await settingsManager.getAPIKey();
-      const endpoint = settings.provider.apiEndpoint?.trim();
-      const model = settings.provider.model?.trim() || 'gpt-4o-mini';
-      aiProvider = new OpenAIProvider(
-        apiKey || process.env.OPENAI_API_KEY,
-        model,
-        endpoint,
-        settings.provider.maxTokensPerRequest
-      );
-      console.log('OpenAI互換APIプロバイダーを初期化しました:', endpoint || 'https://api.openai.com/v1');
-      return;
-    }
-
-    if (settings.provider.type === ProviderType.CLI) {
-      const cliProvider = settings.provider.cliProvider || 'codex';
-      const provider = new CLIProvider({
-        provider: cliProvider,
-        command: settings.provider.cliCommand,
-        model: settings.provider.model,
-        maxTokens: settings.provider.maxTokensPerRequest,
-      });
-      const isHealthy = await provider.healthCheck();
-      if (!isHealthy) {
-        throw new Error(
-          cliProvider === 'codex'
-            ? 'Codex CLI が見つかりません。codex コマンドをインストール/ログインしてください。'
-            : 'Claude Code が見つかりません。claude コマンドをインストール/ログインしてください。'
-        );
-      }
-      aiProvider = provider;
-      console.log('CLI AIプロバイダーを初期化しました:', cliProvider);
-      return;
-    }
 
     const modelManager = getModelManager();
     const llamaManager = getLlamaServerManager();
@@ -869,26 +831,6 @@ interface LocalAIStatus {
 }
 
 async function getAIStatus(): Promise<LocalAIStatus> {
-  const settings = getSettingsManager().getSettings();
-  const providerType = settings.provider.type;
-
-  if (providerType !== ProviderType.LOCAL) {
-    const providerName = providerType === ProviderType.API
-      ? settings.provider.apiProvider || 'API'
-      : settings.provider.cliProvider || 'CLI';
-    const modelName = settings.provider.model?.trim() || providerName;
-
-    return {
-      providerType,
-      running: aiProvider !== null,
-      ready: aiProvider !== null,
-      modelId: settings.provider.model?.trim() || null,
-      modelName,
-      endpoint: null,
-      port: null,
-    };
-  }
-
   const llamaManager = getLlamaServerManager();
   const modelManager = getModelManager();
   const running = llamaManager.isRunning();
@@ -904,7 +846,7 @@ async function getAIStatus(): Promise<LocalAIStatus> {
   const port = llamaManager.getPort() || getConfiguredLocalServerPort();
 
   return {
-    providerType,
+    providerType: ProviderType.LOCAL,
     running,
     ready,
     modelId,
@@ -1053,42 +995,13 @@ function setupIPCHandlers(): void {
   // 設定保存
   ipcMain.handle('settings:save', async (event, settings: any) => {
     try {
-      await getSettingsManager().saveSettings(settings);
+      const settingsManager = getSettingsManager();
+      await settingsManager.saveSettings(settings);
+      app.setLoginItemSettings({ openAtLogin: settingsManager.getSettings().ui.autoStart });
       // トリガー方法を再設定
       setupTriggers();
       await initializeAIProvider();
       await broadcastAIStatus();
-      return { success: true };
-    } catch (error: any) {
-      return { success: false, error: error.message };
-    }
-  });
-
-  // APIキー設定
-  ipcMain.handle('settings:set-api-key', async (event, apiKey: string) => {
-    try {
-      await getSettingsManager().setAPIKey(apiKey);
-      await initializeAIProvider();
-      return { success: true };
-    } catch (error: any) {
-      return { success: false, error: error.message };
-    }
-  });
-
-  // APIキー設定状態
-  ipcMain.handle('settings:has-api-key', async () => {
-    try {
-      return { success: true, hasAPIKey: await getSettingsManager().hasAPIKey() };
-    } catch (error: any) {
-      return { success: false, hasAPIKey: false, error: error.message };
-    }
-  });
-
-  // APIキー削除
-  ipcMain.handle('settings:delete-api-key', async () => {
-    try {
-      await getSettingsManager().deleteAPIKey();
-      aiProvider = null;
       return { success: true };
     } catch (error: any) {
       return { success: false, error: error.message };
@@ -1180,6 +1093,7 @@ function setupIPCHandlers(): void {
   ipcMain.handle('local-ai:get-recommended-models', () => {
     return DEFAULT_MODELS.map((m) => ({
       name: m.id,
+      displayName: m.displayName,
       description: m.description,
       size: m.sizeLabel,
     }));
