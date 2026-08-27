@@ -12,6 +12,14 @@ export class LlamaServerManager {
   private process: ChildProcess | null = null;
   private port: number = 0;
   private modelPath: string = '';
+  private onUnexpectedExit: (() => void) | null = null;
+
+  /**
+   * サーバーが stop() 経由でなく突然死んだときに呼ばれるコールバックを登録
+   */
+  setOnUnexpectedExit(callback: () => void): void {
+    this.onUnexpectedExit = callback;
+  }
 
   /**
    * プラットフォームに応じたバイナリディレクトリ名を取得
@@ -129,23 +137,32 @@ export class LlamaServerManager {
       stdio: ['ignore', 'pipe', 'pipe'],
       cwd: binaryDir,
     });
+    // モデル切替等で旧プロセスの exit が新プロセスのハンドルを消さないよう、
+    // ハンドラは自分のプロセスにだけ作用させる（stop() 済みなら何もしない）
+    const proc = this.process;
 
-    this.process.stdout?.on('data', (data: Buffer) => {
+    proc.stdout?.on('data', (data: Buffer) => {
       console.log('[llama-server]', data.toString().trim());
     });
 
-    this.process.stderr?.on('data', (data: Buffer) => {
+    proc.stderr?.on('data', (data: Buffer) => {
       console.log('[llama-server:err]', data.toString().trim());
     });
 
-    this.process.on('exit', (code, signal) => {
+    proc.on('exit', (code, signal) => {
       console.log(`llama-server 終了: code=${code}, signal=${signal}`);
-      this.process = null;
+      if (this.process === proc) {
+        this.process = null;
+        this.onUnexpectedExit?.();
+      }
     });
 
-    this.process.on('error', (err) => {
+    proc.on('error', (err) => {
       console.error('llama-server 起動エラー:', err.message);
-      this.process = null;
+      if (this.process === proc) {
+        this.process = null;
+        this.onUnexpectedExit?.();
+      }
     });
 
     // ヘルスチェックで起動完了を待つ（最大60秒）

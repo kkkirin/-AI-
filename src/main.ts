@@ -9,7 +9,7 @@ import { getLlamaServerManager } from './services/LlamaServerManager';
 import { getKeyboardTriggerMonitor } from './services/KeyboardTriggerMonitor';
 import { getModelManager, DEFAULT_MODELS } from './services/ModelManager';
 import { AIProvider } from './services/AIProvider';
-import { AIRequest, Language, AIMode, ProviderType } from './types';
+import { AIRequest, AIResponse, Language, AIMode, ProviderType } from './types';
 
 // ストリームエラーを無視（ターミナル切断時のエラー防止）
 process.stdout.on('error', () => {});
@@ -23,6 +23,9 @@ const isDev_check =
 
 let mainWindow: BrowserWindow | null = null;
 let aiProvider: AIProvider | null = null;
+let aiProviderInitPromise: Promise<void> | null = null;
+let lastAutoRestartAt = 0;
+let providerRestartTimer: ReturnType<typeof setTimeout> | null = null;
 let tray: Tray | null = null;
 let currentShortcut: string | null = null;
 let currentTriggerType: 'hotkey' | 'double_copy' | null = null;
@@ -618,6 +621,14 @@ app.whenReady().then(async () => {
   // IPC ハンドラーをセットアップ
   setupIPCHandlers();
 
+  // llama-server 突然死時: プロバイダーを無効化し、自動復帰を予約する
+  getLlamaServerManager().setOnUnexpectedExit(() => {
+    console.warn('llama-server が予期せず終了しました。プロバイダーを無効化します');
+    aiProvider = null;
+    void broadcastAIStatus();
+    scheduleProviderRestart();
+  });
+
   // ローカルAIプロバイダーを初期化
   await broadcastAIStatus({ running: true, ready: false });
   await initializeAIProvider();
@@ -781,9 +792,46 @@ async function startLlamaServer(): Promise<{ success: boolean; message: string }
 }
 
 /**
- * AIプロバイダーを初期化
+ * llama-server の自動再起動を予約する（クラッシュ時の自動復帰）
+ * クールダウン: 連続クラッシュでも再起動は最大1回/分。要求は破棄せず残り時間後に実行する
+ */
+function scheduleProviderRestart(): void {
+  if (providerRestartTimer || isQuitting) {
+    return;
+  }
+  const delay = Math.max(0, 60_000 - (Date.now() - lastAutoRestartAt));
+  providerRestartTimer = setTimeout(() => {
+    providerRestartTimer = null;
+    if (isQuitting) {
+      return;
+    }
+    lastAutoRestartAt = Date.now();
+    void initializeAIProvider()
+      .then(() => broadcastAIStatus())
+      .catch(() => undefined);
+  }, delay);
+}
+
+/**
+ * AIプロバイダーを初期化（直列キュー付き）
+ * 実行中の初期化があれば、その完了後にもう一度実行する。
+ * 単純な Promise 共有だと、初期化中に届いたモデル切替（settings:save）が
+ * 古い初期化結果で満足してしまい、新しい設定が反映されない
  */
 async function initializeAIProvider(): Promise<void> {
+  const tracked: Promise<void> = (aiProviderInitPromise ?? Promise.resolve())
+    .catch(() => undefined)
+    .then(() => doInitializeAIProvider())
+    .finally(() => {
+      if (aiProviderInitPromise === tracked) {
+        aiProviderInitPromise = null;
+      }
+    });
+  aiProviderInitPromise = tracked;
+  return tracked;
+}
+
+async function doInitializeAIProvider(): Promise<void> {
   try {
     aiProvider = null;
 
@@ -843,6 +891,40 @@ async function initializeAIProvider(): Promise<void> {
   } catch (error) {
     console.error('Error initializing AI provider:', error);
     aiProvider = null;
+  }
+}
+
+/**
+ * 生成を実行し、AI推論エンジンへの接続が死んでいた場合（ECONNREFUSED）は
+ * プロバイダーを破棄して llama-server ごと再初期化し、1回だけ再試行する
+ */
+async function generateWithSelfHeal(
+  run: (provider: AIProvider) => Promise<AIResponse>,
+  canRetry: () => boolean = () => true,
+): Promise<AIResponse> {
+  const provider = aiProvider;
+  if (!provider) {
+    throw new Error('AI推論エンジンに接続できません。モデルがダウンロードされているか確認してください。');
+  }
+  try {
+    return await run(provider);
+  } catch (e: any) {
+    if (typeof e?.message === 'string' && e.message.includes('接続できません') && canRetry()) {
+      console.warn('[self-heal] 接続不能を検知。プロバイダーを再初期化して再試行します');
+      // 並走する別リクエストが先に復旧済みの場合、新しいプロバイダーを壊さない
+      if (aiProvider === provider) {
+        aiProvider = null;
+        await initializeAIProvider();
+        await broadcastAIStatus();
+      } else if (aiProviderInitPromise) {
+        await aiProviderInitPromise;
+      }
+      const revived: AIProvider | null = aiProvider;
+      if (revived) {
+        return await run(revived);
+      }
+    }
+    throw e;
   }
 }
 
@@ -968,7 +1050,7 @@ function setupIPCHandlers(): void {
         throw new Error(`このテキストは送信が禁止されています（除外パターンに一致: ${textExclusionMatch.pattern}）。`);
       }
 
-      const response = await aiProvider.generate(request);
+      const response = await generateWithSelfHeal((provider) => provider.generate(request));
       return response;
     } catch (error: any) {
       return {
@@ -997,15 +1079,19 @@ function setupIPCHandlers(): void {
           throw new Error(`このテキストは送信が禁止されています（除外パターンに一致: ${textExclusionMatch.pattern}）。`);
         }
 
-        if (typeof aiProvider.generateStream === 'function') {
-          return await aiProvider.generateStream(request, (token: string) => {
-            if (!event.sender.isDestroyed()) {
-              event.sender.send('ai:stream-token', { requestId, token });
-            }
-          });
-        }
-
-        return await aiProvider.generate(request);
+        // トークンを1つでも送信済みなら再試行しない（レンダラー側の二重表示防止）
+        let emittedToken = false;
+        return await generateWithSelfHeal((provider) => {
+          if (typeof provider.generateStream === 'function') {
+            return provider.generateStream(request, (token: string) => {
+              emittedToken = true;
+              if (!event.sender.isDestroyed()) {
+                event.sender.send('ai:stream-token', { requestId, token });
+              }
+            });
+          }
+          return provider.generate(request);
+        }, () => !emittedToken);
       } catch (error: any) {
         return {
           error: error.message || 'Unknown error occurred',
