@@ -1,21 +1,21 @@
 # QuickText
 
-ショートカットキーでCodex CLIやローカルAIを使って翻訳・文章変換を行うデスクトップアプリ
+ショートカットキーとローカルAIで翻訳・文章変換を行うデスクトップアプリ
 
 ## 特徴
 
-- **Codex CLI対応**: 既定でCodex CLIの `gpt-5.5` を利用
-- **ローカルAI対応**: AI推論エンジン（llama-server）を内蔵
+- **ローカル処理**: テキストを外部APIへ送信せず、内蔵のAI推論エンジンで処理
+- **2モデル対応**: 軽量なLFMと高品質なGemmaから選択
 - **高速操作**: Cmd+C 2回で即座にAI処理
 - **多機能**: 翻訳、丁寧語変換、言い換え、要約、校正など
-- **日本語特化**: LFM 2.5 1.2B JP モデルを使用
+- **日本語対応**: 翻訳、要約、校正などをローカルで実行
 
 ## ダウンロード
 
 | OS | ファイル |
 |----|---------|
 | macOS (Apple Silicon) | `QuickText-1.0.2-arm64.dmg` |
-| Windows (64bit) | `QuickText Setup 1.0.0.exe`（旧バージョン） |
+| Windows (64bit) | `QuickText Setup 1.0.2.exe` |
 
 ## インストール方法
 
@@ -24,13 +24,13 @@
 2. QuickTextをアプリケーションフォルダにドラッグ
 
 ### Windows
-1. `QuickText Setup 1.0.0.exe` を実行
+1. `QuickText Setup 1.0.2.exe` を実行
 2. インストーラーの指示に従ってインストール
 
 ### 初回セットアップ
 
 1. QuickTextを起動
-2. 「AIモデルをダウンロード」をクリック（約730MB、初回のみ）
+2. AIモデルを選んでダウンロード（731MBまたは2.5GB、初回のみ）
 3. 「AI推論エンジンを起動」をクリック
 4. 「QuickTextを開始」をクリック
 
@@ -75,26 +75,19 @@
 | モデル | サイズ | 説明 |
 |--------|--------|------|
 | LFM 2.5 1.2B JP (Q4_K_M) | 731MB | 日本語特化、軽量高速 |
+| Gemma 3 4B (Q4_K_M) | 2.5GB | 高品質・多言語、自然さ重視 |
 
 モデルは初回起動時にダウンロードされ、PC内に保存されます。
 
 ## AI実行方式
 
-設定画面の「AI」タブから以下を選べます。
-
-| 方式 | 用途 |
-|------|------|
-| ローカルAI | 内蔵 llama-server と LFM モデルで実行 |
-| OpenAI互換API | OpenAI互換の `/v1/chat/completions` エンドポイントで実行 |
-| Codex / Claude Code CLI | ローカルの `codex exec` または `claude --print` で実行 |
-
-Codex / Claude Code CLI を使う場合は、事前に各CLIをインストールしてログインしてください。Codex CLI の既定モデルは `gpt-5.5` です。
+内蔵の `llama-server` とダウンロードしたモデルを使い、PC内だけで処理します。
 
 ## 動作環境
 
 - macOS (Apple Silicon / M1以降)
 - Windows 10/11 (64bit)
-- ストレージ: 約1GB（アプリ + AIモデル）
+- ストレージ: 約1〜3GB（アプリ + 選択したAIモデル）
 - メモリ: 8GB以上推奨
 
 ## トラブルシューティング
@@ -119,7 +112,7 @@ Codex / Claude Code CLI を使う場合は、事前に各CLIをインストー�
 
 - **フレームワーク**: Electron + React + TypeScript
 - **AI推論**: llama-server（llama.cpp）内蔵
-- **AIモデル**: LFM 2.5 1.2B JP (GGUF Q4_K_M)
+- **AIモデル**: LFM 2.5 1.2B JP / Gemma 3 4B (GGUF Q4_K_M)
 - **ビルド**: Webpack 5 + electron-builder
 
 ## 開発者向け
@@ -136,6 +129,9 @@ npm run build
 
 # macOS用パッケージ作成
 npm run dist:mac
+
+# Windows用インストーラー作成（macOSからのクロスビルド対応）
+npm run dist:win
 ```
 
 ## ライセンス
