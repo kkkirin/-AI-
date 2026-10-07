@@ -1,6 +1,6 @@
 {
   "name": "quicktext",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "dist/main.js",
   "homepage": "./",
   "scripts": {
@@ -26,7 +26,7 @@
     "appId": "com.quicktext.app",
     "productName": "QuickText",
     "directories": {
-      "output": "販売用_インストーラー"
+      "output": "release"
     },
     "files": [
       "dist/**/*",
