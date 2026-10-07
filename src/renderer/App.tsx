@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
-import { AIMode, Language, ClipboardEvent, ProviderType } from '../types';
+import { AIMode, Language, ClipboardEvent, ProviderType, WorkspaceLayout } from '../types';
 import type { LocalAIStatus } from '../preload';
 import MainView from './components/MainView';
 import SettingsView from './components/SettingsView';
@@ -28,6 +28,12 @@ export default function App() {
   const [successMessage, setSuccessMessage] = useState('');
   const [aiStatus, setAIStatus] = useState<LocalAIStatus | undefined>(undefined);
   const [needsAccessibility, setNeedsAccessibility] = useState(false);
+  const [layout, setLayout] = useState<WorkspaceLayout>('auto');
+  // 実行中の生成のrequestId。キャンセル・新しい生成で入れ替わり、古い結果/トークンを捨てる判定に使う
+  const activeRequestIdRef = useRef<string | null>(null);
+  const ccTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const messageTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const generationStartedAtRef = useRef(0);
   const isElectronRuntime = Boolean(window.electronAPI);
   const resolveLangs = (requestMode: AIMode) => {
     const directionLangs = DIRECTION_LANGS[translateDirection] || DIRECTION_LANGS.auto;
@@ -40,6 +46,11 @@ export default function App() {
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && activeRequestIdRef.current) {
+        e.preventDefault();
+        cancelGeneration();
+        return;
+      }
       if ((e.metaKey || e.ctrlKey) && !e.altKey && e.key.toLowerCase() === 'a') {
         const el = document.activeElement;
         const isTextInput = el instanceof HTMLInputElement
@@ -88,6 +99,15 @@ export default function App() {
   }, [isElectronRuntime]);
 
   useEffect(() => {
+    if (!isElectronRuntime || currentView !== 'main') {
+      return;
+    }
+    window.electronAPI.getSettings()
+      .then((settings) => setLayout(settings.ui.layout || 'auto'))
+      .catch(() => undefined);
+  }, [isElectronRuntime, currentView]);
+
+  useEffect(() => {
     if (!isElectronRuntime) {
       return undefined;
     }
@@ -120,13 +140,133 @@ export default function App() {
     });
   }, [isElectronRuntime]);
 
+  const showSuccessMessage = (message: string, durationMs: number) => {
+    if (messageTimerRef.current) {
+      clearTimeout(messageTimerRef.current);
+    }
+    setSuccessMessage(message);
+    messageTimerRef.current = setTimeout(() => setSuccessMessage(''), durationMs);
+  };
+
+  /**
+   * 生成を実行（ボタン・ホットキー共通）。実行中の生成があれば中断して差し替える
+   */
+  const clearPendingCCTimer = () => {
+    if (ccTimerRef.current) {
+      clearTimeout(ccTimerRef.current);
+      ccTimerRef.current = null;
+    }
+  };
+
+  const runGeneration = async (text: string, requestMode: AIMode) => {
+    clearPendingCCTimer();
+    if (activeRequestIdRef.current) {
+      window.electronAPI.cancelAIStream(activeRequestIdRef.current);
+    }
+    const requestId = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    activeRequestIdRef.current = requestId;
+    generationStartedAtRef.current = Date.now();
+    const isCurrent = () => activeRequestIdRef.current === requestId;
+
+    setIsLoading(true);
+    setError('');
+    setOutputText('');
+    setSuccessMessage('');
+
+    try {
+      const requestLangs = resolveLangs(requestMode);
+      const response = await window.electronAPI.generateAIStream(
+        {
+          inputText: text,
+          mode: requestMode,
+          inputLanguage: requestLangs.input,
+          outputLanguage: requestLangs.output,
+        },
+        (token: string) => {
+          if (isCurrent()) {
+            setOutputText((prev) => prev + token);
+          }
+        },
+        requestId
+      );
+
+      if (!isCurrent()) {
+        return;
+      }
+      if ('error' in response) {
+        if (response.cancelled) {
+          showSuccessMessage('キャンセルしました', 2000);
+        } else {
+          setError(response.error);
+        }
+        return;
+      }
+
+      setOutputText(response.outputText);
+      const settings = await window.electronAPI.getSettings();
+      if (!isCurrent()) {
+        return;
+      }
+      if (settings.output.autoClipboard && response.outputText) {
+        await window.electronAPI.writeClipboard(response.outputText);
+        if (!isCurrent()) {
+          return;
+        }
+        showSuccessMessage('📋 クリップボードにコピーしました', 3000);
+      } else {
+        showSuccessMessage('生成完了', 3000);
+      }
+    } catch (err: any) {
+      if (isCurrent()) {
+        setError(err?.message || 'エラーが発生しました');
+      }
+    } finally {
+      if (isCurrent()) {
+        activeRequestIdRef.current = null;
+        setIsLoading(false);
+      }
+    }
+  };
+
+  /**
+   * 生成をキャンセル（途中まで出た出力は残す）
+   */
+  const cancelGeneration = () => {
+    clearPendingCCTimer();
+    const requestId = activeRequestIdRef.current;
+    if (!requestId) {
+      return;
+    }
+    activeRequestIdRef.current = null;
+    window.electronAPI.cancelAIStream(requestId);
+    setIsLoading(false);
+    setError('');
+    showSuccessMessage('キャンセルしました', 2000);
+  };
+
+  // 「生成」と同じ位置にキャンセルが出るため、ダブルクリックの2回目で即キャンセルしないよう直後のクリックは無視する
+  const handleCancelClick = () => {
+    if (Date.now() - generationStartedAtRef.current < 400) {
+      return;
+    }
+    cancelGeneration();
+  };
+
   // ホットキートリガーをリッスン
   useEffect(() => {
     if (!isElectronRuntime) {
       return undefined;
     }
 
-    const handleCCTriggered = async (event: ClipboardEvent) => {
+    const handleCCTriggered = (event: ClipboardEvent) => {
+      // 連続トリガー時は待機中の自動生成を取り消し、実行中の生成も止める
+      clearPendingCCTimer();
+      if (activeRequestIdRef.current) {
+        window.electronAPI.cancelAIStream(activeRequestIdRef.current);
+        activeRequestIdRef.current = null;
+        setIsLoading(false);
+      }
+
       setInputText(event.text);
       setError('');
       setOutputText('');
@@ -136,53 +276,16 @@ export default function App() {
         setError('モデル準備中');
         return;
       }
-      
-      // 自動生成を実行
+
       if (event.text && event.text.trim().length > 0) {
-        // モードが指定されている場合は設定
         if (event.mode) {
           setMode(event.mode);
         }
-        
+        const requestMode = event.mode || mode;
         // 少し待ってから自動生成
-        setTimeout(async () => {
-          setIsLoading(true);
-          setError('');
-          setOutputText('');
-          setSuccessMessage('');
-
-          try {
-          const requestMode = event.mode || mode;
-          const requestLangs = resolveLangs(requestMode);
-          const response = await window.electronAPI.generateAIStream(
-            {
-              inputText: event.text,
-              mode: requestMode,
-              inputLanguage: requestLangs.input,
-              outputLanguage: requestLangs.output,
-            },
-            (token: string) => setOutputText((prev) => prev + token)
-          );
-
-            if ('error' in response) {
-              setError(response.error);
-            } else {
-              setOutputText(response.outputText);
-
-              // 自動コピー設定を確認
-              const settings = await window.electronAPI.getSettings();
-              if (settings.output.autoClipboard) {
-                await window.electronAPI.writeClipboard(response.outputText);
-                setSuccessMessage('📋 クリップボードにコピーしました');
-                setTimeout(() => setSuccessMessage(''), 3000);
-              }
-            }
-          } catch (err: any) {
-            const errorMessage = err.message || 'エラーが発生しました';
-            setError(errorMessage);
-          } finally {
-            setIsLoading(false);
-          }
+        ccTimerRef.current = setTimeout(() => {
+          ccTimerRef.current = null;
+          void runGeneration(event.text, requestMode);
         }, 300);
       }
     };
@@ -206,43 +309,7 @@ export default function App() {
       return;
     }
 
-    setIsLoading(true);
-    setError('');
-    setOutputText('');
-    setSuccessMessage('');
-
-    try {
-      const requestLangs = resolveLangs(mode);
-      const response = await window.electronAPI.generateAIStream(
-        {
-          inputText,
-          mode,
-          inputLanguage: requestLangs.input,
-          outputLanguage: requestLangs.output,
-        },
-        (token: string) => setOutputText((prev) => prev + token)
-      );
-
-      if ('error' in response) {
-        setError(response.error);
-      } else {
-        setOutputText(response.outputText);
-        // 自動コピー設定を確認
-        const settings = await window.electronAPI.getSettings();
-        if (settings.output.autoClipboard) {
-          await window.electronAPI.writeClipboard(response.outputText);
-          setSuccessMessage('📋 クリップボードにコピーしました');
-        } else {
-          setSuccessMessage('生成完了');
-        }
-        setTimeout(() => setSuccessMessage(''), 3000);
-      }
-    } catch (err: any) {
-      const errorMessage = err.message || 'エラーが発生しました';
-      setError(errorMessage);
-    } finally {
-      setIsLoading(false);
-    }
+    await runGeneration(inputText, mode);
   };
 
   /**
@@ -252,8 +319,7 @@ export default function App() {
     if (e) e.preventDefault();
     if (outputText) {
       await window.electronAPI.writeClipboard(outputText);
-      setSuccessMessage('クリップボードにコピーしました');
-      setTimeout(() => setSuccessMessage(''), 2000);
+      showSuccessMessage('クリップボードにコピーしました', 2000);
     }
   };
 
@@ -353,7 +419,9 @@ export default function App() {
             onOutputChange={handleOutputChange}
             onModeChange={setMode}
             onTranslateDirectionChange={setTranslateDirection}
+            layout={layout}
             onGenerate={handleGenerate}
+            onCancel={handleCancelClick}
             onCopyOutput={handleCopyOutput}
             onOpenSettings={handleOpenSettings}
           />

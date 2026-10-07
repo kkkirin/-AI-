@@ -1,7 +1,9 @@
 import { app } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
-import { AppSettings, Language, AIMode, ProviderType } from '../types';
+import { AppSettings, Language, AIMode, ProviderType, WorkspaceLayout } from '../types';
+
+const WORKSPACE_LAYOUTS: WorkspaceLayout[] = ['auto', 'horizontal', 'vertical'];
 
 const DEFAULT_EXCLUDE_PATTERNS = [
   '\\b[A-Z0-9_]*(?:PASSWORD|PASSWD|PWD)\\b\\s*[:=]\\s*[^\\s,;]+',
@@ -80,6 +82,7 @@ export class SettingsManager {
         fontSize: 14,
         fontFamily: 'system-ui, -apple-system, sans-serif',
         closeAction: 'minimize_to_tray',
+        layout: 'auto',
       },
     };
   }
@@ -125,6 +128,9 @@ export class SettingsManager {
       autoPaste: merged.output.autoPaste,
       formatType: merged.output.formatType,
     };
+    if (!WORKSPACE_LAYOUTS.includes(merged.ui.layout)) {
+      merged.ui.layout = 'auto';
+    }
     return merged;
   }
 

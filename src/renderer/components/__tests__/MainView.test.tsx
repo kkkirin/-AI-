@@ -98,4 +98,35 @@ describe('MainView', () => {
     expect(onInputChange).toHaveBeenCalledWith('edited source');
     expect(onOutputChange).toHaveBeenCalledWith('edited result');
   });
+
+  it('shows a cancel button while generating and calls onCancel', () => {
+    const onCancel = jest.fn();
+
+    render(
+      <MainView
+        {...defaultProps}
+        inputText="hello"
+        outputText="途中"
+        isLoading
+        onCancel={onCancel}
+      />
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'キャンセル' }));
+    expect(onCancel).toHaveBeenCalledTimes(1);
+    expect(screen.getByRole('button', { name: '処理中...' })).toBeDisabled();
+    expect(screen.getByLabelText('出力')).toHaveAttribute('readonly');
+  });
+
+  it('applies the fixed layout class in both editing and result states', () => {
+    const { container, rerender } = render(
+      <MainView {...defaultProps} inputText="hello" isLoading layout="horizontal" />
+    );
+    const workspace = () => container.querySelector('.workspace');
+    expect(workspace()).toHaveClass('layout-horizontal');
+
+    rerender(<MainView {...defaultProps} inputText="hello" outputText="こんにちは" layout="horizontal" />);
+    expect(workspace()).toHaveClass('layout-horizontal');
+    expect(workspace()).toHaveClass('has-result');
+  });
 });

@@ -7,9 +7,19 @@ import { AIRequest, AIResponse, Language, AIMode } from '../types';
  */
 export abstract class AIProvider {
   abstract generate(request: AIRequest): Promise<AIResponse>;
-  generateStream?(request: AIRequest, onToken: (token: string) => void): Promise<AIResponse>;
+  generateStream?(request: AIRequest, onToken: (token: string) => void, signal?: AbortSignal): Promise<AIResponse>;
   abstract estimate(inputText: string): Promise<{ language: Language; suggestedMode: AIMode }>;
   abstract healthCheck(): Promise<boolean>;
+}
+
+/**
+ * ユーザー操作で生成を中断したことを表すエラー（自己修復の再試行対象にしない）
+ */
+export class GenerationCancelledError extends Error {
+  constructor() {
+    super('キャンセルしました');
+    this.name = 'GenerationCancelledError';
+  }
 }
 
 /**

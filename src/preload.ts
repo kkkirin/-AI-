@@ -27,8 +27,7 @@ export interface LocalAIStatus {
 contextBridge.exposeInMainWorld('electronAPI', {
   // AI生成
   generateAI: (request: AIRequest) => ipcRenderer.invoke('ai:generate', request),
-  generateAIStream: (request: AIRequest, onToken: (token: string) => void) => {
-    const requestId = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  generateAIStream: (request: AIRequest, onToken: (token: string) => void, requestId: string) => {
     const listener = (_event: Electron.IpcRendererEvent, data: { requestId: string; token: string }) => {
       if (data.requestId === requestId) {
         onToken(data.token);
@@ -40,6 +39,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
       .invoke('ai:generate-stream', { request, requestId })
       .finally(() => ipcRenderer.removeListener('ai:stream-token', listener));
   },
+  cancelAIStream: (requestId: string) => ipcRenderer.send('ai:cancel', requestId),
   estimateLanguage: (text: string) => ipcRenderer.invoke('ai:estimate', text),
 
   // 設定管理
@@ -86,7 +86,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
   reinitializeAI: () => ipcRenderer.invoke('ai:reinitialize'),
   downloadModel: (modelId: string) => ipcRenderer.invoke('local-ai:download-model', modelId),
   onDownloadProgress: (callback: (data: { model: string; message: string; downloaded?: number; total?: number }) => void) => {
-    ipcRenderer.on('local-ai:download-progress', (event, data) => callback(data));
+    const handler = (_event: Electron.IpcRendererEvent, data: { model: string; message: string; downloaded?: number; total?: number }) => callback(data);
+    ipcRenderer.on('local-ai:download-progress', handler);
+    return () => { ipcRenderer.removeListener('local-ai:download-progress', handler); };
   },
 
   // アクセシビリティ権限
@@ -116,8 +118,10 @@ declare global {
       generateAI: (request: AIRequest) => Promise<AIResponse | { error: string }>;
       generateAIStream: (
         request: AIRequest,
-        onToken: (token: string) => void
-      ) => Promise<AIResponse | { error: string }>;
+        onToken: (token: string) => void,
+        requestId: string
+      ) => Promise<AIResponse | { error: string; cancelled?: boolean }>;
+      cancelAIStream: (requestId: string) => void;
       estimateLanguage: (text: string) => Promise<any>;
       getSettings: () => Promise<AppSettings>;
       saveSettings: (settings: Partial<AppSettings>) => Promise<{ success: boolean; error?: string }>;
@@ -139,7 +143,7 @@ declare global {
       getRecommendedModels: () => Promise<Array<{ name: string; displayName?: string; description: string; size: string }>>;
       reinitializeAI: () => Promise<{ success: boolean; error?: string }>;
       downloadModel: (modelId: string) => Promise<{ success: boolean; error?: string }>;
-      onDownloadProgress: (callback: (data: { model: string; message: string; downloaded?: number; total?: number }) => void) => void;
+      onDownloadProgress: (callback: (data: { model: string; message: string; downloaded?: number; total?: number }) => void) => (() => void);
       checkAccessibility: () => Promise<boolean>;
       requestAccessibility: () => Promise<boolean>;
       reapplyTriggers: () => Promise<boolean>;

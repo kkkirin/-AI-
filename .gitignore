@@ -12,10 +12,6 @@ build/
 
 # Release / Installer builds
 release/
-販売用_インストーラー/
-
-# Public upload folder
-公開用_ネットアップロード/
 
 # llama.cpp binaries (large, download separately)
 resources/llama/
@@ -42,3 +38,4 @@ Thumbs.db
 
 # Logs
 *.log
+_AI作業/

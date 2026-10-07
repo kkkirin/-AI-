@@ -9,7 +9,7 @@ const mockElectronAPI = {
   getRecommendedModels: jest.fn().mockResolvedValue([
     { name: 'LFM2.5-1.2B-JP-Q4_K_M', description: 'LFM 2.5 1.2B JP - 日本語特化、軽量高速', size: '約731MB' },
   ]),
-  onDownloadProgress: jest.fn(),
+  onDownloadProgress: jest.fn(() => jest.fn()),
   checkModel: jest.fn().mockResolvedValue({ success: true, hasModel: false, models: [] }),
   startServer: jest.fn().mockResolvedValue({ success: true, message: '' }),
   downloadModel: jest.fn().mockResolvedValue({ success: true }),

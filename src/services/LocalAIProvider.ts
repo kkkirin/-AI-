@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
-import { AIProvider, detectLanguage, determineOutputLanguage } from './AIProvider';
+import { AIProvider, GenerationCancelledError, detectLanguage, determineOutputLanguage } from './AIProvider';
+import type { Readable } from 'stream';
 import { AIRequest, AIResponse, Language, AIMode } from '../types';
 
 /**
@@ -122,8 +123,18 @@ export class LocalAIProvider extends AIProvider {
     }
   }
 
-  async generateStream(request: AIRequest, onToken: (token: string) => void): Promise<AIResponse> {
+  async generateStream(
+    request: AIRequest,
+    onToken: (token: string) => void,
+    signal?: AbortSignal,
+  ): Promise<AIResponse> {
+    let stream: Readable | null = null;
+    // 受信中にキャンセルされたらストリームを切る（llama-server側も接続断で生成を止める）
+    const destroyStream = () => stream?.destroy();
     try {
+      if (signal?.aborted) {
+        throw new GenerationCancelledError();
+      }
       const detectedLanguage = detectLanguage(request.inputText);
       const inputLanguage = request.inputLanguage === Language.AUTO
         ? detectedLanguage
@@ -158,13 +169,19 @@ export class LocalAIProvider extends AIProvider {
       const response = await this.client.post('/chat/completions', requestBody, {
         responseType: 'stream',
         timeout: 120000,
+        signal,
       });
+      stream = response.data as Readable;
+      signal?.addEventListener('abort', destroyStream, { once: true });
+      if (signal?.aborted) {
+        throw new GenerationCancelledError();
+      }
 
       let outputText = '';
       let lineBuffer = '';
       let isDone = false;
 
-      for await (const chunk of response.data as AsyncIterable<Buffer | string>) {
+      for await (const chunk of stream as AsyncIterable<Buffer | string>) {
         lineBuffer += Buffer.isBuffer(chunk) ? chunk.toString('utf8') : chunk;
         const lines = lineBuffer.split(/\r?\n/);
         lineBuffer = lines.pop() || '';
@@ -217,6 +234,9 @@ export class LocalAIProvider extends AIProvider {
         tokensUsed: 0,
       };
     } catch (error) {
+      if (signal?.aborted) {
+        throw new GenerationCancelledError();
+      }
       if (axios.isAxiosError(error)) {
         if (error.code === 'ECONNREFUSED') {
           throw new Error('AI推論エンジンに接続できません。再起動してください。');
@@ -225,6 +245,11 @@ export class LocalAIProvider extends AIProvider {
         }
       }
       throw error;
+    } finally {
+      signal?.removeEventListener('abort', destroyStream);
+      if (signal?.aborted) {
+        destroyStream();
+      }
     }
   }
 

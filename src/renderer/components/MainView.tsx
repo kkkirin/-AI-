@@ -1,5 +1,5 @@
 import React from 'react';
-import { AIMode } from '../../types';
+import { AIMode, WorkspaceLayout } from '../../types';
 import type { LocalAIStatus } from '../../preload';
 import '../styles/MainView.css';
 
@@ -14,11 +14,13 @@ interface MainViewProps {
   successMessage: string;
   status?: LocalAIStatus;
   translateDirection?: TranslateDirection;
+  layout?: WorkspaceLayout;
   onInputChange: (text: string) => void;
   onOutputChange: (text: string) => void;
   onModeChange: (mode: AIMode) => void;
   onTranslateDirectionChange?: (direction: TranslateDirection) => void;
   onGenerate: () => void;
+  onCancel?: () => void;
   onCopyOutput: () => void;
   onOpenSettings: () => void;
 }
@@ -32,11 +34,13 @@ export default function MainView({
   successMessage,
   status,
   translateDirection,
+  layout = 'auto',
   onInputChange,
   onOutputChange,
   onModeChange,
   onTranslateDirectionChange,
   onGenerate,
+  onCancel,
   onCopyOutput,
   onOpenSettings,
 }: MainViewProps) {
@@ -136,7 +140,7 @@ export default function MainView({
         )}
       </div>
 
-      <div className={`workspace ${isResultView ? 'has-result' : 'is-editing'}`}>
+      <div className={`workspace layout-${layout} ${isResultView ? 'has-result' : 'is-editing'}`}>
         <div className={`input-section ${isResultView ? 'result-input' : 'primary-input'}`}>
           <div className="section-header">
             <label htmlFor="input">入力</label>
@@ -167,6 +171,7 @@ export default function MainView({
               value={outputText}
               onChange={(e) => onOutputChange((e.target as HTMLTextAreaElement).value)}
               placeholder="生成すると結果がここに表示されます"
+              readOnly={isLoading}
               className="text-area output"
             />
           )}
@@ -184,11 +189,11 @@ export default function MainView({
         {isResultView ? (
           <>
             <button
-            className="btn btn-secondary"
-            onClick={onGenerate}
-            disabled={!hasInput || isLocalNotReady}
-          >
-            {isLocalNotReady ? '準備中…' : '再生成'}
+              className="btn btn-secondary"
+              onClick={onGenerate}
+              disabled={!hasInput || isLocalNotReady}
+            >
+              {isLocalNotReady ? '準備中…' : '再生成'}
             </button>
             <button
               className="btn btn-primary"
@@ -198,13 +203,26 @@ export default function MainView({
               コピー
             </button>
           </>
+        ) : isLoading ? (
+          <>
+            <button
+              className="btn btn-secondary"
+              onClick={onCancel}
+              title="キャンセル（Esc）"
+            >
+              キャンセル
+            </button>
+            <button className="btn btn-primary" disabled>
+              処理中...
+            </button>
+          </>
         ) : (
           <button
             className="btn btn-primary"
             onClick={onGenerate}
-            disabled={isLoading || !hasInput || isLocalNotReady}
+            disabled={!hasInput || isLocalNotReady}
           >
-            {isLocalNotReady ? '準備中…' : isLoading ? '処理中...' : '生成'}
+            {isLocalNotReady ? '準備中…' : '生成'}
           </button>
         )}
       </div>

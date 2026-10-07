@@ -28,7 +28,7 @@ export default function SetupView({ onComplete }: SetupViewProps) {
     loadRecommendedModels();
 
     // ダウンロード進捗を受信
-    window.electronAPI.onDownloadProgress((data) => {
+    return window.electronAPI.onDownloadProgress((data) => {
       const match = data.message.match(/(\d+)%/);
       if (match) {
         setDownloadPercent(parseInt(match[1], 10));

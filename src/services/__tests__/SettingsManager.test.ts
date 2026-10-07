@@ -73,3 +73,36 @@ describe('SettingsManager privacy exclude patterns', () => {
     });
   });
 });
+
+describe('SettingsManager workspace layout', () => {
+  beforeEach(() => {
+    fs.rmSync(mockUserDataPath, { recursive: true, force: true });
+    fs.mkdirSync(mockUserDataPath, { recursive: true });
+  });
+
+  afterEach(() => {
+    fs.rmSync(mockUserDataPath, { recursive: true, force: true });
+  });
+
+  it('defaults to auto for old settings files and rejects unknown values', () => {
+    fs.writeFileSync(
+      path.join(mockUserDataPath, 'settings.json'),
+      JSON.stringify({ ui: { closeAction: 'quit' } }),
+      'utf-8'
+    );
+    expect(new SettingsManager().getSettings().ui.layout).toBe('auto');
+
+    fs.writeFileSync(
+      path.join(mockUserDataPath, 'settings.json'),
+      JSON.stringify({ ui: { layout: 'diagonal' } }),
+      'utf-8'
+    );
+    expect(new SettingsManager().getSettings().ui.layout).toBe('auto');
+  });
+
+  it('persists a fixed layout', async () => {
+    const manager = new SettingsManager();
+    await manager.saveSettings({ ui: { ...manager.getSettings().ui, layout: 'vertical' } });
+    expect(new SettingsManager().getSettings().ui.layout).toBe('vertical');
+  });
+});

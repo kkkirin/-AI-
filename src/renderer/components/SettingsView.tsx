@@ -45,9 +45,8 @@ export default function SettingsView({ onClose }: SettingsViewProps) {
 
   // ダウンロード進捗を受信
   useEffect(() => {
-    let cancelled = false;
-    window.electronAPI.onDownloadProgress((data) => {
-      if (cancelled || data.model !== downloadingModelId) {
+    return window.electronAPI.onDownloadProgress((data) => {
+      if (data.model !== downloadingModelId) {
         return;
       }
       const match = data.message.match(/(\d+)%/);
@@ -59,9 +58,6 @@ export default function SettingsView({ onClose }: SettingsViewProps) {
         setTotalMB(Math.round(data.total / (1024 * 1024)));
       }
     });
-    return () => {
-      cancelled = true;
-    };
   }, [downloadingModelId]);
 
   useEffect(() => {
@@ -323,6 +319,27 @@ export default function SettingsView({ onClose }: SettingsViewProps) {
               </select>
               <div className="setting-note">
                 ※ トレイの「終了」ボタンからはいつでも完全終了できます。
+              </div>
+            </div>
+
+            <h3 style={{ marginTop: '24px' }}>画面レイアウト</h3>
+            <div className="setting-item">
+              <label>入力と出力の並び:</label>
+              <select
+                value={settings.ui.layout || 'auto'}
+                onChange={(e) =>
+                  setSettings({
+                    ...settings,
+                    ui: { ...settings.ui, layout: e.target.value as AppSettings['ui']['layout'] },
+                  })
+                }
+              >
+                <option value="auto">自動（ウィンドウ幅に合わせて切り替え）</option>
+                <option value="horizontal">左右に並べる（固定）</option>
+                <option value="vertical">上下に並べる（固定）</option>
+              </select>
+              <div className="setting-note">
+                ※ 固定にすると、変換中と変換後で並びが変わらなくなります。
               </div>
             </div>
 

@@ -37,12 +37,14 @@ const mockSettings: AppSettings = {
     fontSize: 14,
     fontFamily: 'system-ui, -apple-system, sans-serif',
     closeAction: 'minimize_to_tray',
+    layout: 'auto',
   },
 };
 
 const electronAPI = {
   generateAI: jest.fn(),
   generateAIStream: jest.fn(),
+  cancelAIStream: jest.fn(),
   estimateLanguage: jest.fn(),
   getSettings: jest.fn().mockResolvedValue(mockSettings),
   saveSettings: jest.fn().mockResolvedValue({ success: true }),
@@ -79,7 +81,7 @@ const electronAPI = {
   ]),
   reinitializeAI: jest.fn().mockResolvedValue({ success: true }),
   downloadModel: jest.fn().mockResolvedValue({ success: true }),
-  onDownloadProgress: jest.fn(),
+  onDownloadProgress: jest.fn(() => jest.fn()),
   isSetupCompleted: jest.fn().mockResolvedValue(false),
   setSetupCompleted: jest.fn().mockResolvedValue({ success: true }),
   getCurrentShortcut: jest.fn().mockResolvedValue('Command+Shift+V'),
@@ -87,7 +89,10 @@ const electronAPI = {
   getShortcutPresets: jest.fn().mockResolvedValue([]),
 };
 
-Object.defineProperty(window, 'electronAPI', {
-  value: electronAPI,
-  writable: true,
-});
+// node 環境のテスト（@jest-environment node）では window が無い
+if (typeof window !== 'undefined') {
+  Object.defineProperty(window, 'electronAPI', {
+    value: electronAPI,
+    writable: true,
+  });
+}

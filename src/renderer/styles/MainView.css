@@ -219,10 +219,19 @@
   font-size: 11px; color: var(--text-3); text-align: center;
 }
 
-/* 横長時は入力/出力を横並び */
+/* 自動: 横長かつ編集中だけ入力/出力を横並び */
 @media (min-width: 760px) {
-  .workspace.is-editing { flex-direction: row; }
-  .workspace.is-editing .primary-input { border-right: 0.5px solid var(--separator); }
-  .workspace.is-editing .output-section { border-top: none; }
-  .workspace.is-editing .waiting-output { flex: 0 0 320px; }
+  .workspace.layout-auto.is-editing { flex-direction: row; }
+  .workspace.layout-auto.is-editing .primary-input { border-right: 0.5px solid var(--separator); }
+  .workspace.layout-auto.is-editing .output-section { border-top: none; }
+  .workspace.layout-auto.is-editing .waiting-output { flex: 0 0 320px; }
 }
+
+/* 固定: 変換中・変換後で並びもサイズも変えない */
+.workspace.layout-horizontal { flex-direction: row; }
+.workspace.layout-horizontal .input-section,
+.workspace.layout-horizontal .output-section { flex: 1 1 0; min-width: 0; }
+.workspace.layout-horizontal .input-section { border-right: 0.5px solid var(--separator); }
+.workspace.layout-horizontal .output-section { border-top: none; }
+.workspace.layout-vertical .input-section,
+.workspace.layout-vertical .output-section { flex: 1 1 0; }

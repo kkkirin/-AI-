@@ -77,6 +77,11 @@ export interface GlossaryEntry {
 }
 
 /**
+ * 入力/出力欄の並び方
+ */
+export type WorkspaceLayout = 'auto' | 'horizontal' | 'vertical';
+
+/**
  * アプリケーション設定
  */
 export interface AppSettings {
@@ -122,6 +127,8 @@ export interface AppSettings {
     fontSize: number;
     fontFamily: string;
     closeAction: 'minimize_to_tray' | 'confirm' | 'quit';
+    // 入力/出力欄の並び方（auto=ウィンドウ幅と状態で切り替え）
+    layout: WorkspaceLayout;
   };
 }
 

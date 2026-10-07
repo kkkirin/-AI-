@@ -8,7 +8,7 @@ import { LocalAIProvider } from './services/LocalAIProvider';
 import { getLlamaServerManager } from './services/LlamaServerManager';
 import { getKeyboardTriggerMonitor } from './services/KeyboardTriggerMonitor';
 import { getModelManager, DEFAULT_MODELS } from './services/ModelManager';
-import { AIProvider } from './services/AIProvider';
+import { AIProvider, GenerationCancelledError } from './services/AIProvider';
 import { AIRequest, AIResponse, Language, AIMode, ProviderType } from './types';
 
 // ストリームエラーを無視（ターミナル切断時のエラー防止）
@@ -35,6 +35,8 @@ let forceQuit = false;
 let isShowingWindow = false;
 let rendererReady = false;
 let pendingCC: { text: string; mode?: AIMode } | null = null;
+// 実行中のストリーミング生成（requestId → 中断用コントローラー）
+const activeGenerations = new Map<string, AbortController>();
 
 
 function getDefaultHotkey(): string {
@@ -1059,17 +1061,26 @@ function setupIPCHandlers(): void {
       }
     });
 
+    ipcMain.on('ai:cancel', (_event, requestId: string) => {
+      activeGenerations.get(requestId)?.abort();
+    });
+
     ipcMain.handle('ai:generate-stream', async (
       event,
       payload: { request: AIRequest; requestId: string }
     ) => {
+      const { request, requestId } = payload;
+      const controller = new AbortController();
+      activeGenerations.set(requestId, controller);
       try {
-        const { request, requestId } = payload;
         if (!aiProvider) {
           await initializeAIProvider();
           if (!aiProvider) {
             throw new Error('AI推論エンジンに接続できません。モデルがダウンロードされているか確認してください。');
           }
+        }
+        if (controller.signal.aborted) {
+          throw new GenerationCancelledError();
         }
 
         const settingsManager = getSettingsManager();
@@ -1081,21 +1092,30 @@ function setupIPCHandlers(): void {
 
         // トークンを1つでも送信済みなら再試行しない（レンダラー側の二重表示防止）
         let emittedToken = false;
-        return await generateWithSelfHeal((provider) => {
+        const response = await generateWithSelfHeal((provider) => {
           if (typeof provider.generateStream === 'function') {
             return provider.generateStream(request, (token: string) => {
               emittedToken = true;
               if (!event.sender.isDestroyed()) {
                 event.sender.send('ai:stream-token', { requestId, token });
               }
-            });
+            }, controller.signal);
           }
           return provider.generate(request);
-        }, () => !emittedToken);
+        }, () => !emittedToken && !controller.signal.aborted);
+        if (controller.signal.aborted) {
+          throw new GenerationCancelledError();
+        }
+        return response;
       } catch (error: any) {
+        if (controller.signal.aborted || error instanceof GenerationCancelledError) {
+          return { error: 'キャンセルしました', cancelled: true };
+        }
         return {
           error: error.message || 'Unknown error occurred',
         };
+      } finally {
+        activeGenerations.delete(requestId);
       }
     });
 
